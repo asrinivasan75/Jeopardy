@@ -1,0 +1,1166 @@
+[
+  {
+    "id": "game-15",
+    "title": "Joystick Odyssey",
+    "description": "A lively trip through digital worlds, outer space, ingenious animals, famous structures, ancient myths, and familiar brands.",
+    "difficulty": "Medium",
+    "categories": [
+      {
+        "name": "VIDEO GAME LANDMARKS",
+        "clues": [
+          {
+            "value": 200,
+            "clue": "Princess Peach rules this realm of castles, pipes, and frequently misplaced royal residents.",
+            "answer": "What is the Mushroom Kingdom?"
+          },
+          {
+            "value": 400,
+            "clue": "Link repeatedly explores this kingdom while protecting its Triforce and its namesake princess.",
+            "answer": "What is Hyrule?"
+          },
+          {
+            "value": 600,
+            "clue": "Andrew Ryan built this underwater city as the ill-fated setting of BioShock.",
+            "answer": "What is Rapture?"
+          },
+          {
+            "value": 800,
+            "clue": "A disastrous experiment at this desert research facility begins the original Half-Life.",
+            "answer": "What is Black Mesa?"
+          },
+          {
+            "value": 1000,
+            "clue": "Towering plates divide this power-company metropolis in Final Fantasy VII.",
+            "answer": "What is Midgar?"
+          }
+        ]
+      },
+      {
+        "name": "SPACE MILESTONES",
+        "clues": [
+          {
+            "value": 200,
+            "clue": "In 1963, this Soviet cosmonaut became the first woman in space.",
+            "answer": "Who is Valentina Tereshkova?"
+          },
+          {
+            "value": 400,
+            "clue": "The Soviet Union launched this first artificial satellite in 1957.",
+            "answer": "What is Sputnik 1?"
+          },
+          {
+            "value": 600,
+            "clue": "Launched in 1977, this probe became the first human-made object to enter interstellar space.",
+            "answer": "What is Voyager 1?"
+          },
+          {
+            "value": 800,
+            "clue": "This 1968 Apollo mission carried the first humans to orbit the Moon and sent back the Earthrise photograph.",
+            "answer": "What is Apollo 8?"
+          },
+          {
+            "value": 1000,
+            "clue": "In 1971, this NASA probe became the first spacecraft to orbit another planet when it reached Mars.",
+            "answer": "What is Mariner 9?"
+          }
+        ]
+      },
+      {
+        "name": "ANIMAL ENGINEERS",
+        "clues": [
+          {
+            "value": 200,
+            "clue": "This broad-tailed rodent reshapes streams by building dams from wood and mud.",
+            "answer": "What is a beaver?"
+          },
+          {
+            "value": 400,
+            "clue": "Workers of this insect species construct wax combs from repeating hexagonal cells.",
+            "answer": "What are honeybees?"
+          },
+          {
+            "value": 600,
+            "clue": "A male of this bird family decorates a carefully built display structure to impress a mate.",
+            "answer": "What is a bowerbird?"
+          },
+          {
+            "value": 800,
+            "clue": "Colonies of these North American rodents build underground communities commonly called towns.",
+            "answer": "What are prairie dogs?"
+          },
+          {
+            "value": 1000,
+            "clue": "These ants form living chains to pull leaves together, then use larval silk to bind their nests.",
+            "answer": "What are weaver ants?"
+          }
+        ]
+      },
+      {
+        "name": "ICONIC ARCHITECTURE",
+        "clues": [
+          {
+            "value": 200,
+            "clue": "This white marble Baha'i house of worship in New Delhi takes its name from the flower that inspired its shape.",
+            "answer": "What is the Lotus Temple?"
+          },
+          {
+            "value": 400,
+            "clue": "Twin 88-story towers joined by a skybridge define the skyline of this Malaysian capital.",
+            "answer": "What is Kuala Lumpur?"
+          },
+          {
+            "value": 600,
+            "clue": "Frank Lloyd Wright placed this Pennsylvania house directly over a waterfall.",
+            "answer": "What is Fallingwater?"
+          },
+          {
+            "value": 800,
+            "clue": "A boat-shaped SkyPark connects the three towers of this Singapore hotel complex.",
+            "answer": "What is Marina Bay Sands?",
+            "dailyDouble": true
+          },
+          {
+            "value": 1000,
+            "clue": "This Brazilian modernist designed many of the civic buildings in Brasilia.",
+            "answer": "Who is Oscar Niemeyer?"
+          }
+        ]
+      },
+      {
+        "name": "GREEK MYTHOLOGY",
+        "clues": [
+          {
+            "value": 200,
+            "clue": "This ruler of Mount Olympus is usually shown carrying a thunderbolt.",
+            "answer": "Who is Zeus?"
+          },
+          {
+            "value": 400,
+            "clue": "This goddess of wisdom emerged fully armed from the head of Zeus.",
+            "answer": "Who is Athena?"
+          },
+          {
+            "value": 600,
+            "clue": "This musician lost Eurydice a second time when he looked back on their escape from the underworld.",
+            "answer": "Who is Orpheus?"
+          },
+          {
+            "value": 800,
+            "clue": "King Minos hired this master craftsman to construct the Labyrinth on Crete.",
+            "answer": "Who is Daedalus?"
+          },
+          {
+            "value": 1000,
+            "clue": "This hero tamed Pegasus and defeated the fire-breathing Chimera.",
+            "answer": "Who is Bellerophon?"
+          }
+        ]
+      },
+      {
+        "name": "BRAND ORIGINS",
+        "clues": [
+          {
+            "value": 200,
+            "clue": "Adolf 'Adi' Dassler combined his nickname and surname to name this sportswear company.",
+            "answer": "What is Adidas?"
+          },
+          {
+            "value": 400,
+            "clue": "Before selling nearly everything, this company began online as a bookseller.",
+            "answer": "What is Amazon?"
+          },
+          {
+            "value": 600,
+            "clue": "This toy company's name comes from Danish words meaning play well.",
+            "answer": "What is LEGO?"
+          },
+          {
+            "value": 800,
+            "clue": "The Korean name of this electronics giant translates to three stars.",
+            "answer": "What is Samsung?"
+          },
+          {
+            "value": 1000,
+            "clue": "Its name combines founder Ingvar Kamprad's initials with Elmtaryd farm and Agunnaryd village.",
+            "answer": "What is IKEA?"
+          }
+        ]
+      }
+    ],
+    "finalJeopardy": {
+      "category": "THEATER TERMS",
+      "clue": "A character who directly acknowledges the audience is said to break this imaginary barrier at the edge of the stage.",
+      "answer": "What is the fourth wall?"
+    }
+  },
+  {
+    "id": "game-16",
+    "title": "Curtain Call Express",
+    "description": "Ride from Broadway to wild weather, world transit, global mythology, animal abilities, and memorable sidekicks.",
+    "difficulty": "Medium",
+    "categories": [
+      {
+        "name": "BROADWAY BASICS",
+        "clues": [
+          {
+            "value": 200,
+            "clue": "Simba grows from cub to king in this Disney musical featuring elaborate animal puppets.",
+            "answer": "What is The Lion King?"
+          },
+          {
+            "value": 400,
+            "clue": "Elphaba and Glinda meet before Dorothy arrives in Oz in this musical.",
+            "answer": "What is Wicked?"
+          },
+          {
+            "value": 600,
+            "clue": "This creator of Hamilton also originated its title role on Broadway.",
+            "answer": "Who is Lin-Manuel Miranda?"
+          },
+          {
+            "value": 800,
+            "clue": "Grizabella sings the show's best-known number, Memory, in this Andrew Lloyd Webber musical.",
+            "answer": "What is Cats?"
+          },
+          {
+            "value": 1000,
+            "clue": "This playwright set Our Town in the fictional community of Grover's Corners.",
+            "answer": "Who is Thornton Wilder?"
+          }
+        ]
+      },
+      {
+      "name": "WEATHER WATCH",
+      "clues": [
+        {
+          "value": 200,
+          "clue": "This instrument measures air temperature.",
+          "answer": "What is a thermometer?"
+        },
+        {
+          "value": 400,
+          "clue": "Calm conditions often occur in this central part of a hurricane.",
+          "answer": "What is the eye?"
+        },
+        {
+          "value": 600,
+          "clue": "The Enhanced Fujita scale rates the intensity of these rotating storms by their damage.",
+          "answer": "What are tornadoes?"
+        },
+        {
+          "value": 800,
+          "clue": "A warm, dry wind descending the eastern slopes of the Rockies is known by this name.",
+          "answer": "What is a Chinook?"
+        },
+        {
+          "value": 1000,
+          "clue": "Rain or snow that evaporates before reaching the ground is known by this term.",
+          "answer": "What is virga?",
+          "dailyDouble": true
+        }
+        ]
+      },
+      {
+        "name": "TRANSPORTATION HUBS",
+        "clues": [
+          {
+            "value": 200,
+            "clue": "Hartsfield-Jackson, one of the world's busiest airports, serves this Georgia capital.",
+            "answer": "What is Atlanta?"
+          },
+          {
+            "value": 400,
+            "clue": "Eurostar trains cross beneath this body of water between England and France.",
+            "answer": "What is the English Channel?"
+          },
+          {
+            "value": 600,
+            "clue": "Its starry Main Concourse makes this New York rail terminal a tourist attraction in its own right.",
+            "answer": "What is Grand Central Terminal?"
+          },
+          {
+            "value": 800,
+            "clue": "Opened in 1869, this sea-level canal gives ships a shortcut between the Mediterranean and Red Seas.",
+            "answer": "What is the Suez Canal?"
+          },
+          {
+            "value": 1000,
+            "clue": "Cars balance each other on cables as this type of railway climbs a steep slope.",
+            "answer": "What is a funicular?"
+          }
+        ]
+      },
+      {
+        "name": "MYTHS BEYOND GREECE",
+        "clues": [
+          {
+            "value": 200,
+            "clue": "This hammer-wielding Norse god is the son of Odin.",
+            "answer": "Who is Thor?"
+          },
+          {
+            "value": 400,
+            "clue": "This jackal-headed Egyptian god is associated with embalming and the dead.",
+            "answer": "Who is Anubis?"
+          },
+          {
+            "value": 600,
+            "clue": "The Aztecs honored this feathered-serpent deity associated with wind and learning.",
+            "answer": "Who is Quetzalcoatl?"
+          },
+          {
+            "value": 800,
+            "clue": "Stories across Polynesia credit this demigod with fishing up islands and slowing the Sun.",
+            "answer": "Who is Maui?"
+          },
+          {
+            "value": 1000,
+            "clue": "In Japanese myth, the sun goddess hid in a cave until the other gods lured her out.",
+            "answer": "Who is Amaterasu?"
+          }
+        ]
+      },
+      {
+        "name": "ANIMAL SUPERPOWERS",
+        "clues": [
+          {
+            "value": 200,
+            "clue": "Many species of this flying mammal navigate by interpreting returning echoes.",
+            "answer": "What is a bat?"
+          },
+          {
+            "value": 400,
+            "clue": "This eight-armed mollusk circulates blood with three hearts.",
+            "answer": "What is an octopus?"
+          },
+          {
+            "value": 600,
+            "clue": "This crustacean strikes prey with one of the fastest punches in the animal kingdom.",
+            "answer": "What is a mantis shrimp?"
+          },
+          {
+            "value": 800,
+            "clue": "This South American fish can generate powerful electrical discharges to stun prey.",
+            "answer": "What is an electric eel?"
+          },
+          {
+            "value": 1000,
+            "clue": "This beetle defends itself by firing a hot, pulsing chemical spray from its abdomen.",
+            "answer": "What is a bombardier beetle?"
+          }
+        ]
+      },
+      {
+        "name": "SCREEN SIDEKICKS",
+        "clues": [
+          {
+            "value": 200,
+            "clue": "This Boy Wonder traditionally fights crime alongside Batman.",
+            "answer": "Who is Robin?"
+          },
+          {
+            "value": 400,
+            "clue": "Eddie Murphy voices this talkative companion who joins Shrek on his quest.",
+            "answer": "Who is Donkey?"
+          },
+          {
+            "value": 600,
+            "clue": "This Wookiee serves as Han Solo's loyal copilot aboard the Millennium Falcon.",
+            "answer": "Who is Chewbacca?"
+          },
+          {
+            "value": 800,
+            "clue": "Tom Hanks's stranded character befriends a volleyball with this name in Cast Away.",
+            "answer": "Who is Wilson?"
+          },
+          {
+            "value": 1000,
+            "clue": "This robotic dog assisted several incarnations of the Doctor beginning in the 1970s.",
+            "answer": "Who is K-9?"
+          }
+        ]
+      }
+    ],
+    "finalJeopardy": {
+      "category": "SKYSCRAPERS",
+      "clue": "Completed in 1931, this Art Deco landmark had a spire originally promoted as a mooring mast for airships.",
+      "answer": "What is the Empire State Building?"
+    }
+  },
+  {
+    "id": "game-17",
+    "title": "Blueprint Safari",
+    "description": "Decode building styles, remarkable mammals, medical discoveries, legendary objects, classical music, and unusual vehicles.",
+    "difficulty": "Medium",
+    "categories": [
+      {
+        "name": "ARCHITECTURE BY STYLE",
+        "clues": [
+          {
+            "value": 200,
+            "clue": "Pointed arches, ribbed vaults, and flying buttresses identify this medieval cathedral style.",
+            "answer": "What is Gothic architecture?"
+          },
+          {
+            "value": 400,
+            "clue": "Glass curtain walls and minimal ornament are hallmarks of this modern style promoted by Mies van der Rohe.",
+            "answer": "What is the International Style?"
+          },
+          {
+            "value": 600,
+            "clue": "Thick walls and rounded arches distinguish this European style that preceded Gothic architecture.",
+            "answer": "What is Romanesque architecture?"
+          },
+          {
+            "value": 800,
+            "clue": "Frank Lloyd Wright's low horizontal homes helped define this style named for a broad American grassland.",
+            "answer": "What is the Prairie style?"
+          },
+          {
+            "value": 1000,
+            "clue": "Playful historical references and deliberate irony characterize this movement associated with Michael Graves.",
+            "answer": "What is Postmodernism?"
+          }
+        ]
+      },
+      {
+        "name": "MAMMAL FACTS",
+        "clues": [
+          {
+            "value": 200,
+            "clue": "This spotted cat is the fastest land mammal over short distances.",
+            "answer": "What is a cheetah?"
+          },
+          {
+            "value": 400,
+            "clue": "This duck-billed Australian mammal lays eggs and has venomous spurs on adult males.",
+            "answer": "What is the platypus?"
+          },
+          {
+            "value": 600,
+            "clue": "The nine-banded species of this armored mammal typically gives birth to identical quadruplets.",
+            "answer": "What is an armadillo?"
+          },
+          {
+            "value": 800,
+            "clue": "The famous tusk of this Arctic whale is actually an elongated tooth.",
+            "answer": "What is a narwhal?"
+          },
+          {
+            "value": 1000,
+            "clue": "Striped legs disguise this forest-dwelling African relative of the giraffe.",
+            "answer": "What is the okapi?"
+          }
+        ]
+      },
+      {
+        "name": "MEDICAL MILESTONES",
+        "clues": [
+          {
+            "value": 200,
+            "clue": "Wilhelm Rontgen discovered this form of radiation now routinely used to image broken bones.",
+            "answer": "What are X-rays?"
+          },
+          {
+            "value": 400,
+            "clue": "This researcher developed the injectable polio vaccine declared safe and effective after a massive 1954 field trial.",
+            "answer": "Who is Jonas Salk?"
+          },
+          {
+            "value": 600,
+            "clue": "A public 1846 demonstration helped establish this inhaled anesthetic for surgery.",
+            "answer": "What is ether?"
+          },
+          {
+            "value": 800,
+            "clue": "This British surgeon promoted antiseptic technique using carbolic acid in operating rooms.",
+            "answer": "Who is Joseph Lister?",
+            "dailyDouble": true
+          },
+          {
+            "value": 1000,
+            "clue": "Cinchona bark yielded this compound long used against malaria.",
+            "answer": "What is quinine?"
+          }
+        ]
+      },
+      {
+        "name": "MYTHIC OBJECTS",
+        "clues": [
+          {
+            "value": 200,
+            "clue": "This legendary sword is most closely associated with King Arthur.",
+            "answer": "What is Excalibur?"
+          },
+          {
+            "value": 400,
+            "clue": "Athena often carries this protective shield or breastplate bearing Medusa's head.",
+            "answer": "What is the aegis?"
+          },
+          {
+            "value": 600,
+            "clue": "Jason and the Argonauts sail to Colchis in search of this treasure.",
+            "answer": "What is the Golden Fleece?"
+          },
+          {
+            "value": 800,
+            "clue": "Although commonly called a box, the container opened by this first woman was a jar in the earliest Greek account.",
+            "answer": "Who is Pandora?"
+          },
+          {
+            "value": 1000,
+            "clue": "Odin's spear, crafted by dwarfs and said never to miss its target, bears this name.",
+            "answer": "What is Gungnir?"
+          }
+        ]
+      },
+      {
+      "name": "CLASSICAL MUSIC",
+      "clues": [
+        {
+          "value": 200,
+          "clue": "This Austrian prodigy composed Eine kleine Nachtmusik and The Magic Flute.",
+          "answer": "Who is Wolfgang Amadeus Mozart?"
+        },
+        {
+          "value": 400,
+          "clue": "The Four Seasons is a set of violin concertos by this Venetian composer.",
+          "answer": "Who is Antonio Vivaldi?"
+        },
+        {
+          "value": 600,
+          "clue": "This Russian composer wrote the ballets Swan Lake and The Nutcracker.",
+          "answer": "Who is Pyotr Ilyich Tchaikovsky?"
+        },
+        {
+          "value": 800,
+          "clue": "This Czech composer's Ninth Symphony is nicknamed From the New World.",
+          "answer": "Who is Antonin Dvorak?"
+        },
+        {
+          "value": 1000,
+          "clue": "The tone poem Finlandia helped make this composer a symbol of Finnish national identity.",
+          "answer": "Who is Jean Sibelius?"
+        }
+        ]
+      },
+      {
+        "name": "WHEELS, WINGS & WATER",
+        "clues": [
+          {
+            "value": 200,
+            "clue": "Riders turn pedals to drive the rear wheel of this two-wheeled vehicle.",
+            "answer": "What is a bicycle?"
+          },
+          {
+            "value": 400,
+            "clue": "The Montgolfier brothers launched an early crewed version of this lighter-than-air craft in 1783.",
+            "answer": "What is a hot-air balloon?"
+          },
+          {
+            "value": 600,
+            "clue": "This amphibious vehicle glides just above land or water on a cushion of air.",
+            "answer": "What is a hovercraft?"
+          },
+          {
+            "value": 800,
+            "clue": "Two parallel hulls give this type of sailboat its stability and speed.",
+            "answer": "What is a catamaran?"
+          },
+          {
+            "value": 1000,
+            "clue": "An unpowered rotor supplies lift while a separate propeller provides thrust on this aircraft.",
+            "answer": "What is an autogyro?"
+          }
+        ]
+      }
+    ],
+    "finalJeopardy": {
+      "category": "VIDEO GAME HISTORY",
+      "clue": "This 1993 first-person shooter popularized multiplayer deathmatches and inspired a wave of games once called its clones.",
+      "answer": "What is Doom?"
+    }
+  },
+  {
+    "id": "game-18",
+    "title": "Prime-Time Orbit",
+    "description": "Mix space science with console lore, theater creators, household brands, distinctive creatures, and fictional destinations.",
+    "difficulty": "Medium",
+    "categories": [
+      {
+        "name": "SPACE SCIENCE",
+        "clues": [
+          {
+            "value": 200,
+            "clue": "This star at the center of our solar system contains more than 99 percent of the system's mass.",
+            "answer": "What is the Sun?"
+          },
+          {
+            "value": 400,
+            "clue": "This planet's bright rings are composed mainly of countless pieces of ice and rock.",
+            "answer": "What is Saturn?"
+          },
+          {
+            "value": 600,
+            "clue": "Despite its name, this unit measures distance rather than time.",
+            "answer": "What is a light-year?"
+          },
+          {
+            "value": 800,
+            "clue": "Regular beams from a rapidly rotating neutron star produce this cosmic lighthouse.",
+            "answer": "What is a pulsar?"
+          },
+          {
+            "value": 1000,
+            "clue": "Spacecraft can orbit near these five gravitationally useful locations in a two-body system.",
+            "answer": "What are Lagrange points?",
+            "dailyDouble": true
+          }
+        ]
+      },
+      {
+        "name": "ARCADE & CONSOLE",
+        "clues": [
+          {
+            "value": 200,
+            "clue": "Blinky, Pinky, Inky, and Clyde pursue this yellow arcade hero through a maze.",
+            "answer": "Who is Pac-Man?"
+          },
+          {
+            "value": 400,
+            "clue": "This Nintendo system can function as both a handheld and a home console.",
+            "answer": "What is the Switch?"
+          },
+          {
+            "value": 600,
+            "clue": "The armored supersoldier Master Chief anchors this Xbox science-fiction series.",
+            "answer": "What is Halo?"
+          },
+          {
+            "value": 800,
+            "clue": "Sega exited the home-console business after releasing this system in 1998.",
+            "answer": "What is the Dreamcast?"
+          },
+          {
+            "value": 1000,
+            "clue": "Up, Up, Down, Down, Left, Right, Left, Right begins this famous sequence of button presses.",
+            "answer": "What is the Konami Code?"
+          }
+        ]
+      },
+      {
+        "name": "THEATER PEOPLE",
+        "clues": [
+          {
+            "value": 200,
+            "clue": "This playwright wrote both Romeo and Juliet and Hamlet.",
+            "answer": "Who is William Shakespeare?"
+          },
+          {
+            "value": 400,
+            "clue": "His ten-play Pittsburgh Cycle includes Fences and The Piano Lesson.",
+            "answer": "Who is August Wilson?"
+          },
+          {
+            "value": 600,
+            "clue": "This composer-lyricist created Sweeney Todd and Into the Woods.",
+            "answer": "Who is Stephen Sondheim?"
+          },
+          {
+            "value": 800,
+            "clue": "This director brought masks, puppets, and a stylized savanna to Broadway's The Lion King.",
+            "answer": "Who is Julie Taymor?"
+          },
+          {
+            "value": 1000,
+            "clue": "A Raisin in the Sun made this writer the first Black woman to have a play produced on Broadway.",
+            "answer": "Who is Lorraine Hansberry?"
+          }
+        ]
+      },
+      {
+        "name": "BRANDS BY PRODUCT",
+        "clues": [
+          {
+            "value": 200,
+            "clue": "Invented by Earle Dickson in 1920 and marketed the next year, this adhesive bandage became a household name.",
+            "answer": "What is Band-Aid?"
+          },
+          {
+            "value": 400,
+            "clue": "A reusable low-tack adhesive led 3M to create this familiar square note.",
+            "answer": "What is the Post-it Note?"
+          },
+          {
+            "value": 600,
+            "clue": "Sony launched this video game brand with a gray console in the 1990s.",
+            "answer": "What is PlayStation?"
+          },
+          {
+            "value": 800,
+            "clue": "Climber Yvon Chouinard founded this outdoor clothing company named for a South American region.",
+            "answer": "What is Patagonia?"
+          },
+          {
+            "value": 1000,
+            "clue": "Despite its Scandinavian-looking name, this ice cream brand was created in the Bronx.",
+            "answer": "What is Haagen-Dazs?"
+          }
+        ]
+      },
+      {
+        "name": "ANIMAL NAMES",
+        "clues": [
+          {
+            "value": 200,
+            "clue": "A frog begins its free-swimming larval stage with this name.",
+            "answer": "What is a tadpole?"
+          },
+          {
+            "value": 400,
+            "clue": "A group of these black birds can be called a murder.",
+            "answer": "What are crows?"
+          },
+          {
+            "value": 600,
+            "clue": "Overlapping keratin scales cover this insect-eating mammal, whose name comes from a word meaning one who rolls up.",
+            "answer": "What is a pangolin?"
+          },
+          {
+            "value": 800,
+            "clue": "The helmet-like structure on the head of this large flightless rainforest bird is called a casque.",
+            "answer": "What is a cassowary?"
+          },
+          {
+            "value": 1000,
+            "clue": "This nocturnal lemur taps wood and uses an unusually long middle finger to extract grubs.",
+            "answer": "What is an aye-aye?"
+          }
+        ]
+      },
+      {
+        "name": "FILM & TV PLACES",
+        "clues": [
+          {
+            "value": 200,
+            "clue": "Batman patrols this fictional city, often from a signal projected into the night sky.",
+            "answer": "What is Gotham City?"
+          },
+          {
+            "value": 400,
+            "clue": "SpongeBob works at the Krusty Krab in this undersea town.",
+            "answer": "What is Bikini Bottom?"
+          },
+          {
+            "value": 600,
+            "clue": "The Office follows a Dunder Mifflin branch in this Pennsylvania city.",
+            "answer": "What is Scranton?"
+          },
+          {
+            "value": 800,
+            "clue": "The desert planet central to Dune is also known as this.",
+            "answer": "What is Arrakis?"
+          },
+          {
+            "value": 1000,
+            "clue": "Agent Dale Cooper visits this Washington logging town in a series sharing its name.",
+            "answer": "What is Twin Peaks?"
+          }
+        ]
+      }
+    ],
+    "finalJeopardy": {
+      "category": "TRANSPORTATION HISTORY",
+      "clue": "A golden spike driven at Promontory Summit in 1869 completed this coast-to-coast U.S. rail link.",
+      "answer": "What is the First Transcontinental Railroad?"
+    }
+  },
+  {
+    "id": "game-19",
+    "title": "Legends in Motion",
+    "description": "Travel through worldwide legends, anatomy, transportation firsts, company stories, classic musicals, and standout buildings.",
+    "difficulty": "Medium",
+    "categories": [
+      {
+        "name": "WORLD MYTHOLOGY",
+        "clues": [
+          {
+            "value": 200,
+            "clue": "This Egyptian sun god is often shown with a falcon head and a solar disk.",
+            "answer": "Who is Ra?"
+          },
+          {
+            "value": 400,
+            "clue": "The ravens Huginn and Muninn fly across the world gathering news for this Norse god.",
+            "answer": "Who is Odin?"
+          },
+          {
+            "value": 600,
+            "clue": "This elephant-headed Hindu deity is widely revered as a remover of obstacles.",
+            "answer": "Who is Ganesha?"
+          },
+          {
+            "value": 800,
+            "clue": "This clever spider figure appears in stories from West Africa and the Caribbean.",
+            "answer": "Who is Anansi?"
+          },
+          {
+            "value": 1000,
+            "clue": "In Slavic folklore, this witch lives in a hut that stands on chicken legs.",
+            "answer": "Who is Baba Yaga?"
+          }
+        ]
+      },
+      {
+        "name": "MUSCLES & BONES",
+        "clues": [
+          {
+            "value": 200,
+            "clue": "This bony structure protects the brain.",
+            "answer": "What is the skull?"
+          },
+          {
+            "value": 400,
+            "clue": "This prominent upper-arm muscle helps bend the elbow.",
+            "answer": "What is the biceps?"
+          },
+          {
+            "value": 600,
+            "clue": "The common name for the patella is this.",
+            "answer": "What is the kneecap?"
+          },
+          {
+            "value": 800,
+            "clue": "This triangular bone of the upper back is commonly called the shoulder blade.",
+            "answer": "What is the scapula?"
+          },
+          {
+            "value": 1000,
+            "clue": "Located in the middle ear, this stirrup-shaped structure is the smallest bone in the human body.",
+            "answer": "What is the stapes?"
+          }
+        ]
+      },
+      {
+        "name": "TRANSPORTATION FIRSTS",
+        "clues": [
+          {
+            "value": 200,
+            "clue": "Opened between Tokyo and Osaka in 1964, this line inaugurated the modern high-speed rail era.",
+            "answer": "What is the Tokaido Shinkansen?"
+          },
+          {
+            "value": 400,
+            "clue": "Introduced in 1908, this Ford made automobile ownership practical for many middle-class Americans.",
+            "answer": "What is the Model T?"
+          },
+          {
+            "value": 600,
+            "clue": "In 1960, this bathyscaphe became the first crewed vessel to reach the deepest known point in the ocean.",
+            "answer": "What is Trieste?"
+          },
+          {
+            "value": 800,
+            "clue": "This British aircraft entered service in 1952 as the first commercial jet airliner.",
+            "answer": "What is the de Havilland Comet?"
+          },
+          {
+            "value": 1000,
+            "clue": "George and Robert Stephenson's locomotive won England's Rainhill Trials in 1829.",
+            "answer": "What is the Rocket?",
+            "dailyDouble": true
+          }
+        ]
+      },
+      {
+        "name": "BUSINESS BREAKTHROUGHS",
+        "clues": [
+          {
+            "value": 200,
+            "clue": "Before streaming video, this company mailed DVDs to subscribers in red envelopes.",
+            "answer": "What is Netflix?"
+          },
+          {
+            "value": 400,
+            "clue": "The first store of this coffee chain opened near Seattle's Pike Place Market in 1971.",
+            "answer": "What is Starbucks?"
+          },
+          {
+            "value": 600,
+            "clue": "Its founders initially rented air mattresses during a crowded San Francisco design conference.",
+            "answer": "What is Airbnb?"
+          },
+          {
+            "value": 800,
+            "clue": "Sara Blakely founded this shapewear company with savings from selling fax machines.",
+            "answer": "What is Spanx?"
+          },
+          {
+            "value": 1000,
+            "clue": "This Japanese retailer takes its short name from a phrase meaning no-brand quality goods.",
+            "answer": "What is Muji?"
+          }
+        ]
+      },
+      {
+        "name": "STAGE & SCREEN MUSICALS",
+        "clues": [
+          {
+            "value": 200,
+            "clue": "Maria becomes governess to the seven von Trapp children in this movie musical.",
+            "answer": "What is The Sound of Music?"
+          },
+          {
+            "value": 400,
+            "clue": "Danny and Sandy reunite at Rydell High in this 1950s-set musical.",
+            "answer": "What is Grease?"
+          },
+          {
+            "value": 600,
+            "clue": "Roxie Hart and Velma Kelly compete for headlines in this jazz-age musical.",
+            "answer": "What is Chicago?"
+          },
+          {
+            "value": 800,
+            "clue": "Tevye weighs tradition against change in this musical set in Anatevka.",
+            "answer": "What is Fiddler on the Roof?"
+          },
+          {
+            "value": 1000,
+            "clue": "Sally Bowles performs at Berlin's Kit Kat Club in this Kander and Ebb musical.",
+            "answer": "What is Cabaret?"
+          }
+        ]
+      },
+      {
+        "name": "BUILDINGS BY CLUE",
+        "clues": [
+          {
+            "value": 200,
+            "clue": "A famous unintended tilt gives this Italian bell tower its familiar name.",
+            "answer": "What is the Leaning Tower of Pisa?"
+          },
+          {
+            "value": 400,
+            "clue": "This 828-meter skyscraper towers over Downtown Dubai.",
+            "answer": "What is the Burj Khalifa?"
+          },
+          {
+            "value": 600,
+            "clue": "A triangular site at Fifth Avenue and Broadway gave this New York landmark its wedge-shaped plan.",
+            "answer": "What is the Flatiron Building?"
+          },
+          {
+            "value": 800,
+            "clue": "Color-coded pipes and structural elements appear on the exterior of this Paris cultural center.",
+            "answer": "What is the Centre Pompidou?"
+          },
+          {
+            "value": 1000,
+            "clue": "Justinian I commissioned this sixth-century Istanbul landmark as a Byzantine cathedral.",
+            "answer": "What is Hagia Sophia?"
+          }
+        ]
+      }
+    ],
+    "finalJeopardy": {
+      "category": "ANIMAL KINGDOM",
+      "clue": "This North American marsupial is famous for feigning death, a behavior that inspired a common expression.",
+      "answer": "What is the Virginia opossum?"
+    }
+  },
+  {
+    "id": "game-20",
+    "title": "All Systems Go",
+    "description": "Finish the set with planetary puzzles, body systems, console history, design movements, legendary creatures, and pop culture.",
+    "difficulty": "Medium",
+    "categories": [
+      {
+        "name": "SOLAR SYSTEM DETAILS",
+        "clues": [
+          {
+            "value": 200,
+            "clue": "A thick carbon dioxide atmosphere makes this the hottest planet in the solar system.",
+            "answer": "What is Venus?"
+          },
+          {
+            "value": 400,
+            "clue": "A likely ocean beneath the icy crust makes this moon of Jupiter a major target in the search for habitable environments.",
+            "answer": "What is Europa?"
+          },
+          {
+            "value": 600,
+            "clue": "This Martian mountain is the solar system's largest known volcano.",
+            "answer": "What is Olympus Mons?"
+          },
+          {
+            "value": 800,
+            "clue": "With an axial tilt of about 98 degrees, this ice giant effectively rotates on its side.",
+            "answer": "What is Uranus?"
+          },
+          {
+            "value": 1000,
+            "clue": "Its 3-to-2 spin-orbit resonance means it rotates three times for every two trips around the Sun.",
+            "answer": "What is Mercury?"
+          }
+        ]
+      },
+      {
+        "name": "BODY SYSTEMS",
+        "clues": [
+          {
+            "value": 200,
+            "clue": "The stomach and intestines are major organs of this system.",
+            "answer": "What is the digestive system?"
+          },
+          {
+            "value": 400,
+            "clue": "The lungs are the main organs of this system.",
+            "answer": "What is the respiratory system?"
+          },
+          {
+            "value": 600,
+            "clue": "The kidneys filter blood and produce urine as part of this system.",
+            "answer": "What is the urinary system?"
+          },
+          {
+            "value": 800,
+            "clue": "Hormones from the pituitary, thyroid, and adrenal glands belong to this signaling system.",
+            "answer": "What is the endocrine system?"
+          },
+          {
+            "value": 1000,
+            "clue": "This network returns excess tissue fluid to the bloodstream and helps coordinate immune defense.",
+            "answer": "What is the lymphatic system?"
+          }
+        ]
+      },
+      {
+        "name": "CONSOLE HISTORY",
+        "clues": [
+          {
+            "value": 200,
+            "clue": "Microsoft entered the home console market in 2001 with this system.",
+            "answer": "What is the Xbox?"
+          },
+          {
+            "value": 400,
+            "clue": "Motion-sensitive controllers helped make this Nintendo console a hit with families.",
+            "answer": "What is the Wii?"
+          },
+          {
+            "value": 600,
+            "clue": "Nintendo bundled Tetris with this monochrome handheld in North America.",
+            "answer": "What is the Game Boy?"
+          },
+          {
+            "value": 800,
+            "clue": "Cartridge games such as Adventure and Pitfall! helped define this Atari console.",
+            "answer": "What is the Atari 2600?"
+          },
+          {
+            "value": 1000,
+            "clue": "SNK sold this premium cartridge system in both arcade and home versions beginning in 1990.",
+            "answer": "What is the Neo Geo?"
+          }
+        ]
+      },
+      {
+        "name": "DESIGNING BUILDINGS",
+        "clues": [
+          {
+            "value": 200,
+            "clue": "Geometric ornament and stepped silhouettes mark this 1920s and 1930s style seen on the Chrysler Building.",
+            "answer": "What is Art Deco?"
+          },
+          {
+            "value": 400,
+            "clue": "Dramatic curves, rich decoration, and theatrical effects characterize this style that followed the Renaissance.",
+            "answer": "What is Baroque architecture?"
+          },
+          {
+            "value": 600,
+            "clue": "Walter Gropius founded this German school that united art, craft, and industrial design.",
+            "answer": "What is the Bauhaus?"
+          },
+          {
+            "value": 800,
+            "clue": "Columns and pediments inspired by ancient Greece and Rome define this revival style common in civic buildings.",
+            "answer": "What is Neoclassical architecture?"
+          },
+          {
+            "value": 1000,
+            "clue": "Fragmented forms and deliberately unstable-looking geometry mark this movement associated with Frank Gehry and Zaha Hadid.",
+            "answer": "What is Deconstructivism?",
+            "dailyDouble": true
+          }
+        ]
+      },
+      {
+        "name": "LEGENDARY CREATURES",
+        "clues": [
+          {
+            "value": 200,
+            "clue": "This horse-like creature is traditionally shown with a single horn on its forehead.",
+            "answer": "What is a unicorn?"
+          },
+          {
+            "value": 400,
+            "clue": "This fiery bird is reborn from its own ashes.",
+            "answer": "What is a phoenix?"
+          },
+          {
+            "value": 600,
+            "clue": "Half man and half bull, this monster lived in the Cretan Labyrinth.",
+            "answer": "What is the Minotaur?"
+          },
+          {
+            "value": 800,
+            "clue": "In Scottish and Irish folklore, this seal can shed its skin to take human form.",
+            "answer": "What is a selkie?"
+          },
+          {
+            "value": 1000,
+            "clue": "Sinbad encounters this enormous bird of prey in tales from the Arabian Nights.",
+            "answer": "What is the roc?"
+          }
+        ]
+      },
+      {
+        "name": "POP CULTURE CONNECTIONS",
+        "clues": [
+          {
+            "value": 200,
+            "clue": "Her Eras Tour was organized around musical periods from across her recording career.",
+            "answer": "Who is Taylor Swift?"
+          },
+          {
+            "value": 400,
+            "clue": "The Mandalorian protects this small, Force-sensitive foundling.",
+            "answer": "Who is Grogu?"
+          },
+          {
+            "value": 600,
+            "clue": "This Addams daughter attends Nevermore Academy in a Netflix series bearing her first name.",
+            "answer": "What is Wednesday?"
+          },
+          {
+            "value": 800,
+            "clue": "Carmy Berzatto returns to Chicago to run his family's sandwich shop in this television series.",
+            "answer": "What is The Bear?"
+          },
+          {
+            "value": 1000,
+            "clue": "Jeff Bridges plays the bathrobe-wearing character known as the Dude in this 1998 film.",
+            "answer": "What is The Big Lebowski?"
+          }
+        ]
+      }
+    ],
+    "finalJeopardy": {
+      "category": "BUSINESS HISTORY",
+      "clue": "This San Francisco dry-goods merchant partnered with tailor Jacob Davis on an 1873 patent for riveted work pants.",
+      "answer": "Who is Levi Strauss?"
+    }
+  }
+]

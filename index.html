@@ -1,159 +1,141 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JEOPARDY!</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#161512">
+  <meta name="description" content="Host a live multiplayer Jeopardy-style game on your local network.">
+  <title>Jeopardy! Local Multiplayer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+  <script src="/socket.io/socket.io.js" defer></script>
+  <script src="/app.js" defer></script>
 </head>
 <body>
-
-<!-- ============== HOME SCREEN ============== -->
-<div id="home-screen" class="screen active">
-  <header class="home-header">
-    <h1 class="logo">JEOPARDY<span class="logo-bang">!</span></h1>
-    <p class="tagline">Brutally hard. Built for show-offs.</p>
-  </header>
-
-  <div class="home-actions">
-    <button class="btn btn-primary" id="btn-new-game">+ New Custom Game</button>
-    <button class="btn btn-secondary" id="btn-import">Import JSON</button>
-    <button class="btn btn-secondary" id="btn-export-all">Export All</button>
+  <div class="signal-bar" aria-live="polite">
+    <span class="signal-mark" aria-hidden="true"></span>
+    <span id="connection-label">Connecting to game server…</span>
   </div>
 
-  <section class="game-list-section">
-    <h2>Sample Games</h2>
-    <div id="sample-games" class="game-grid"></div>
-  </section>
+  <main id="app">
+    <section class="landing" id="landing-screen">
+      <header class="hub-nav">
+        <a class="hub-brand" href="/" aria-label="Jeopardy Local home">
+          <span class="hub-mark" aria-hidden="true">J!</span>
+          <span>jeopardy.local</span>
+        </a>
+        <nav class="hub-links" aria-label="Lobby navigation">
+          <a href="#lobby-browser">Play</a>
+          <a href="#how-to-play">How to play</a>
+          <a href="#join-panel">Join</a>
+        </nav>
+        <div class="hub-network-status"><span aria-hidden="true"></span> Same-Wi-Fi multiplayer</div>
+      </header>
 
-  <section class="game-list-section">
-    <h2>Custom Games</h2>
-    <div id="custom-games" class="game-grid"></div>
-  </section>
+      <div class="public-lobby-layout">
+        <aside class="hub-context" id="how-to-play">
+          <div class="hub-intro">
+            <p class="eyebrow">Local game night</p>
+            <h1>JEOPARDY<span aria-hidden="true">!</span></h1>
+            <p>One host runs the board. Everyone else turns a phone into a live buzzer.</p>
+          </div>
+          <ol class="how-list">
+            <li><span>1</span><div><strong>Host a room</strong><small>Choose any of 20 boards.</small></div></li>
+            <li><span>2</span><div><strong>Share the address</strong><small>Friends join on the same Wi-Fi.</small></div></li>
+            <li><span>3</span><div><strong>Buzz in live</strong><small>The server keeps every score in sync.</small></div></li>
+          </ol>
+          <div class="landing-address">
+            <span>Players open</span>
+            <code id="landing-network-address">Finding local address…</code>
+          </div>
+        </aside>
 
-  <footer class="home-footer">
-    <p>Click a game to play. Press <kbd>?</kbd> for keyboard shortcuts.</p>
-  </footer>
-</div>
+        <section class="public-game-browser" id="lobby-browser" aria-labelledby="lobby-title">
+          <div class="lobby-section-bar">
+            <strong>Open game library</strong>
+            <span>20 boards ready</span>
+          </div>
+          <div class="public-browser-toolbar">
+            <div>
+              <p class="panel-label">Ready to host</p>
+              <h2 id="lobby-title">Pick a board</h2>
+            </div>
+            <div class="public-browser-tools">
+              <label class="compact-search">
+                <span class="sr-only">Filter game boards</span>
+                <input id="landing-game-filter" type="search" placeholder="Search topics">
+              </label>
+              <span class="match-count" id="public-game-count" role="status">Loading boards…</span>
+            </div>
+          </div>
+          <div class="public-game-table">
+            <div class="public-game-head" aria-hidden="true"><span>Game</span><span>Topics</span><span>Level</span></div>
+            <div id="public-game-list">
+              <div class="lobby-loading"><span></span>Loading the game library…</div>
+            </div>
+          </div>
+          <p class="browser-note">Select a row to prepare that board in a new private room.</p>
+        </section>
 
-<!-- ============== GAME BOARD ============== -->
-<div id="game-screen" class="screen">
-  <div class="game-topbar">
-    <button class="topbar-btn" id="btn-home">← Home</button>
-    <h1 class="game-title" id="game-title-display">JEOPARDY!</h1>
-    <div class="topbar-right">
-      <button class="topbar-btn" id="btn-final">Final Jeopardy</button>
-      <button class="topbar-btn" id="btn-reset">Reset</button>
-    </div>
-  </div>
+        <aside class="landing-actions">
+          <button class="lobby-action-card host-action" id="create-room-button" type="button" disabled>
+            <span class="action-icon" aria-hidden="true">＋</span>
+            <span><strong>Create lobby game</strong><small>Open a room, then choose a board</small></span>
+          </button>
 
-  <div class="board" id="board"></div>
+          <section class="join-panel" id="join-panel">
+            <div class="join-panel-heading">
+              <span class="action-icon" aria-hidden="true">→</span>
+              <div><h2>Join a friend</h2><p>Enter the code on the host's screen.</p></div>
+            </div>
+            <form id="join-room-form" class="join-form">
+              <label>
+                <span>Room code</span>
+                <input id="join-code" name="code" inputmode="text" autocomplete="off" maxlength="5" placeholder="K7P2Q" required>
+            </label>
+            <label>
+              <span>Your name</span>
+              <input id="join-name" name="name" autocomplete="nickname" maxlength="24" placeholder="Maya" required>
+            </label>
+              <button class="button button-primary" id="join-room-button" type="submit" disabled>Join room</button>
+            </form>
+          </section>
 
-  <div class="scoreboard" id="scoreboard"></div>
+          <div class="privacy-card">
+            <span class="presence-dot"></span>
+            <p><strong>Private by design</strong><br>Rooms live only on this computer and its local network.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
 
-  <div class="scoreboard-controls">
-    <button class="btn btn-small" id="btn-add-team">+ Add Team</button>
-    <span class="hint">Click team name or score to edit</span>
-  </div>
-</div>
+    <section class="room-shell hidden" id="room-screen">
+      <header class="room-header">
+        <div class="room-brand">
+          <span class="mini-logo">JEOPARDY!</span>
+          <span class="role-chip" id="role-chip">HOST</span>
+        </div>
+        <div class="room-identity">
+          <span class="room-label">Room</span>
+          <button class="room-code" id="room-code-button" type="button" title="Copy player link">—</button>
+          <span class="copy-hint">Tap to copy invite</span>
+        </div>
+        <div class="room-actions">
+          <span class="connection-pill" id="room-connection-pill"><span></span> Live</span>
+          <button class="text-button" id="leave-room-button" type="button">Leave</button>
+        </div>
+      </header>
 
-<!-- ============== CLUE MODAL ============== -->
-<div id="clue-modal" class="modal">
-  <div class="clue-content">
-    <div class="clue-meta" id="clue-meta"></div>
-    <div class="clue-text" id="clue-text"></div>
-    <div class="clue-answer" id="clue-answer"></div>
-    <div class="clue-hint" id="clue-hint">Click anywhere or press <kbd>Space</kbd> to reveal</div>
-    <div class="clue-team-buttons" id="clue-team-buttons"></div>
-    <div class="clue-actions">
-      <button class="btn btn-close" id="btn-close-clue">Close (Esc)</button>
-    </div>
-  </div>
-</div>
+      <div id="room-content"></div>
+    </section>
+  </main>
 
-<!-- ============== DAILY DOUBLE WAGER ============== -->
-<div id="dd-modal" class="modal">
-  <div class="dd-content">
-    <h2 class="dd-title">DAILY DOUBLE</h2>
-    <p class="dd-subtitle">Select a team and enter wager</p>
-    <div class="dd-team-select" id="dd-team-select"></div>
-    <input type="number" id="dd-wager" min="0" placeholder="Wager amount">
-    <div class="dd-actions">
-      <button class="btn btn-primary" id="btn-dd-confirm">Reveal Clue</button>
-      <button class="btn btn-secondary" id="btn-dd-cancel">Cancel</button>
-    </div>
-  </div>
-</div>
+  <div class="toast-region" id="toast-region" aria-live="polite" aria-atomic="true"></div>
 
-<!-- ============== FINAL JEOPARDY ============== -->
-<div id="final-modal" class="modal">
-  <div class="final-content" id="final-content"></div>
-</div>
-
-<!-- ============== GAME BUILDER ============== -->
-<div id="builder-screen" class="screen">
-  <div class="builder-topbar">
-    <button class="topbar-btn" id="btn-builder-back">← Cancel</button>
-    <h1 class="game-title">Game Builder</h1>
-    <button class="topbar-btn topbar-btn-primary" id="btn-builder-save">Save Game</button>
-  </div>
-
-  <div class="builder-body">
-    <label class="builder-label">Game Title
-      <input type="text" id="builder-title" placeholder="My Custom Game">
-    </label>
-    <label class="builder-label">Description
-      <input type="text" id="builder-description" placeholder="Optional description">
-    </label>
-
-    <div id="builder-categories"></div>
-
-    <h3 class="builder-section">Final Jeopardy (optional)</h3>
-    <label class="builder-label">Category
-      <input type="text" id="builder-fj-category">
-    </label>
-    <label class="builder-label">Clue
-      <textarea id="builder-fj-clue" rows="2"></textarea>
-    </label>
-    <label class="builder-label">Answer
-      <input type="text" id="builder-fj-answer">
-    </label>
-  </div>
-</div>
-
-<!-- ============== IMPORT MODAL ============== -->
-<div id="import-modal" class="modal">
-  <div class="import-content">
-    <h2>Import Game (JSON)</h2>
-    <p class="import-hint">Paste a game JSON below. See the <a href="#" id="show-format">expected format</a>.</p>
-    <textarea id="import-json" rows="12" placeholder='{"title":"...","categories":[...]}'></textarea>
-    <div class="import-actions">
-      <button class="btn btn-primary" id="btn-import-confirm">Import</button>
-      <button class="btn btn-secondary" id="btn-import-cancel">Cancel</button>
-    </div>
-    <pre id="format-example" class="format-example" style="display:none"></pre>
-  </div>
-</div>
-
-<!-- ============== HELP MODAL ============== -->
-<div id="help-modal" class="modal">
-  <div class="help-content">
-    <h2>Keyboard Shortcuts</h2>
-    <ul>
-      <li><kbd>Space</kbd> — Reveal answer (in clue view)</li>
-      <li><kbd>Esc</kbd> — Close clue / modal</li>
-      <li><kbd>1</kbd>–<kbd>9</kbd> — Award points to team N (after revealing)</li>
-      <li><kbd>Shift</kbd>+<kbd>1</kbd>–<kbd>9</kbd> — Deduct points from team N</li>
-      <li><kbd>?</kbd> — Show this help</li>
-    </ul>
-    <button class="btn btn-primary" id="btn-help-close">Close</button>
-  </div>
-</div>
-
-<script src="games.js"></script>
-<script src="app.js"></script>
+  <noscript>
+    <div class="noscript">JavaScript is required to host or join a game.</div>
+  </noscript>
 </body>
 </html>

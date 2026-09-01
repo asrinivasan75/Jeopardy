@@ -1,0 +1,513 @@
+[
+  {
+    "id": "game-01",
+    "title": "Opening Round",
+    "description": "A welcoming mix of ballparks, big screens, lab facts, capitals, music, and history.",
+    "difficulty": "Medium",
+    "categories": [
+      {
+        "name": "BALLPARK BASICS",
+        "clues": [
+          { "value": 200, "clue": "A regulation Major League Baseball game is scheduled for this many innings.", "answer": "What is nine?" },
+          { "value": 400, "clue": "The Green Monster forms the towering left-field wall at this Boston ballpark.", "answer": "What is Fenway Park?" },
+          { "value": 600, "clue": "This relief pitcher is usually called on to protect a narrow lead in the final inning.", "answer": "What is a closer?" },
+          { "value": 800, "clue": "Major League Baseball retired number 42 across the league to honor this barrier-breaking player.", "answer": "Who is Jackie Robinson?" },
+          { "value": 1000, "clue": "Baseball's top pitching award bears the name of this 511-game winner.", "answer": "Who is Cy Young?" }
+        ]
+      },
+      {
+        "name": "SCREEN CLASSICS",
+        "clues": [
+          { "value": 200, "clue": "Dorothy follows the Yellow Brick Road in this 1939 musical fantasy.", "answer": "What is The Wizard of Oz?" },
+          { "value": 400, "clue": "A great white shark terrorizes the fictional town of Amity Island in this 1975 thriller.", "answer": "What is Jaws?" },
+          { "value": 600, "clue": "Marty McFly travels through time in a DeLorean in this 1985 comedy adventure.", "answer": "What is Back to the Future?" },
+          { "value": 800, "clue": "The hidden nation of Wakanda is home to this Marvel hero and king.", "answer": "Who is Black Panther?" },
+          { "value": 1000, "clue": "A reporter investigates the meaning of the dying word Rosebud in this Orson Welles film.", "answer": "What is Citizen Kane?" }
+        ]
+      },
+      {
+        "name": "LAB NOTES",
+        "clues": [
+          { "value": 200, "clue": "The chemical formula H2O identifies this familiar substance.", "answer": "What is water?" },
+          { "value": 400, "clue": "On the pH scale, a value below 7 describes a substance with this property.", "answer": "What is acidic?" },
+          { "value": 600, "clue": "Often called the powerhouse of the cell, this organelle produces most cellular ATP.", "answer": "What is the mitochondrion?" },
+          { "value": 800, "clue": "Atomic number 79 belongs to this precious metal.", "answer": "What is gold?", "dailyDouble": true },
+          { "value": 1000, "clue": "This quantity is the heat needed to turn a unit mass of liquid into gas without changing its temperature.", "answer": "What is latent heat of vaporization?" }
+        ]
+      },
+      {
+        "name": "CAPITAL CONNECTIONS",
+        "clues": [
+          { "value": 200, "clue": "This city on Honshu is the capital of Japan.", "answer": "What is Tokyo?" },
+          { "value": 400, "clue": "Canada's capital sits in Ontario on a river that shares its name.", "answer": "What is Ottawa?" },
+          { "value": 600, "clue": "This Kenyan capital is nicknamed the Green City in the Sun.", "answer": "What is Nairobi?" },
+          { "value": 800, "clue": "Although Istanbul is larger, this inland city is the capital of Turkey.", "answer": "What is Ankara?" },
+          { "value": 1000, "clue": "New Zealand's capital occupies the southern end of the North Island.", "answer": "What is Wellington?" }
+        ]
+      },
+      {
+        "name": "POP PLAYLIST",
+        "clues": [
+          { "value": 200, "clue": "The nickname King of Pop is most closely associated with this singer.", "answer": "Who is Michael Jackson?" },
+          { "value": 400, "clue": "This British singer titled her albums 19, 21, 25, and 30 after ages in her life.", "answer": "Who is Adele?" },
+          { "value": 600, "clue": "Freddie Mercury was the lead singer of this British rock band.", "answer": "What is Queen?" },
+          { "value": 800, "clue": "The singer and guitarist behind the album Purple Rain was known by this royal stage name.", "answer": "Who is Prince?" },
+          { "value": 1000, "clue": "Stevie Nicks, Lindsey Buckingham, and Christine McVie all performed in this band behind Rumours.", "answer": "What is Fleetwood Mac?" }
+        ]
+      },
+      {
+        "name": "HISTORY'S HEADLINES",
+        "clues": [
+          { "value": 200, "clue": "The thirteen American colonies declared independence from Britain in this year.", "answer": "What is 1776?" },
+          { "value": 400, "clue": "Johannes Gutenberg is closely associated with introducing this technology to Europe using movable type.", "answer": "What is the printing press?" },
+          { "value": 600, "clue": "This barrier dividing a European city opened in November 1989.", "answer": "What is the Berlin Wall?" },
+          { "value": 800, "clue": "English barons forced this king to seal Magna Carta in 1215.", "answer": "Who is King John?" },
+          { "value": 1000, "clue": "This 1868 restoration accelerated Japan's modernization by returning governing authority to the imperial court.", "answer": "What is the Meiji Restoration?" }
+        ]
+      }
+    ],
+    "finalJeopardy": {
+      "category": "INVENTIONS",
+      "clue": "In 1876, this Scottish-born inventor received a landmark U.S. patent for telephone technology.",
+      "answer": "Who is Alexander Graham Bell?"
+    }
+  },
+  {
+    "id": "game-02",
+    "title": "Global Grab Bag",
+    "description": "Travel from the pitch to Africa, the kitchen, television, science, and the Olympic arena.",
+    "difficulty": "Medium",
+    "categories": [
+      {
+        "name": "SOCCER WORLD",
+        "clues": [
+          { "value": 200, "clue": "This is the only position permitted to handle the ball within its own penalty area during normal play.", "answer": "What is the goalkeeper?" },
+          { "value": 400, "clue": "This four-letter organization governs the men's and women's World Cup tournaments.", "answer": "What is FIFA?" },
+          { "value": 600, "clue": "A match between Real Madrid and Barcelona is widely known by this Spanish name.", "answer": "What is El Clasico?" },
+          { "value": 800, "clue": "This Argentine star scored the famous Hand of God goal at the 1986 World Cup.", "answer": "Who is Diego Maradona?" },
+          { "value": 1000, "clue": "This country hosted and won the 1966 men's World Cup, defeating West Germany in the final.", "answer": "What is England?" }
+        ]
+      },
+      {
+        "name": "AROUND AFRICA",
+        "clues": [
+          { "value": 200, "clue": "This vast desert stretches across much of North Africa.", "answer": "What is the Sahara?" },
+          { "value": 400, "clue": "The Nile reaches the Mediterranean Sea after flowing through this country of pyramids.", "answer": "What is Egypt?" },
+          { "value": 600, "clue": "Mount Kilimanjaro rises in this East African country.", "answer": "What is Tanzania?" },
+          { "value": 800, "clue": "Addis Ababa, whose name means New Flower, is the capital of this country.", "answer": "What is Ethiopia?", "dailyDouble": true },
+          { "value": 1000, "clue": "Gaborone is the capital of this landlocked country directly north of South Africa.", "answer": "What is Botswana?" }
+        ]
+      },
+      {
+        "name": "KITCHEN KNOW-HOW",
+        "clues": [
+          { "value": 200, "clue": "This green fruit supplies the creamy base of guacamole.", "answer": "What is an avocado?" },
+          { "value": 400, "clue": "This Japanese dish is defined by seasoned vinegared rice, not necessarily by raw fish.", "answer": "What is sushi?" },
+          { "value": 600, "clue": "Often called the king of cheeses, this hard Italian cheese has a protected name tied to its production region.", "answer": "What is Parmigiano-Reggiano?" },
+          { "value": 800, "clue": "Cooks combine flour and fat to make this thickening base for sauces and gumbo.", "answer": "What is a roux?" },
+          { "value": 1000, "clue": "Egg yolks and butter form the classic warm emulsion called this mother sauce.", "answer": "What is hollandaise?" }
+        ]
+      },
+      {
+        "name": "TV TIME",
+        "clues": [
+          { "value": 200, "clue": "Employees sell paper at Dunder Mifflin on this workplace comedy.", "answer": "What is The Office?" },
+          { "value": 400, "clue": "The mysterious Upside Down threatens the town of Hawkins on this Netflix series.", "answer": "What is Stranger Things?" },
+          { "value": 600, "clue": "Bryan Cranston played chemistry teacher turned criminal Walter White on this drama.", "answer": "What is Breaking Bad?" },
+          { "value": 800, "clue": "Leslie Knope works for the local government of Pawnee, Indiana, on this sitcom.", "answer": "What is Parks and Recreation?" },
+          { "value": 1000, "clue": "Don Draper works at the advertising agency Sterling Cooper on this period drama.", "answer": "What is Mad Men?" }
+        ]
+      },
+      {
+        "name": "EVERYDAY SCIENCE",
+        "clues": [
+          { "value": 200, "clue": "Water droplets forming on the outside of a cold glass demonstrate this phase change.", "answer": "What is condensation?" },
+          { "value": 400, "clue": "Compared with a gas, sound generally travels faster through this rigid state of matter.", "answer": "What is a solid?" },
+          { "value": 600, "clue": "The SI unit of force bears the surname of this English scientist.", "answer": "Who is Isaac Newton?" },
+          { "value": 800, "clue": "A household refrigerator moves heat using a circulating substance known by this general name.", "answer": "What is a refrigerant?" },
+          { "value": 1000, "clue": "The principle explaining the upward force on an immersed object bears this Greek scientist's name.", "answer": "Who is Archimedes?" }
+        ]
+      },
+      {
+        "name": "OLYMPIC MOMENTS",
+        "clues": [
+          { "value": 200, "clue": "This many interlocking rings appear on the Olympic symbol.", "answer": "What is five?" },
+          { "value": 400, "clue": "The modern marathon covers approximately this many miles.", "answer": "What is 26.2 miles?" },
+          { "value": 600, "clue": "At Montreal in 1976, this Romanian earned the first perfect 10 in Olympic gymnastics.", "answer": "Who is Nadia Comaneci?" },
+          { "value": 800, "clue": "This American track star won four gold medals at the 1936 Berlin Games.", "answer": "Who is Jesse Owens?" },
+          { "value": 1000, "clue": "This 'Flying Finn' won five gold medals at the 1924 Paris Games.", "answer": "Who is Paavo Nurmi?" }
+        ]
+      }
+    ],
+    "finalJeopardy": {
+      "category": "WORLD LANGUAGES",
+      "clue": "Because of its colonial history, this is the official language of Brazil.",
+      "answer": "What is Portuguese?"
+    }
+  },
+  {
+    "id": "game-03",
+    "title": "Bright Ideas",
+    "description": "Courts, planets, filmmakers, music, pioneers, and useful technology reward broad knowledge.",
+    "difficulty": "Medium",
+    "categories": [
+      {
+        "name": "COURT & COURSE",
+        "clues": [
+          { "value": 200, "clue": "A successful free throw in basketball adds this many points to the score.", "answer": "What is one?" },
+          { "value": 400, "clue": "In tennis scoring, this word means zero points.", "answer": "What is love?" },
+          { "value": 600, "clue": "The champion of the Masters Tournament traditionally receives a jacket of this color.", "answer": "What is green?" },
+          { "value": 800, "clue": "A player reaching double figures in three statistical categories records this achievement.", "answer": "What is a triple-double?" },
+          { "value": 1000, "clue": "A golf score of three under par on one hole has this bird-related name.", "answer": "What is an albatross?" }
+        ]
+      },
+      {
+        "name": "SPACE NEIGHBORS",
+        "clues": [
+          { "value": 200, "clue": "Iron minerals give this fourth planet its familiar reddish appearance.", "answer": "What is Mars?" },
+          { "value": 400, "clue": "This gas giant is the largest planet in our solar system.", "answer": "What is Jupiter?" },
+          { "value": 600, "clue": "Our solar system lies within this barred spiral galaxy.", "answer": "What is the Milky Way?" },
+          { "value": 800, "clue": "This largest moon of Saturn has a thick atmosphere and lakes of liquid methane.", "answer": "What is Titan?" },
+          { "value": 1000, "clue": "Jupiter's moon with hundreds of active volcanoes is the most volcanically active body in the solar system.", "answer": "What is Io?" }
+        ]
+      },
+      {
+        "name": "MOVIE MAKERS",
+        "clues": [
+          { "value": 200, "clue": "This director brought dinosaurs to life in Jurassic Park.", "answer": "Who is Steven Spielberg?" },
+          { "value": 400, "clue": "James Cameron directed this romance and disaster film set aboard a doomed ocean liner.", "answer": "What is Titanic?" },
+          { "value": 600, "clue": "This comedian turned filmmaker made his feature directing debut with Get Out.", "answer": "Who is Jordan Peele?" },
+          { "value": 800, "clue": "This South Korean director won Academy Awards for directing and co-writing Parasite.", "answer": "Who is Bong Joon Ho?", "dailyDouble": true },
+          { "value": 1000, "clue": "The influential Japanese filmmaker behind Seven Samurai and Rashomon had this surname.", "answer": "Who is Akira Kurosawa?" }
+        ]
+      },
+      {
+        "name": "SOUND CHECK",
+        "clues": [
+          { "value": 200, "clue": "This brass instrument changes pitch with a long movable slide.", "answer": "What is the trombone?" },
+          { "value": 400, "clue": "The highest standard female classical singing voice is known by this name.", "answer": "What is soprano?" },
+          { "value": 600, "clue": "This smallest standard orchestral string instrument is normally tucked under the chin.", "answer": "What is the violin?" },
+          { "value": 800, "clue": "Music that emphasizes normally weak beats makes use of this rhythmic technique.", "answer": "What is syncopation?" },
+          { "value": 1000, "clue": "This high-pitched woodwind uses a double reed and commonly gives the orchestra its tuning note.", "answer": "What is the oboe?" }
+        ]
+      },
+      {
+        "name": "TRAILBLAZERS",
+        "clues": [
+          { "value": 200, "clue": "This aviator disappeared in 1937 while attempting to fly around the world.", "answer": "Who is Amelia Earhart?" },
+          { "value": 400, "clue": "Her refusal to surrender a bus seat in Montgomery helped ignite a major civil rights boycott.", "answer": "Who is Rosa Parks?" },
+          { "value": 600, "clue": "This NASA mathematician calculated flight paths for early U.S. crewed space missions.", "answer": "Who is Katherine Johnson?" },
+          { "value": 800, "clue": "This scientist became the first woman to receive a Nobel Prize and later won a second one.", "answer": "Who is Marie Curie?" },
+          { "value": 1000, "clue": "With Tenzing Norgay, this New Zealander made the first confirmed ascent of Mount Everest.", "answer": "Who is Edmund Hillary?" }
+        ]
+      },
+      {
+        "name": "HOW IT WORKS",
+        "clues": [
+          { "value": 200, "clue": "This household control switches heating or cooling systems to maintain a set temperature.", "answer": "What is a thermostat?" },
+          { "value": 400, "clue": "Eight binary digits make up one of these common units of digital information.", "answer": "What is a byte?" },
+          { "value": 600, "clue": "A phone uses signals from orbiting objects to calculate its position through this navigation system.", "answer": "What is GPS?" },
+          { "value": 800, "clue": "Solar panels turn light into electricity using cells named for this effect.", "answer": "What is the photovoltaic effect?" },
+          { "value": 1000, "clue": "In a car's exhaust system, this device uses chemical reactions to reduce harmful emissions.", "answer": "What is a catalytic converter?" }
+        ]
+      }
+    ],
+    "finalJeopardy": {
+      "category": "MEDICAL DISCOVERIES",
+      "clue": "In 1928, this Scottish scientist noticed that mold had killed bacteria in a laboratory dish.",
+      "answer": "Who is Alexander Fleming?"
+    }
+  },
+  {
+    "id": "game-04",
+    "title": "Main Street Mix",
+    "description": "Explore American places, baseball, sitcoms, chemistry, world foods, and ancient civilizations.",
+    "difficulty": "Medium",
+    "categories": [
+      {
+        "name": "AMERICA THE BEAUTIFUL",
+        "clues": [
+          { "value": 200, "clue": "The Grand Canyon lies primarily within this state.", "answer": "What is Arizona?" },
+          { "value": 400, "clue": "The Mississippi River empties into this body of water south of Louisiana.", "answer": "What is the Gulf of Mexico?" },
+          { "value": 600, "clue": "Mount Rushmore is carved into the Black Hills of this state.", "answer": "What is South Dakota?" },
+          { "value": 800, "clue": "The Bonneville Salt Flats and the Great Salt Lake are found in this state.", "answer": "What is Utah?" },
+          { "value": 1000, "clue": "On December 7, 1787, this state became the first to ratify the U.S. Constitution.", "answer": "What is Delaware?" }
+        ]
+      },
+      {
+        "name": "BASEBALL BOX SCORE",
+        "clues": [
+          { "value": 200, "clue": "A home run with the bases loaded is commonly called this.", "answer": "What is a grand slam?" },
+          { "value": 400, "clue": "Scorekeepers traditionally use this letter to record a strikeout.", "answer": "What is K?" },
+          { "value": 600, "clue": "A game in which a team allows no hits but may allow walks is called this.", "answer": "What is a no-hitter?" },
+          { "value": 800, "clue": "This Yankees star set Major League Baseball's record with a 56-game hitting streak in 1941.", "answer": "Who is Joe DiMaggio?" },
+          { "value": 1000, "clue": "In the scorekeeping shorthand 6-4-3 double play, the number 6 represents this position.", "answer": "What is shortstop?" }
+        ]
+      },
+      {
+        "name": "SITCOM SETTINGS",
+        "clues": [
+          { "value": 200, "clue": "Central Perk is the regular coffee shop on this New York sitcom.", "answer": "What is Friends?" },
+          { "value": 400, "clue": "The Simpson family lives in this deliberately unspecified American town.", "answer": "What is Springfield?" },
+          { "value": 600, "clue": "Leonard and Sheldon share apartment 4A on this science-centered comedy.", "answer": "What is The Big Bang Theory?" },
+          { "value": 800, "clue": "The doctors on Scrubs work at this fictional teaching hospital.", "answer": "What is Sacred Heart?" },
+          { "value": 1000, "clue": "Sam Malone runs the title bar of Cheers in this city.", "answer": "What is Boston?" }
+        ]
+      },
+      {
+        "name": "CHEMISTRY CABINET",
+        "clues": [
+          { "value": 200, "clue": "Sodium chloride is better known by this name at the dinner table.", "answer": "What is salt?" },
+          { "value": 400, "clue": "The formula CO2 represents this gas.", "answer": "What is carbon dioxide?" },
+          { "value": 600, "clue": "This light noble gas is safer than hydrogen for filling party balloons.", "answer": "What is helium?" },
+          { "value": 800, "clue": "The chemical symbol Cu stands for this conductive reddish metal.", "answer": "What is copper?" },
+          { "value": 1000, "clue": "With atomic number 3, this is the lightest metal on the periodic table.", "answer": "What is lithium?" }
+        ]
+      },
+      {
+        "name": "FOOD MAP",
+        "clues": [
+          { "value": 200, "clue": "A folded corn or flour tortilla holds the fillings in this Mexican favorite.", "answer": "What is a taco?" },
+          { "value": 400, "clue": "This flaky crescent-shaped pastry is strongly associated with French bakeries.", "answer": "What is a croissant?" },
+          { "value": 600, "clue": "This Vietnamese soup typically combines broth, rice noodles, herbs, and meat.", "answer": "What is pho?" },
+          { "value": 800, "clue": "Saffron often colors this rice dish that originated around Valencia, Spain.", "answer": "What is paella?" },
+          { "value": 1000, "clue": "This spongy fermented flatbread commonly anchors meals in Ethiopia and Eritrea.", "answer": "What is injera?" }
+        ]
+      },
+      {
+        "name": "ANCIENT WORLDS",
+        "clues": [
+          { "value": 200, "clue": "Ancient Egyptian rulers such as Khufu are commonly known by this title.", "answer": "What is a pharaoh?" },
+          { "value": 400, "clue": "This Greek city-state is strongly associated with the development of democracy.", "answer": "What is Athens?" },
+          { "value": 600, "clue": "The eruption of Mount Vesuvius buried this Roman city in 79 CE.", "answer": "What is Pompeii?" },
+          { "value": 800, "clue": "The discovery of this inscribed stone helped scholars decipher Egyptian hieroglyphs.", "answer": "What is the Rosetta Stone?" },
+          { "value": 1000, "clue": "The writing system spread by this eastern Mediterranean trading civilization helped inspire Greek and Latin alphabets.", "answer": "What is the Phoenician civilization?", "dailyDouble": true }
+        ]
+      }
+    ],
+    "finalJeopardy": {
+      "category": "CIVIL RIGHTS",
+      "clue": "This minister delivered his best-known address at the 1963 March on Washington.",
+      "answer": "Who is Martin Luther King Jr.?"
+    }
+  },
+  {
+    "id": "game-05",
+    "title": "Passport & Popcorn",
+    "description": "A globe-spanning board of European stops, Asian geography, film, music, exploration, and sports.",
+    "difficulty": "Medium",
+    "categories": [
+      {
+        "name": "EUROPEAN STOPS",
+        "clues": [
+          { "value": 200, "clue": "The Eiffel Tower overlooks this capital city.", "answer": "What is Paris?" },
+          { "value": 400, "clue": "A boot-like outline makes this Mediterranean country easy to recognize on a map.", "answer": "What is Italy?" },
+          { "value": 600, "clue": "This major river flows through both Vienna and Budapest.", "answer": "What is the Danube?" },
+          { "value": 800, "clue": "Antoni Gaudi's Sagrada Familia basilica rises in this Catalan city.", "answer": "What is Barcelona?" },
+          { "value": 1000, "clue": "Ljubljana is the capital of this country between Italy and Croatia.", "answer": "What is Slovenia?" }
+        ]
+      },
+      {
+        "name": "ASIA ON THE MAP",
+        "clues": [
+          { "value": 200, "clue": "The Chao Phraya River flows through this capital of Thailand.", "answer": "What is Bangkok?" },
+          { "value": 400, "clue": "The Gobi Desert spans parts of China and this neighboring country.", "answer": "What is Mongolia?" },
+          { "value": 600, "clue": "This nearly symmetrical volcano is the highest mountain in Japan.", "answer": "What is Mount Fuji?" },
+          { "value": 800, "clue": "The Mekong River forms much of the border between Thailand and this landlocked country.", "answer": "What is Laos?" },
+          { "value": 1000, "clue": "This busy shipping strait separates the Malay Peninsula from the Indonesian island of Sumatra.", "answer": "What is the Strait of Malacca?" }
+        ]
+      },
+      {
+        "name": "DIRECTOR'S CHAIR",
+        "clues": [
+          { "value": 200, "clue": "Steven Spielberg directed this film about a gentle alien trying to return home.", "answer": "What is E.T. the Extra-Terrestrial?" },
+          { "value": 400, "clue": "This filmmaker directed the 2023 comedy Barbie.", "answer": "Who is Greta Gerwig?" },
+          { "value": 600, "clue": "Barry Jenkins directed this 2016 drama about Chiron at three stages of his life.", "answer": "What is Moonlight?" },
+          { "value": 800, "clue": "This Japanese animator directed Spirited Away and My Neighbor Totoro.", "answer": "Who is Hayao Miyazaki?" },
+          { "value": 1000, "clue": "This filmmaker directed and starred in Do the Right Thing as Mookie.", "answer": "Who is Spike Lee?" }
+        ]
+      },
+      {
+        "name": "MUSICAL INSTRUMENTS",
+        "clues": [
+          { "value": 200, "clue": "The standard version of this fretted instrument usually has six strings.", "answer": "What is a guitar?" },
+          { "value": 400, "clue": "Players strike the wooden bars of this instrument with mallets.", "answer": "What is a xylophone?" },
+          { "value": 600, "clue": "Larger than a violin and held between the knees, this string instrument has a rich low range.", "answer": "What is a cello?" },
+          { "value": 800, "clue": "A long neck and sympathetic strings help create the distinctive sound of this Indian instrument.", "answer": "What is a sitar?" },
+          { "value": 1000, "clue": "This large double-reed woodwind is folded into a long tube and plays in the tenor and bass ranges.", "answer": "What is a bassoon?" }
+        ]
+      },
+      {
+        "name": "JOURNEYS & EXPLORERS",
+        "clues": [
+          { "value": 200, "clue": "In 1492, Christopher Columbus crossed the Atlantic while sailing for this country.", "answer": "What is Spain?" },
+          { "value": 400, "clue": "This Shoshone woman aided the Lewis and Clark expedition as an interpreter.", "answer": "Who is Sacagawea?" },
+          { "value": 600, "clue": "Neil Armstrong and Buzz Aldrin walked on the Moon during this NASA mission.", "answer": "What is Apollo 11?" },
+          { "value": 800, "clue": "This Ming dynasty admiral commanded great treasure fleet voyages across the Indian Ocean.", "answer": "Who is Zheng He?", "dailyDouble": true },
+          { "value": 1000, "clue": "This Norwegian explorer led the first expedition confirmed to reach the South Pole.", "answer": "Who is Roald Amundsen?" }
+        ]
+      },
+      {
+        "name": "SPORTS AROUND THE WORLD",
+        "clues": [
+          { "value": 200, "clue": "In soccer, this colored card formally warns a player.", "answer": "What is a yellow card?" },
+          { "value": 400, "clue": "A hit over the boundary without bouncing scores this many runs in cricket.", "answer": "What is six?" },
+          { "value": 600, "clue": "The tennis stadium named for Arthur Ashe hosts the U.S. Open in this city.", "answer": "What is New York City?" },
+          { "value": 800, "clue": "The winner of this cycling race wears a yellow jersey into Paris.", "answer": "What is the Tour de France?" },
+          { "value": 1000, "clue": "The Indianapolis Motor Speedway is nicknamed this because its racing surface was once paved with millions of them.", "answer": "What is the Brickyard?" }
+        ]
+      }
+    ],
+    "finalJeopardy": {
+      "category": "CITY LANDMARKS",
+      "clue": "Jorn Utzon designed the sail-like performing arts venue that stands beside this city's harbor.",
+      "answer": "What is Sydney?"
+    }
+  },
+  {
+    "id": "game-06",
+    "title": "Brain & Buzzer",
+    "description": "Test your range with basketball, animation, anatomy, books, familiar symbols, and reform movements.",
+    "difficulty": "Medium",
+    "categories": [
+      {
+        "name": "HOOPS HISTORY",
+        "clues": [
+          { "value": 200, "clue": "A basket made from beyond the arc is worth this many points.", "answer": "What is three?" },
+          { "value": 400, "clue": "NBA teams normally have this many seconds to attempt a shot.", "answer": "What is 24 seconds?" },
+          { "value": 600, "clue": "This Chicago Bulls star famously dunked from the free-throw line during the 1988 Slam Dunk Contest.", "answer": "Who is Michael Jordan?" },
+          { "value": 800, "clue": "In 2016, this Golden State guard became the first unanimous NBA Most Valuable Player.", "answer": "Who is Stephen Curry?" },
+          { "value": 1000, "clue": "In 1961-62, this Cincinnati Royals guard became the first NBA player to average a triple-double for a season.", "answer": "Who is Oscar Robertson?" }
+        ]
+      },
+      {
+        "name": "ANIMATED WORLDS",
+        "clues": [
+          { "value": 200, "clue": "Woody and Buzz Lightyear first appeared together in this Pixar film.", "answer": "What is Toy Story?" },
+          { "value": 400, "clue": "This green ogre leaves his swamp to rescue Princess Fiona.", "answer": "Who is Shrek?" },
+          { "value": 600, "clue": "A boy named Miguel visits the Land of the Dead in this Pixar film.", "answer": "What is Coco?" },
+          { "value": 800, "clue": "A one-eyed young musician searches for magical armor in this stop-motion film from Laika.", "answer": "What is Kubo and the Two Strings?" },
+          { "value": 1000, "clue": "Before directing The Incredibles, Brad Bird made this animated film about a giant robot and a boy named Hogarth.", "answer": "What is The Iron Giant?" }
+        ]
+      },
+      {
+        "name": "HUMAN BODY",
+        "clues": [
+          { "value": 200, "clue": "This muscular organ pumps blood through the circulatory system.", "answer": "What is the heart?" },
+          { "value": 400, "clue": "This thigh bone is the longest and strongest bone in the human body.", "answer": "What is the femur?" },
+          { "value": 600, "clue": "This organ produces insulin as well as digestive enzymes.", "answer": "What is the pancreas?" },
+          { "value": 800, "clue": "Each tiny air sac where gas exchange occurs in the lungs is called this.", "answer": "What is an alveolus?", "dailyDouble": true },
+          { "value": 1000, "clue": "This spiral-shaped inner-ear structure converts sound vibrations into nerve signals.", "answer": "What is the cochlea?" }
+        ]
+      },
+      {
+        "name": "BOOKSHELF",
+        "clues": [
+          { "value": 200, "clue": "Young wizards study at Hogwarts in this book series.", "answer": "What is Harry Potter?" },
+          { "value": 400, "clue": "George Orwell created Big Brother in this dystopian novel.", "answer": "What is 1984?" },
+          { "value": 600, "clue": "Scout Finch narrates this Harper Lee novel set in Alabama.", "answer": "What is To Kill a Mockingbird?" },
+          { "value": 800, "clue": "The Buendia family anchors this novel by Gabriel Garcia Marquez.", "answer": "What is One Hundred Years of Solitude?" },
+          { "value": 1000, "clue": "This sailor begins Moby-Dick by asking readers to call him by name.", "answer": "Who is Ishmael?" }
+        ]
+      },
+      {
+        "name": "ICONS & LOGOS",
+        "clues": [
+          { "value": 200, "clue": "The Swoosh identifies this athletic brand.", "answer": "What is Nike?" },
+          { "value": 400, "clue": "Golden Arches form the famous symbol of this fast-food chain.", "answer": "What is McDonald's?" },
+          { "value": 600, "clue": "A silhouette of a piece of fruit with a bite missing represents this technology company.", "answer": "What is Apple?" },
+          { "value": 800, "clue": "A red bullseye doubles as the logo and name of this retail chain.", "answer": "What is Target?" },
+          { "value": 1000, "clue": "The tire company's white mascot is officially named Bibendum but is better known by this name.", "answer": "What is the Michelin Man?" }
+        ]
+      },
+      {
+        "name": "REVOLUTIONS & REFORMS",
+        "clues": [
+          { "value": 200, "clue": "The American colonies fought this European kingdom in the Revolutionary War.", "answer": "What is Great Britain?" },
+          { "value": 400, "clue": "The storming of this Paris prison became a symbol of the French Revolution.", "answer": "What is the Bastille?" },
+          { "value": 600, "clue": "Improved versions of this engine powered factories and transportation during the Industrial Revolution.", "answer": "What is the steam engine?" },
+          { "value": 800, "clue": "This formerly enslaved leader became the most prominent general of the Haitian Revolution.", "answer": "Who is Toussaint Louverture?" },
+          { "value": 1000, "clue": "In 1517, this German theologian circulated the Ninety-five Theses that helped launch the Reformation.", "answer": "Who is Martin Luther?" }
+        ]
+      }
+    ],
+    "finalJeopardy": {
+      "category": "MEDICINE",
+      "clue": "Experiments involving cowpox led this English physician to develop the first successful smallpox vaccine.",
+      "answer": "Who is Edward Jenner?"
+    }
+  },
+  {
+    "id": "game-07",
+    "title": "The Long Game",
+    "description": "Finish strong with world football, wildlife, rock and soul, transportation, art, and modern history.",
+    "difficulty": "Medium",
+    "categories": [
+      {
+        "name": "WORLD FOOTBALL",
+        "clues": [
+          { "value": 200, "clue": "A penalty kick is taken from a spot this many yards from the goal line.", "answer": "What is 12 yards?" },
+          { "value": 400, "clue": "This Argentine forward captained his country to the 2022 men's World Cup title.", "answer": "Who is Lionel Messi?" },
+          { "value": 600, "clue": "This governing body organizes the Champions League for Europe's top clubs.", "answer": "What is UEFA?" },
+          { "value": 800, "clue": "An airborne player striking the ball backward over the head performs this acrobatic shot.", "answer": "What is a bicycle kick?" },
+          { "value": 1000, "clue": "This Brazilian legend was on World Cup-winning squads in 1958, 1962, and 1970.", "answer": "Who is Pele?" }
+        ]
+      },
+      {
+        "name": "WILD PLANET",
+        "clues": [
+          { "value": 200, "clue": "This ocean giant is the largest animal known to have lived.", "answer": "What is the blue whale?" },
+          { "value": 400, "clue": "This green pigment absorbs light energy that plants use during photosynthesis.", "answer": "What is chlorophyll?" },
+          { "value": 600, "clue": "Despite their plantlike appearance, corals belong to this broad biological kingdom.", "answer": "What is the animal kingdom?" },
+          { "value": 800, "clue": "This small seabird makes an extraordinary annual migration between Arctic and Antarctic regions.", "answer": "What is the Arctic tern?" },
+          { "value": 1000, "clue": "Native to lakes near Mexico City, this amphibian is famous for regenerating limbs.", "answer": "What is the axolotl?" }
+        ]
+      },
+      {
+        "name": "ROCK & SOUL",
+        "clues": [
+          { "value": 200, "clue": "This drummer joined John, Paul, and George in the Beatles.", "answer": "Who is Ringo Starr?" },
+          { "value": 400, "clue": "This singer earned the title Queen of Soul.", "answer": "Who is Aretha Franklin?" },
+          { "value": 600, "clue": "Nevermind brought this Seattle grunge band worldwide fame.", "answer": "What is Nirvana?" },
+          { "value": 800, "clue": "This singer, songwriter, and multi-instrumentalist recorded for Motown beginning as a child prodigy.", "answer": "Who is Stevie Wonder?" },
+          { "value": 1000, "clue": "This singer and filmmaker served as the frontman of the art-rock band Talking Heads.", "answer": "Who is David Byrne?" }
+        ]
+      },
+      {
+        "name": "GETTING THERE",
+        "clues": [
+          { "value": 200, "clue": "In many cities, this electric railway carries passengers through underground tunnels.", "answer": "What is a subway?" },
+          { "value": 400, "clue": "Despite its common nickname, an airplane's black box is usually painted this bright color for visibility.", "answer": "What is orange?" },
+          { "value": 600, "clue": "This canal links the Atlantic and Pacific Oceans across Central America.", "answer": "What is the Panama Canal?" },
+          { "value": 800, "clue": "Japan's high-speed passenger rail network is widely known by this name meaning new trunk line.", "answer": "What is the Shinkansen?" },
+          { "value": 1000, "clue": "This railway crosses Russia from Moscow to Vladivostok over roughly 5,700 miles.", "answer": "What is the Trans-Siberian Railway?" }
+        ]
+      },
+      {
+        "name": "ART & MUSEUMS",
+        "clues": [
+          { "value": 200, "clue": "Leonardo da Vinci's Mona Lisa hangs in this Paris museum.", "answer": "What is the Louvre?" },
+          { "value": 400, "clue": "Vincent van Gogh painted this swirling night sky viewed from Saint-Remy.", "answer": "What is The Starry Night?" },
+          { "value": 600, "clue": "Auguste Rodin created this sculpture of a seated man resting his chin on his hand.", "answer": "What is The Thinker?" },
+          { "value": 800, "clue": "Pablo Picasso painted this monumental antiwar response to the bombing of a Basque town.", "answer": "What is Guernica?" },
+          { "value": 1000, "clue": "Grant Wood painted this stern Iowa pair posed before a farmhouse.", "answer": "What is American Gothic?" }
+        ]
+      },
+      {
+        "name": "DECADES IN MOTION",
+        "clues": [
+          { "value": 200, "clue": "This upbeat nickname for the 1920s evokes jazz, flappers, and rapid social change.", "answer": "What is the Roaring Twenties?" },
+          { "value": 400, "clue": "Franklin D. Roosevelt's domestic response to the Great Depression carried this two-word name.", "answer": "What is the New Deal?" },
+          { "value": 600, "clue": "Representatives of 50 countries signed the charter of this international organization in 1945.", "answer": "What is the United Nations?" },
+          { "value": 800, "clue": "This landmark U.S. law outlawed segregation in public accommodations in 1964.", "answer": "What is the Civil Rights Act?" },
+          { "value": 1000, "clue": "A reactor exploded at this Soviet nuclear power plant in 1986.", "answer": "What is Chernobyl?", "dailyDouble": true }
+        ]
+      }
+    ],
+    "finalJeopardy": {
+      "category": "OCEAN CROSSINGS",
+      "clue": "In 1927, this aviator completed the first solo nonstop flight from New York to Paris.",
+      "answer": "Who is Charles Lindbergh?"
+    }
+  }
+]
