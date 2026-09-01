@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JEOPARDY!</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============== HOME SCREEN ============== -->
+<div id="home-screen" class="screen active">
+  <header class="home-header">
+    <h1 class="logo">JEOPARDY<span class="logo-bang">!</span></h1>
+    <p class="tagline">Brutally hard. Built for show-offs.</p>
+  </header>
+
+  <div class="home-actions">
+    <button class="btn btn-primary" id="btn-new-game">+ New Custom Game</button>
+    <button class="btn btn-secondary" id="btn-import">Import JSON</button>
+    <button class="btn btn-secondary" id="btn-export-all">Export All</button>
+  </div>
+
+  <section class="game-list-section">
+    <h2>Sample Games</h2>
+    <div id="sample-games" class="game-grid"></div>
+  </section>
+
+  <section class="game-list-section">
+    <h2>Custom Games</h2>
+    <div id="custom-games" class="game-grid"></div>
+  </section>
+
+  <footer class="home-footer">
+    <p>Click a game to play. Press <kbd>?</kbd> for keyboard shortcuts.</p>
+  </footer>
+</div>
+
+<!-- ============== GAME BOARD ============== -->
+<div id="game-screen" class="screen">
+  <div class="game-topbar">
+    <button class="topbar-btn" id="btn-home">← Home</button>
+    <h1 class="game-title" id="game-title-display">JEOPARDY!</h1>
+    <div class="topbar-right">
+      <button class="topbar-btn" id="btn-final">Final Jeopardy</button>
+      <button class="topbar-btn" id="btn-reset">Reset</button>
+    </div>
+  </div>
+
+  <div class="board" id="board"></div>
+
+  <div class="scoreboard" id="scoreboard"></div>
+
+  <div class="scoreboard-controls">
+    <button class="btn btn-small" id="btn-add-team">+ Add Team</button>
+    <span class="hint">Click team name or score to edit</span>
+  </div>
+</div>
+
+<!-- ============== CLUE MODAL ============== -->
+<div id="clue-modal" class="modal">
+  <div class="clue-content">
+    <div class="clue-meta" id="clue-meta"></div>
+    <div class="clue-text" id="clue-text"></div>
+    <div class="clue-answer" id="clue-answer"></div>
+    <div class="clue-hint" id="clue-hint">Click anywhere or press <kbd>Space</kbd> to reveal</div>
+    <div class="clue-team-buttons" id="clue-team-buttons"></div>
+    <div class="clue-actions">
+      <button class="btn btn-close" id="btn-close-clue">Close (Esc)</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============== DAILY DOUBLE WAGER ============== -->
+<div id="dd-modal" class="modal">
+  <div class="dd-content">
+    <h2 class="dd-title">DAILY DOUBLE</h2>
+    <p class="dd-subtitle">Select a team and enter wager</p>
+    <div class="dd-team-select" id="dd-team-select"></div>
+    <input type="number" id="dd-wager" min="0" placeholder="Wager amount">
+    <div class="dd-actions">
+      <button class="btn btn-primary" id="btn-dd-confirm">Reveal Clue</button>
+      <button class="btn btn-secondary" id="btn-dd-cancel">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============== FINAL JEOPARDY ============== -->
+<div id="final-modal" class="modal">
+  <div class="final-content" id="final-content"></div>
+</div>
+
+<!-- ============== GAME BUILDER ============== -->
+<div id="builder-screen" class="screen">
+  <div class="builder-topbar">
+    <button class="topbar-btn" id="btn-builder-back">← Cancel</button>
+    <h1 class="game-title">Game Builder</h1>
+    <button class="topbar-btn topbar-btn-primary" id="btn-builder-save">Save Game</button>
+  </div>
+
+  <div class="builder-body">
+    <label class="builder-label">Game Title
+      <input type="text" id="builder-title" placeholder="My Custom Game">
+    </label>
+    <label class="builder-label">Description
+      <input type="text" id="builder-description" placeholder="Optional description">
+    </label>
+
+    <div id="builder-categories"></div>
+
+    <h3 class="builder-section">Final Jeopardy (optional)</h3>
+    <label class="builder-label">Category
+      <input type="text" id="builder-fj-category">
+    </label>
+    <label class="builder-label">Clue
+      <textarea id="builder-fj-clue" rows="2"></textarea>
+    </label>
+    <label class="builder-label">Answer
+      <input type="text" id="builder-fj-answer">
+    </label>
+  </div>
+</div>
+
+<!-- ============== IMPORT MODAL ============== -->
+<div id="import-modal" class="modal">
+  <div class="import-content">
+    <h2>Import Game (JSON)</h2>
+    <p class="import-hint">Paste a game JSON below. See the <a href="#" id="show-format">expected format</a>.</p>
+    <textarea id="import-json" rows="12" placeholder='{"title":"...","categories":[...]}'></textarea>
+    <div class="import-actions">
+      <button class="btn btn-primary" id="btn-import-confirm">Import</button>
+      <button class="btn btn-secondary" id="btn-import-cancel">Cancel</button>
+    </div>
+    <pre id="format-example" class="format-example" style="display:none"></pre>
+  </div>
+</div>
+
+<!-- ============== HELP MODAL ============== -->
+<div id="help-modal" class="modal">
+  <div class="help-content">
+    <h2>Keyboard Shortcuts</h2>
+    <ul>
+      <li><kbd>Space</kbd> — Reveal answer (in clue view)</li>
+      <li><kbd>Esc</kbd> — Close clue / modal</li>
+      <li><kbd>1</kbd>–<kbd>9</kbd> — Award points to team N (after revealing)</li>
+      <li><kbd>Shift</kbd>+<kbd>1</kbd>–<kbd>9</kbd> — Deduct points from team N</li>
+      <li><kbd>?</kbd> — Show this help</li>
+    </ul>
+    <button class="btn btn-primary" id="btn-help-close">Close</button>
+  </div>
+</div>
+
+<script src="games.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
