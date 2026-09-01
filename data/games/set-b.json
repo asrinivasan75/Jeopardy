@@ -1,0 +1,513 @@
+[
+  {
+    "id": "game-08",
+    "title": "Ink & Empire",
+    "description": "Travel through enduring books, ancient cities, artistic revolutions, useful inventions, and the rivers that shaped civilizations.",
+    "difficulty": "Medium",
+    "categories": [
+      {
+        "name": "WORLD LITERATURE",
+        "clues": [
+          { "value": 200, "clue": "The pigs Napoleon and Snowball lead a revolution on an English farm in this George Orwell allegory.", "answer": "What is Animal Farm?" },
+          { "value": 400, "clue": "Meg, Jo, Beth, and Amy are the March sisters at the heart of this Louisa May Alcott novel.", "answer": "What is Little Women?" },
+          { "value": 600, "clue": "An aging Cuban fisherman named Santiago battles a giant marlin in this Ernest Hemingway novella.", "answer": "What is The Old Man and the Sea?" },
+          { "value": 800, "clue": "Clara and Esteban Trueba anchor several generations of family history in this Isabel Allende novel.", "answer": "What is The House of the Spirits?" },
+          { "value": 1000, "clue": "Written by the court lady Murasaki Shikibu, this Japanese classic follows the romantic life of a shining prince.", "answer": "What is The Tale of Genji?" }
+        ]
+      },
+      {
+        "name": "ANCIENT CITIES",
+        "clues": [
+          { "value": 200, "clue": "The Colosseum and the Forum stood at the center of this ancient imperial capital.", "answer": "What is Rome?" },
+          { "value": 400, "clue": "Hannibal's North African home city fought Rome in three Punic Wars.", "answer": "What is Carthage?" },
+          { "value": 600, "clue": "A famed library and lighthouse made this Egyptian port a center of Hellenistic learning.", "answer": "What is Alexandria?" },
+          { "value": 800, "clue": "The rock-cut Treasury welcomes visitors to this former Nabataean capital in present-day Jordan.", "answer": "What is Petra?" },
+          { "value": 1000, "clue": "Darius I began this ceremonial Persian capital, whose reliefs show delegations bringing tribute.", "answer": "What is Persepolis?" }
+        ]
+      },
+      {
+        "name": "ART MOVEMENTS",
+        "clues": [
+          { "value": 200, "clue": "Picasso and Braque helped pioneer this style of fractured subjects and multiple viewpoints.", "answer": "What is Cubism?" },
+          { "value": 400, "clue": "Monet gave his name-making sunrise painting to this movement focused on light and fleeting moments.", "answer": "What is Impressionism?" },
+          { "value": 600, "clue": "Dream logic and the unconscious inspired this movement associated with Dalí and Magritte.", "answer": "What is Surrealism?" },
+          { "value": 800, "clue": "Artists such as Edvard Munch distorted color and form to convey emotion in this movement.", "answer": "What is Expressionism?", "dailyDouble": true },
+          { "value": 1000, "clue": "Kazimir Malevich founded this Russian abstract movement built from simple geometric forms.", "answer": "What is Suprematism?" }
+        ]
+      },
+      {
+        "name": "WORDS FROM HISTORY",
+        "clues": [
+          { "value": 200, "clue": "A long-distance race gets its name from this Greek battlefield associated with a messenger's run.", "answer": "What is Marathon?" },
+          { "value": 400, "clue": "A quick meal between bread slices bears the title of an 18th-century English earl.", "answer": "What is a sandwich?" },
+          { "value": 600, "clue": "This word for organized refusal comes from the surname of an unpopular land agent in Ireland.", "answer": "What is a boycott?" },
+          { "value": 800, "clue": "A dark outline portrait shares its name with French finance minister Étienne de this surname.", "answer": "What is Silhouette?" },
+          { "value": 1000, "clue": "A grand tomb takes its name from the monumental burial place of this ruler at Halicarnassus.", "answer": "Who is Mausolus?" }
+        ]
+      },
+      {
+        "name": "INVENTIONS THAT LAST",
+        "clues": [
+          { "value": 200, "clue": "Joseph Glidden's 1874 patent improved this sharp fencing material that reshaped the American West.", "answer": "What is barbed wire?" },
+          { "value": 400, "clue": "Evangelista Torricelli used a column of mercury to invent this air-pressure instrument.", "answer": "What is a barometer?" },
+          { "value": 600, "clue": "A heat treatment that slows spoilage bears the name of this French scientist.", "answer": "Who is Louis Pasteur?" },
+          { "value": 800, "clue": "Punched cards controlled patterns on this loom invented by a French weaver.", "answer": "What is the Jacquard loom?" },
+          { "value": 1000, "clue": "His safety brake demonstration helped make passenger elevators—and taller buildings—practical.", "answer": "Who is Elisha Otis?" }
+        ]
+      },
+      {
+        "name": "RIVERS ON THE MAP",
+        "clues": [
+          { "value": 200, "clue": "Asia's longest river reaches the East China Sea near Shanghai.", "answer": "What is the Yangtze River?" },
+          { "value": 400, "clue": "This river crosses or borders six Asian countries before forming a broad delta in southern Vietnam.", "answer": "What is the Mekong?" },
+          { "value": 600, "clue": "This river joins the Mississippi just north of St. Louis after crossing the Great Plains.", "answer": "What is the Missouri River?" },
+          { "value": 800, "clue": "The Paraná and Uruguay rivers meet in an estuary separating Argentina and Uruguay with this name.", "answer": "What is the Río de la Plata?" },
+          { "value": 1000, "clue": "The Amu Darya and Syr Darya historically fed this Central Asian inland sea.", "answer": "What is the Aral Sea?" }
+        ]
+      }
+    ],
+    "finalJeopardy": {
+      "category": "EPIC POETRY",
+      "clue": "Virgil's Roman epic follows the Trojan hero Aeneas from the ruins of Troy toward a new homeland in Italy.",
+      "answer": "What is the Aeneid?"
+    }
+  },
+  {
+    "id": "game-09",
+    "title": "Palette & Plate",
+    "description": "Pair masterpieces and architecture with global dishes, essential spices, museum treasures, and the language of cooking.",
+    "difficulty": "Medium",
+    "categories": [
+      {
+        "name": "GREAT PAINTERS",
+        "clues": [
+          { "value": 200, "clue": "Large flowers and bleached animal bones became signature subjects for this American modernist.", "answer": "Who is Georgia O'Keeffe?" },
+          { "value": 400, "clue": "The water-lily pond at Giverny inspired hundreds of works by this French Impressionist.", "answer": "Who is Claude Monet?" },
+          { "value": 600, "clue": "His late-night diner scene Nighthawks is a landmark of American realist painting.", "answer": "Who is Edward Hopper?" },
+          { "value": 800, "clue": "The Two Fridas presents a doubled self-portrait by this Mexican artist.", "answer": "Who is Frida Kahlo?" },
+          { "value": 1000, "clue": "This early Netherlandish painter created the richly detailed Arnolfini Portrait.", "answer": "Who is Jan van Eyck?" }
+        ]
+      },
+      {
+        "name": "WORLD KITCHENS",
+        "clues": [
+          { "value": 200, "clue": "Chickpeas and tahini are blended to make this creamy Middle Eastern spread.", "answer": "What is hummus?" },
+          { "value": 400, "clue": "Arborio rice is slowly stirred with broth to make this northern Italian dish.", "answer": "What is risotto?" },
+          { "value": 600, "clue": "This family of Mexican sauces can combine dried chiles, spices, nuts, and sometimes chocolate.", "answer": "What is mole?" },
+          { "value": 800, "clue": "Its Korean name means mixed rice, an apt description for this bowl of rice, vegetables, and toppings.", "answer": "What is bibimbap?" },
+          { "value": 1000, "clue": "Berbere spices and slow-cooked chicken flavor this Ethiopian stew often served with injera.", "answer": "What is doro wat?" }
+        ]
+      },
+      {
+        "name": "ARCHITECTURE 101",
+        "clues": [
+          { "value": 200, "clue": "This exterior arch transfers a Gothic cathedral's roof load away from its walls.", "answer": "What is a flying buttress?" },
+          { "value": 400, "clue": "An open oculus lights the vast concrete dome of this ancient Roman temple.", "answer": "What is the Pantheon?" },
+          { "value": 600, "clue": "A mosque may be accompanied by this tall tower traditionally used for the call to prayer.", "answer": "What is a minaret?" },
+          { "value": 800, "clue": "Pointed arches returned to fashion in this 18th- and 19th-century style used for Britain's Palace of Westminster.", "answer": "What is Gothic Revival?" },
+          { "value": 1000, "clue": "This term names the honeycomb-like ornamental niches used in vaults and domes in Islamic architecture.", "answer": "What is muqarnas?" }
+        ]
+      },
+      {
+        "name": "THE SPICE SHELF",
+        "clues": [
+          { "value": 200, "clue": "The costly red threads of this spice are handpicked stigmas from a crocus flower.", "answer": "What is saffron?" },
+          { "value": 400, "clue": "This aromatic spice made from dried flower buds once drew European traders to Indonesia's Maluku Islands.", "answer": "What is clove?" },
+          { "value": 600, "clue": "This warm spice is made from the inner bark of trees in the genus Cinnamomum.", "answer": "What is cinnamon?" },
+          { "value": 800, "clue": "Ground berries of this deep-red plant add a tart, lemony note to Middle Eastern food.", "answer": "What is sumac?", "dailyDouble": true },
+          { "value": 1000, "clue": "Also called hing, this pungent resin mellows when cooked and seasons many Indian dishes.", "answer": "What is asafoetida?" }
+        ]
+      },
+      {
+        "name": "MUSEUM MASTERPIECES",
+        "clues": [
+          { "value": 200, "clue": "Velázquez's Las Meninas is a centerpiece of this Madrid museum.", "answer": "What is the Prado Museum?" },
+          { "value": 400, "clue": "Michelangelo's marble David stands in this Florence museum whose name means academy.", "answer": "What is the Galleria dell'Accademia?" },
+          { "value": 600, "clue": "An ornate iron helmet from an Anglo-Saxon ship burial is this British Museum treasure.", "answer": "What is the Sutton Hoo helmet?" },
+          { "value": 800, "clue": "Rembrandt's large group portrait The Night Watch is a highlight of this Amsterdam museum.", "answer": "What is the Rijksmuseum?" },
+          { "value": 1000, "clue": "This winged Hellenistic sculpture from a Greek island commands a staircase in the Louvre.", "answer": "What is the Winged Victory of Samothrace?" }
+        ]
+      },
+      {
+        "name": "FOOD WORDS",
+        "clues": [
+          { "value": 200, "clue": "Pasta cooked firm to the bite is described by this two-word Italian phrase.", "answer": "What is al dente?" },
+          { "value": 400, "clue": "This Japanese-derived word names the savory fifth basic taste strongly associated with glutamate.", "answer": "What is umami?" },
+          { "value": 600, "clue": "This French preservation technique slowly cooks food in fat and can also preserve fruit in sugar.", "answer": "What is confit?" },
+          { "value": 800, "clue": "Onion, carrot, and celery form this classic aromatic base in French cooking.", "answer": "What is mirepoix?" },
+          { "value": 1000, "clue": "Egg yolks, sugar, and usually Marsala are whisked into this airy Italian custard.", "answer": "What is zabaglione?" }
+        ]
+      }
+    ],
+    "finalJeopardy": {
+      "category": "PRINTS & DESIGN",
+      "clue": "Mount Fuji appears small beneath a curling blue wave in this celebrated woodblock print by Hokusai.",
+      "answer": "What is The Great Wave off Kanagawa?"
+    }
+  },
+  {
+    "id": "game-10",
+    "title": "Maps & Machines",
+    "description": "Navigate American landscapes and world islands while tracing the inventions, computers, and vehicles that connected them.",
+    "difficulty": "Medium",
+    "categories": [
+      {
+        "name": "U.S. PHYSICAL GEOGRAPHY",
+        "clues": [
+          { "value": 200, "clue": "The Everglades occupy much of the southern portion of this state.", "answer": "What is Florida?" },
+          { "value": 400, "clue": "This is the largest of the Great Lakes by surface area.", "answer": "What is Lake Superior?" },
+          { "value": 600, "clue": "This highland region of plateaus and low mountains covers much of southern Missouri and northern Arkansas.", "answer": "What is the Ozark Plateau?" },
+          { "value": 800, "clue": "This Sierra Nevada peak is the highest point in the contiguous United States.", "answer": "What is Mount Whitney?" },
+          { "value": 1000, "clue": "Parts of Wisconsin, Minnesota, Iowa, and Illinois form this rugged region missed by recent continental glaciers.", "answer": "What is the Driftless Area?" }
+        ]
+      },
+      {
+        "name": "WORLD ISLANDS",
+        "clues": [
+          { "value": 200, "clue": "This mostly ice-covered Danish territory is the world's largest island.", "answer": "What is Greenland?" },
+          { "value": 400, "clue": "The Strait of Messina separates this triangular island from the toe of mainland Italy.", "answer": "What is Sicily?" },
+          { "value": 600, "clue": "Lemurs are native to this large island nation off southeastern Africa.", "answer": "What is Madagascar?" },
+          { "value": 800, "clue": "Jakarta and Yogyakarta are on this Indonesian island, the world's most populous.", "answer": "What is Java?" },
+          { "value": 1000, "clue": "The Strait of Magellan separates mainland South America from this archipelago.", "answer": "What is Tierra del Fuego?" }
+        ]
+      },
+      {
+        "name": "EVERYDAY INVENTIONS",
+        "clues": [
+          { "value": 200, "clue": "Percy Spencer's work with radar magnetrons led to this kitchen appliance.", "answer": "What is the microwave oven?" },
+          { "value": 400, "clue": "Gideon Sundback improved this fastener with interlocking teeth and a sliding pull.", "answer": "What is the zipper?" },
+          { "value": 600, "clue": "László Bíró patented a practical version of this pen that uses a tiny rolling sphere.", "answer": "What is a ballpoint pen?" },
+          { "value": 800, "clue": "Josephine Cochrane patented a successful mechanical version of this plate-cleaning appliance.", "answer": "What is the dishwasher?" },
+          { "value": 1000, "clue": "Burrs clinging to a dog's fur inspired George de Mestral to develop this hook-and-loop fastener.", "answer": "What is Velcro?", "dailyDouble": true }
+        ]
+      },
+      {
+        "name": "COMPUTING MILESTONES",
+        "clues": [
+          { "value": 200, "clue": "Tim Berners-Lee invented this linked information system while working at CERN.", "answer": "What is the World Wide Web?" },
+          { "value": 400, "clue": "Completed in the 1940s, this room-sized U.S. machine was an early general-purpose electronic digital computer.", "answer": "What is ENIAC?" },
+          { "value": 600, "clue": "Its name expands to Common Business-Oriented Language, reflecting the work it was designed to handle.", "answer": "What is COBOL?" },
+          { "value": 800, "clue": "Apple popularized the mouse-driven graphical interface with this personal computer introduced in 1984.", "answer": "What is the Macintosh?" },
+          { "value": 1000, "clue": "Launched in 1969, this packet-switching research network became an important precursor to the internet.", "answer": "What is ARPANET?" }
+        ]
+      },
+      {
+        "name": "TRAINS, PLANES & AUTOS",
+        "clues": [
+          { "value": 200, "clue": "Piaggio introduced this Italian motor scooter in 1946 with a name meaning wasp.", "answer": "What is the Vespa?" },
+          { "value": 400, "clue": "Orville Wright piloted this aircraft on its first powered flight near Kitty Hawk in 1903.", "answer": "What is the Wright Flyer?" },
+          { "value": 600, "clue": "France's high-speed rail service is known by these initials for train à grande vitesse.", "answer": "What is the TGV?" },
+          { "value": 800, "clue": "This German engineer gave his name to an engine that ignites fuel through compression rather than a spark plug.", "answer": "Who is Rudolf Diesel?" },
+          { "value": 1000, "clue": "The world's first underground passenger railway opened in 1863 as part of this city's transit system.", "answer": "What is the London Underground?" }
+        ]
+      },
+      {
+        "name": "MAP LANGUAGE",
+        "clues": [
+          { "value": 200, "clue": "Hawaii is this type of chain or cluster of islands.", "answer": "What is an archipelago?" },
+          { "value": 400, "clue": "The narrow land bridge connecting two larger landmasses is called this.", "answer": "What is an isthmus?" },
+          { "value": 600, "clue": "A portion of a country geographically separated from its main territory is known by this term.", "answer": "What is an exclave?" },
+          { "value": 800, "clue": "A place lying exactly opposite another location on Earth is described by this adjective.", "answer": "What is antipodal?" },
+          { "value": 1000, "clue": "This thematic map uses graduated colors or shading to show values across regions.", "answer": "What is a choropleth map?" }
+        ]
+      }
+    ],
+    "finalJeopardy": {
+      "category": "NAVIGATION",
+      "clue": "John Harrison's accurate sea-going version of this device helped sailors determine longitude.",
+      "answer": "What is a marine chronometer?"
+    }
+  },
+  {
+    "id": "game-11",
+    "title": "Wild Worlds",
+    "description": "Meet remarkable animals, decode plant and Earth science, and explore ecosystems from the deep ocean to alpine grasslands.",
+    "difficulty": "Medium",
+    "categories": [
+      {
+        "name": "MAMMAL MARVELS",
+        "clues": [
+          { "value": 200, "clue": "This largest living land animal has enormous ears and two finger-like projections at the tip of its trunk.", "answer": "What is the African bush elephant?" },
+          { "value": 400, "clue": "Unlike the fluked-tailed dugong, this sea cow has a rounded, paddle-shaped tail.", "answer": "What is the manatee?" },
+          { "value": 600, "clue": "Also called a bearcat, this Southeast Asian mammal produces a scent often compared to buttered popcorn.", "answer": "What is the binturong?" },
+          { "value": 800, "clue": "Many bats and toothed whales navigate by interpreting returning sound through this process.", "answer": "What is echolocation?" },
+          { "value": 1000, "clue": "This Central Asian antelope has an unusually large, flexible nose that helps filter dust and warm cold air.", "answer": "What is the saiga?" }
+        ]
+      },
+      {
+        "name": "BIRD BEHAVIOR",
+        "clues": [
+          { "value": 200, "clue": "The male of this largest penguin species balances an egg on his feet through the Antarctic winter.", "answer": "What is the emperor penguin?" },
+          { "value": 400, "clue": "This tiny nectar-feeding bird is the only kind capable of sustained backward flight.", "answer": "What is a hummingbird?" },
+          { "value": 600, "clue": "This falcon can exceed 200 miles per hour during a hunting dive called a stoop.", "answer": "What is the peregrine falcon?" },
+          { "value": 800, "clue": "Native to Australia, this bird can imitate camera shutters, chainsaws, and other sounds.", "answer": "What is the lyrebird?" },
+          { "value": 1000, "clue": "This nocturnal, flightless New Zealand parrot is also the world's heaviest parrot species.", "answer": "What is the kākāpō?" }
+        ]
+      },
+      {
+        "name": "PLANT SCIENCE",
+        "clues": [
+          { "value": 200, "clue": "Plants use sunlight to turn water and carbon dioxide into sugars through this process.", "answer": "What is photosynthesis?" },
+          { "value": 400, "clue": "This vascular tissue carries water and dissolved minerals upward from a plant's roots.", "answer": "What is xylem?" },
+          { "value": 600, "clue": "This adjustable pore, usually found on a leaf, allows gas exchange and water loss.", "answer": "What is a stoma?" },
+          { "value": 800, "clue": "Bacteria in the root nodules of legumes convert atmospheric nitrogen through this process.", "answer": "What is nitrogen fixation?" },
+          { "value": 1000, "clue": "A houseplant bending toward a window demonstrates this directional growth response to light.", "answer": "What is phototropism?" }
+        ]
+      },
+      {
+        "name": "EARTH AT WORK",
+        "clues": [
+          { "value": 200, "clue": "Molten rock is called magma underground and this after it reaches the surface.", "answer": "What is lava?" },
+          { "value": 400, "clue": "Geologists rank minerals from talc to diamond using this hardness scale.", "answer": "What is the Mohs scale?" },
+          { "value": 600, "clue": "At some plate boundaries, one tectonic plate sinks beneath another in this process.", "answer": "What is subduction?" },
+          { "value": 800, "clue": "Compaction and cementation turn loose sediment into rock through this process.", "answer": "What is lithification?" },
+          { "value": 1000, "clue": "Dry conditions on the sheltered side of a mountain range result from this two-word effect.", "answer": "What is a rain shadow?" }
+        ]
+      },
+      {
+        "name": "OCEAN LIFE",
+        "clues": [
+          { "value": 200, "clue": "This tiny individual animal secretes the calcium carbonate skeleton that helps build a coral reef.", "answer": "What is a coral polyp?" },
+          { "value": 400, "clue": "This color-changing relative of the squid has distinctive W-shaped pupils and an internal cuttlebone.", "answer": "What is the cuttlefish?" },
+          { "value": 600, "clue": "Giant kelp is not a plant but a large form of this broad group of aquatic organisms.", "answer": "What is algae?" },
+          { "value": 800, "clue": "This small reef fish removes parasites from larger clients at underwater cleaning stations.", "answer": "What is a cleaner wrasse?" },
+          { "value": 1000, "clue": "Scientists thought this ancient-looking lobe-finned fish was extinct until a living specimen appeared in 1938.", "answer": "What is the coelacanth?" }
+        ]
+      },
+      {
+        "name": "BIOMES & RANGES",
+        "clues": [
+          { "value": 200, "clue": "Tropical grassland dotted with scattered trees is known by this biome name.", "answer": "What is a savanna?" },
+          { "value": 400, "clue": "Also called boreal forest, this conifer-dominated biome stretches across Canada and Russia.", "answer": "What is the taiga?" },
+          { "value": 600, "clue": "This salt-tolerant type of coastal forest shelters young fish and stabilizes tropical shorelines.", "answer": "What is a mangrove forest?" },
+          { "value": 800, "clue": "This high, treeless Andean ecosystem lies above the forest line but below permanent snow.", "answer": "What is the páramo?", "dailyDouble": true },
+          { "value": 1000, "clue": "Proteas flourish in this exceptionally diverse shrubland biome around South Africa's Cape region.", "answer": "What is fynbos?" }
+        ]
+      }
+    ],
+    "finalJeopardy": {
+      "category": "NATURAL PARTNERS",
+      "clue": "A fungus living together with an alga or cyanobacterium forms this hardy composite organism found on rocks and bark.",
+      "answer": "What is a lichen?"
+    }
+  },
+  {
+    "id": "game-12",
+    "title": "Past Forward",
+    "description": "Follow human history from early civilizations through revolutions, landmark objects, and people who changed the modern world.",
+    "difficulty": "Medium",
+    "categories": [
+      {
+        "name": "ANCIENT CIVILIZATIONS",
+        "clues": [
+          { "value": 200, "clue": "Pharaohs recorded religious and royal texts using this picture-based Egyptian writing system.", "answer": "What is hieroglyphic writing?" },
+          { "value": 400, "clue": "This Babylonian king's famous law code was carved on a tall stone monument.", "answer": "Who is Hammurabi?" },
+          { "value": 600, "clue": "Mohenjo-daro was a carefully planned city of this Bronze Age civilization in South Asia.", "answer": "What is the Indus Valley Civilization?" },
+          { "value": 800, "clue": "Colossal stone heads are the best-known monuments of this early Mesoamerican civilization.", "answer": "What is the Olmec civilization?" },
+          { "value": 1000, "clue": "The palace at Knossos was a major center of this Bronze Age civilization on Crete.", "answer": "What is the Minoan civilization?" }
+        ]
+      },
+      {
+        "name": "THE MEDIEVAL WORLD",
+        "clues": [
+          { "value": 200, "clue": "Pope Leo III crowned this Frankish ruler emperor in Rome on Christmas Day in the year 800.", "answer": "Who is Charlemagne?" },
+          { "value": 400, "clue": "This Venetian traveler described his years in Asia in a book associated with the court of Kublai Khan.", "answer": "Who is Marco Polo?" },
+          { "value": 600, "clue": "A famously lavish pilgrimage to Mecca advertised the wealth of this ruler of Mali.", "answer": "Who is Mansa Musa?" },
+          { "value": 800, "clue": "This dark name is given to the devastating plague pandemic that swept across Eurasia in the 14th century.", "answer": "What is the Black Death?" },
+          { "value": 1000, "clue": "This alliance of merchant towns dominated much of the medieval trade of the Baltic and North seas.", "answer": "What is the Hanseatic League?" }
+        ]
+      },
+      {
+        "name": "AGE OF REVOLUTIONS",
+        "clues": [
+          { "value": 200, "clue": "Thomas Paine made the case for American independence in this plainspoken 1776 pamphlet.", "answer": "What is Common Sense?" },
+          { "value": 400, "clue": "In 1789, France's new National Assembly vowed not to separate before giving the nation a constitution in this oath.", "answer": "What is the Tennis Court Oath?" },
+          { "value": 600, "clue": "This priest's 1810 Grito de Dolores helped launch Mexico's war for independence.", "answer": "Who is Miguel Hidalgo?" },
+          { "value": 800, "clue": "Known as the Liberator, this Venezuelan helped win independence across northern South America.", "answer": "Who is Simón Bolívar?" },
+          { "value": 1000, "clue": "This 1688-89 revolution deposed James II and brought William and Mary to the English throne.", "answer": "What is the Glorious Revolution?" }
+        ]
+      },
+      {
+        "name": "THE 20TH CENTURY",
+        "clues": [
+          { "value": 200, "clue": "Winston Churchill popularized this two-word metaphor for the political division of Cold War Europe.", "answer": "What is the Iron Curtain?" },
+          { "value": 400, "clue": "This leader used nonviolent civil resistance in the movement for Indian independence.", "answer": "Who is Mahatma Gandhi?" },
+          { "value": 600, "clue": "Named for a U.S. secretary of state, this aid program helped rebuild Western European economies after World War II.", "answer": "What is the Marshall Plan?" },
+          { "value": 800, "clue": "This independent Polish trade union grew into a mass movement against communist rule in the 1980s.", "answer": "What is Solidarity?" },
+          { "value": 1000, "clue": "Leaders from Asia and Africa met in this Indonesian city in 1955 to discuss cooperation and colonialism.", "answer": "What is Bandung?" }
+        ]
+      },
+      {
+        "name": "HISTORY THROUGH OBJECTS",
+        "clues": [
+          { "value": 200, "clue": "Sumerian scribes pressed wedge-shaped cuneiform signs into tablets made from this material.", "answer": "What is clay?" },
+          { "value": 400, "clue": "This embroidered medieval work depicts the Norman conquest of England and the Battle of Hastings.", "answer": "What is the Bayeux Tapestry?" },
+          { "value": 600, "clue": "The Inca recorded quantities using knotted cords known by this Quechua-derived name.", "answer": "What is a quipu?" },
+          { "value": 800, "clue": "Recovered from a shipwreck, this geared Greek device modeled astronomical cycles more than 2,000 years ago.", "answer": "What is the Antikythera mechanism?", "dailyDouble": true },
+          { "value": 1000, "clue": "This collective name applies to thousands of metal plaques and sculptures from a powerful West African kingdom.", "answer": "What is the Benin Bronzes collection?" }
+        ]
+      },
+      {
+        "name": "WOMEN IN HISTORY",
+        "clues": [
+          { "value": 200, "clue": "She co-founded the United Farm Workers with César Chávez and popularized the phrase 'Sí, se puede.'", "answer": "Who is Dolores Huerta?" },
+          { "value": 400, "clue": "Her book Silent Spring documented the environmental damage caused by indiscriminate pesticide use.", "answer": "Who is Rachel Carson?" },
+          { "value": 600, "clue": "This female pharaoh commissioned a grand mortuary temple at Deir el-Bahri.", "answer": "Who is Hatshepsut?" },
+          { "value": 800, "clue": "Her notes on Charles Babbage's Analytical Engine included an algorithm for Bernoulli numbers.", "answer": "Who is Ada Lovelace?" },
+          { "value": 1000, "clue": "This 17th-century queen of Ndongo and Matamba resisted Portuguese expansion in present-day Angola.", "answer": "Who is Queen Nzinga?" }
+        ]
+      }
+    ],
+    "finalJeopardy": {
+      "category": "LANDMARK TREATIES",
+      "clue": "Signed in 1494, this agreement drew a line dividing newly claimed overseas lands between Spain and Portugal.",
+      "answer": "What is the Treaty of Tordesillas?"
+    }
+  },
+  {
+    "id": "game-13",
+    "title": "Words Abroad",
+    "description": "Unpack the origins, structures, scripts, literary forms, and place names that make languages travel across cultures.",
+    "difficulty": "Medium",
+    "categories": [
+      {
+        "name": "WORD ORIGINS",
+        "clues": [
+          { "value": 200, "clue": "The names of the first two Greek letters combine to give us this word for a set of letters.", "answer": "What is alphabet?" },
+          { "value": 400, "clue": "This mechanical word entered English from Karel Čapek's Czech play R.U.R.", "answer": "What is robot?" },
+          { "value": 600, "clue": "From an Italian expression meaning forty days, this word originally described a period of disease isolation.", "answer": "What is quarantine?" },
+          { "value": 800, "clue": "This word for an office seeker comes from a Latin word for white, recalling bright togas worn in ancient Rome.", "answer": "What is candidate?" },
+          { "value": 1000, "clue": "The name of Persian mathematician al-Khwarizmi gave English this word for a step-by-step procedure.", "answer": "What is algorithm?" }
+        ]
+      },
+      {
+        "name": "ROMANCE LANGUAGES",
+        "clues": [
+          { "value": 200, "clue": "Bonjour and merci belong to this language.", "answer": "What is French?" },
+          { "value": 400, "clue": "Dante's Tuscan helped shape the standard form of this language.", "answer": "What is Italian?" },
+          { "value": 600, "clue": "This Romance language of Eastern Europe is the official language of Romania and Moldova.", "answer": "What is Romanian?" },
+          { "value": 800, "clue": "Spoken in Barcelona and nearby regions, this language is a Romance language rather than a dialect of Spanish.", "answer": "What is Catalan?" },
+          { "value": 1000, "clue": "Medieval troubadours composed in this Romance language still spoken in parts of southern France.", "answer": "What is Occitan?" }
+        ]
+      },
+      {
+        "name": "WRITING SYSTEMS",
+        "clues": [
+          { "value": 200, "clue": "Russian and Bulgarian are commonly written in this alphabet.", "answer": "What is Cyrillic?" },
+          { "value": 400, "clue": "This script, written from right to left, is used for a language spoken from Morocco to Iraq.", "answer": "What is Arabic script?" },
+          { "value": 600, "clue": "Alongside kanji, Japanese uses two native syllabaries collectively known by this four-letter term.", "answer": "What is kana?" },
+          { "value": 800, "clue": "King Sejong sponsored this Korean alphabet, whose letter shapes reflect how sounds are formed.", "answer": "What is Hangul?" },
+          { "value": 1000, "clue": "Devanagari is an example of this type of script in which consonants carry an inherent vowel.", "answer": "What is an abugida?" }
+        ]
+      },
+      {
+        "name": "GRAMMAR TOOLKIT",
+        "clues": [
+          { "value": 200, "clue": "Person, place, thing, or idea is the familiar classroom definition of this part of speech.", "answer": "What is a noun?" },
+          { "value": 400, "clue": "Level and racecar are examples of this kind of sequence that reads the same in both directions.", "answer": "What is a palindrome?" },
+          { "value": 600, "clue": "Jumbo shrimp and deafening silence pair apparent opposites in this figure of speech.", "answer": "What is an oxymoron?" },
+          { "value": 800, "clue": "The phrase 'If I were' traditionally uses this grammatical mood for wishes and hypotheticals.", "answer": "What is the subjunctive?" },
+          { "value": 1000, "clue": "Omitting conjunctions in 'I came, I saw, I conquered' creates this rhetorical device.", "answer": "What is asyndeton?" }
+        ]
+      },
+      {
+        "name": "LITERARY FORMS",
+        "clues": [
+          { "value": 200, "clue": "This compact Japanese poetic form is often rendered in English in three lines of five, seven, and five syllables.", "answer": "What is haiku?" },
+          { "value": 400, "clue": "Shakespeare wrote 154 examples of this 14-line poetic form.", "answer": "What is a sonnet?" },
+          { "value": 600, "clue": "This German term names a novel that follows a protagonist's education and growth into adulthood.", "answer": "What is a bildungsroman?" },
+          { "value": 800, "clue": "A novel told through letters, diary entries, or other documents is described by this adjective.", "answer": "What is epistolary?", "dailyDouble": true },
+          { "value": 1000, "clue": "This 19-line French verse form uses five tercets, a quatrain, and repeating lines.", "answer": "What is a villanelle?" }
+        ]
+      },
+      {
+        "name": "PLACE-NAME WORDS",
+        "clues": [
+          { "value": 200, "clue": "This Argentine capital's Spanish name translates to good airs.", "answer": "What is Buenos Aires?" },
+          { "value": 400, "clue": "The suffix shared by Pakistan and Kazakhstan comes from a Persian word meaning this.", "answer": "What is land?" },
+          { "value": 600, "clue": "Portuguese explorers reached Guanabara Bay in January, inspiring this Brazilian city's name.", "answer": "What is Rio de Janeiro?" },
+          { "value": 800, "clue": "This Moroccan port city's Spanish name literally means white house.", "answer": "What is Casablanca?" },
+          { "value": 1000, "clue": "The Icelandic capital Reykjavík has a name traditionally translated as this misty coastal feature.", "answer": "What is Smoky Bay?" }
+        ]
+      }
+    ],
+    "finalJeopardy": {
+      "category": "LANGUAGE FAMILIES",
+      "clue": "English, Hindi, and Persian belong to different branches of this vast language family.",
+      "answer": "What is Indo-European?"
+    }
+  },
+  {
+    "id": "game-14",
+    "title": "Curious Cabinet",
+    "description": "Open a cabinet of classic books, bold design, kitchen chemistry, exploration, astronomy, and distinctive American places.",
+    "difficulty": "Medium",
+    "categories": [
+      {
+        "name": "BOOKS & AUTHORS",
+        "clues": [
+          { "value": 200, "clue": "Bilbo Baggins leaves the Shire with thirteen dwarves in this J.R.R. Tolkien novel.", "answer": "What is The Hobbit?" },
+          { "value": 400, "clue": "At age 18, this English author began the novel Frankenstein.", "answer": "Who is Mary Shelley?" },
+          { "value": 600, "clue": "Okonkwo's life changes as colonial rule reaches his Igbo community in this Chinua Achebe novel.", "answer": "What is Things Fall Apart?" },
+          { "value": 800, "clue": "An unnamed Black narrator recounts his search for identity in this 1952 novel by Ralph Ellison.", "answer": "What is Invisible Man?" },
+          { "value": 1000, "clue": "A series of deaths unsettles a medieval monastery in this mystery novel by Umberto Eco.", "answer": "What is The Name of the Rose?" }
+        ]
+      },
+      {
+        "name": "SCULPTURE & DESIGN",
+        "clues": [
+          { "value": 200, "clue": "Anish Kapoor's reflective Chicago sculpture is officially named this, though locals call it The Bean.", "answer": "What is Cloud Gate?" },
+          { "value": 400, "clue": "This sculptor directed the carving of four presidents at Mount Rushmore.", "answer": "Who is Gutzon Borglum?" },
+          { "value": 600, "clue": "Alexander Calder popularized this balanced form of sculpture that moves with air currents.", "answer": "What is a mobile?" },
+          { "value": 800, "clue": "Constantin Brâncuși reduced a creature in flight to a sleek vertical form in this sculpture series.", "answer": "What is Bird in Space?" },
+          { "value": 1000, "clue": "Marcel Breuer used bent tubular steel to create this Bauhaus chair named after a fellow artist.", "answer": "What is the Wassily Chair?" }
+        ]
+      },
+      {
+        "name": "BAKING SCIENCE",
+        "clues": [
+          { "value": 200, "clue": "This living leavener produces carbon dioxide that makes bread dough rise.", "answer": "What is yeast?" },
+          { "value": 400, "clue": "Mixing wheat flour with water develops this stretchy protein network.", "answer": "What is gluten?" },
+          { "value": 600, "clue": "Also called sodium bicarbonate, this leavener needs an acid to release carbon dioxide.", "answer": "What is baking soda?" },
+          { "value": 800, "clue": "Browning between amino acids and sugars creates complex flavors through this named reaction.", "answer": "What is the Maillard reaction?" },
+          { "value": 1000, "clue": "Repeatedly folding butter between layers of dough creates croissants and other pastries of this type.", "answer": "What is laminated dough?" }
+        ]
+      },
+      {
+        "name": "GREAT EXPLORERS",
+        "clues": [
+          { "value": 200, "clue": "A 1507 world map adapted this Italian navigator's first name for the newly described continents.", "answer": "Who is Amerigo Vespucci?" },
+          { "value": 400, "clue": "During three Pacific voyages, this British captain charted New Zealand and Australia's eastern coast.", "answer": "Who is James Cook?" },
+          { "value": 600, "clue": "This Moroccan traveler journeyed through Africa and Asia before recounting his travels in the Rihla.", "answer": "Who is Ibn Battuta?" },
+          { "value": 800, "clue": "After Endurance was crushed by ice, all 28 members of its stranded party survived under this leader.", "answer": "Who is Ernest Shackleton?" },
+          { "value": 1000, "clue": "This Prussian naturalist explored Spanish America and helped establish the geography of plants.", "answer": "Who is Alexander von Humboldt?", "dailyDouble": true }
+        ]
+      },
+      {
+        "name": "CELESTIAL NEIGHBORS",
+        "clues": [
+          { "value": 200, "clue": "This natural satellite causes most of Earth's ocean tides and always shows us nearly the same face.", "answer": "What is the Moon?" },
+          { "value": 400, "clue": "Triton orbits this distant blue planet, the farthest major planet from the Sun.", "answer": "What is Neptune?" },
+          { "value": 600, "clue": "This largest moon in the solar system orbits Jupiter and is even bigger than Mercury.", "answer": "What is Ganymede?" },
+          { "value": 800, "clue": "Pluto and many other icy bodies orbit in this region beyond Neptune.", "answer": "What is the Kuiper Belt?" },
+          { "value": 1000, "clue": "Long-period comets may begin in this distant, roughly spherical cloud surrounding the solar system.", "answer": "What is the Oort Cloud?" }
+        ]
+      },
+      {
+        "name": "AMERICAN PLACES",
+        "clues": [
+          { "value": 200, "clue": "Eero Saarinen designed this stainless-steel monument beside the Mississippi in St. Louis.", "answer": "What is the Gateway Arch?" },
+          { "value": 400, "clue": "Arizona, Colorado, New Mexico, and Utah meet at this uniquely shared boundary point.", "answer": "What is Four Corners?" },
+          { "value": 600, "clue": "Maryland and Virginia border this large estuary of the Susquehanna River.", "answer": "What is Chesapeake Bay?" },
+          { "value": 800, "clue": "Completed in 1825, this New York waterway linked the Hudson River with the Great Lakes.", "answer": "What is the Erie Canal?" },
+          { "value": 1000, "clue": "Much of Nevada lies in this region where rivers and streams do not drain to the ocean.", "answer": "What is the Great Basin?" }
+        ]
+      }
+    ],
+    "finalJeopardy": {
+      "category": "ANCIENT DISCOVERIES",
+      "clue": "Thousands of life-size clay soldiers guarded the tomb complex of this first emperor of a unified China.",
+      "answer": "Who is Qin Shi Huang?"
+    }
+  }
+]

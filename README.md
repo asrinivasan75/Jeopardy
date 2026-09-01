@@ -1,71 +1,95 @@
-# Jeopardy!
+# Jeopardy! Local Multiplayer
 
-A browser-based Jeopardy-style trivia game for hosting game nights, classrooms, and friendly competitions. It ships with 62 ready-to-play games and 1,889 clues, while also letting you build and import your own boards.
+A live, browser-based Jeopardy-style game built for game nights, classrooms, and friendly competitions. One person hosts the board on a computer, while up to eight players join from their phones or laptops over the same local network.
 
-## Features
+The game includes 20 original, medium-difficulty boards with 600 regular clues, 20 Daily Doubles, and 20 Final Jeopardy clues.
 
-- 62 bundled sample games across sports, travel, history, science, pop culture, food, and more
-- Live scoring for one to eight teams, including quick score adjustments
-- Clue reveals with correct and incorrect scoring controls
-- Final Jeopardy wagers and per-team results
-- A built-in editor for creating and updating custom six-category games
-- JSON import and export for individual games or the complete collection
-- Automatic browser storage for custom games, scores, and board progress
-- Keyboard controls for faster hosting
-- Responsive layout for desktop and smaller screens
+## What it does
 
-## Run locally
+- Creates a private five-character room code for each game
+- Keeps the board, clues, buzz order, and scores synchronized across every device
+- Lets players use their phone as a low-latency buzzer
+- Uses a compact, Lichess-inspired lobby for browsing and selecting boards
+- Gives the host private answer keys and full scoring controls
+- Reopens buzzing after an incorrect response while locking out that player for the clue
+- Supports host-assigned Daily Double contestants and wagers
+- Runs private Final Jeopardy wagers and written responses before the host judges them
+- Restores host and player sessions after an ordinary Wi-Fi interruption
+- Includes 20 varied games spanning history, science, geography, sports, film, music, literature, food, nature, technology, mythology, architecture, and more
 
-No installation, build step, or package manager is required.
+## Requirements
 
-1. Clone the repository:
+- [Node.js](https://nodejs.org/) 20 or newer
+- All participating devices connected to the same local network or Wi-Fi
 
-   ```bash
-   git clone https://github.com/asrinivasan75/Jeopardy.git
-   cd Jeopardy
-   ```
+## Start the server
 
-2. Start a local web server:
+```bash
+git clone https://github.com/asrinivasan75/Jeopardy.git
+cd Jeopardy
+npm install
+npm start
+```
 
-   ```bash
-   python3 -m http.server 8000
-   ```
+The server listens on port `3000` and prints addresses similar to these:
 
-3. Open [http://localhost:8000](http://localhost:8000) in your browser.
+```text
+Jeopardy multiplayer is live.
+Open one of these addresses:
+  http://localhost:3000
+  http://192.168.1.42:3000
+```
 
-You can also open `index.html` directly, although a local server provides behavior closer to a deployed website.
+Open either address on the host computer. Players must use the `192.168.x.x`-style local-network address—not `localhost`—because `localhost` always points back to the device currently holding it.
 
-## How to play
+To use a different port:
 
-1. Select one of the sample games or create a custom game.
-2. Rename teams, add or remove teams, and adjust starting scores if needed.
-3. Choose a clue, reveal its response, and award or deduct points.
-4. Continue until the board is complete, then select **Final Jeopardy** for wagers and final scoring.
-5. Use **Reset** to start that game again with a fresh board and scores.
+```bash
+PORT=8080 npm start
+```
 
-Progress is saved in the browser automatically. Returning to the same game restores its answered clues, teams, and scores when the board structure has not changed.
+## Host a game
 
-## Keyboard shortcuts
+1. Open the server address and select **Create lobby game**, or choose a board directly from the lobby list.
+2. Share the player link or the five-character room code.
+3. Wait for players to appear in the contestant list.
+4. Choose one of the 20 games.
+5. Select clues, watch the buzz order, and mark responses correct or incorrect.
+6. Use **Final Jeopardy** when the board is complete—or whenever you are ready to finish.
 
-| Key | Action |
-| --- | --- |
-| `?` | Open or close keyboard help |
-| `Space` | Reveal the response for the current clue |
-| `1`–`9` | Award the clue value to the corresponding team |
-| `Shift` + `1`–`9` | Deduct the clue value from the corresponding team |
-| `Esc` | Close the active clue or dialog |
+The host can adjust scores manually, reset buzzers, close unanswered clues, remove players, reset the board, or return to the game library.
 
-Scoring shortcuts work after the response has been revealed.
+## Join as a player
 
-## Custom game format
+1. Open the host's local-network address on a phone or laptop.
+2. Enter the room code and a display name.
+3. Keep the page open while the host chooses a game.
+4. When a clue appears, press the large red buzzer. The host sees everyone in server-received order.
+5. Players with a positive score can submit a private Final Jeopardy wager and response from their device.
 
-Games can be created in the built-in editor or imported as JSON. Imports accept up to six categories and five clues per category; shorter games are padded to fit the standard board.
+## How multiplayer works
+
+```text
+Host browser ─┐
+Player phones ├── Socket.IO ── Node.js room server ── 20-game question bank
+Player laptop ┘                     │
+                                    └── authoritative scores and game state
+```
+
+The server is authoritative: browsers send actions, and the server validates them before broadcasting a role-specific state update. Players do not receive hidden clue responses, Final Jeopardy wagers, or other players' written responses before the host reveals them.
+
+Rooms live in memory. A fully disconnected room expires after 12 hours of inactivity, while a room with at least one connected device remains active. Stopping the Node.js process ends all rooms; scores and progress are intentionally not written to disk.
+
+## Question bank
+
+The replacement bank lives in [`data/games`](data/games). Each JSON file contains an array of games. A game requires exactly six categories, five clues per category, one Daily Double, and one Final Jeopardy clue. This abbreviated example shows the object shape:
 
 ```json
 {
+  "id": "game-example",
   "title": "Example Game",
-  "description": "An optional description",
-  "difficulty": "Custom",
+  "description": "A balanced mix of familiar subjects.",
+  "difficulty": "Medium",
   "categories": [
     {
       "name": "SCIENCE",
@@ -73,7 +97,8 @@ Games can be created in the built-in editor or imported as JSON. Imports accept 
         {
           "value": 200,
           "clue": "This planet is known as the Red Planet.",
-          "answer": "What is Mars?"
+          "answer": "What is Mars?",
+          "dailyDouble": true
         }
       ]
     }
@@ -86,21 +111,40 @@ Games can be created in the built-in editor or imported as JSON. Imports accept 
 }
 ```
 
-Only `title` and a non-empty `categories` array are required. Missing clue values default to `$200`, `$400`, `$600`, `$800`, and `$1,000` by row.
+The server validates the complete bank at startup and refuses to launch if a file is malformed, an ID or title is duplicated, a category is incomplete, clue values are out of order, or a game does not contain exactly one Daily Double.
+
+## Development
+
+```bash
+npm run dev    # restart automatically when server files change
+npm run check  # syntax-check the server and browser JavaScript
+npm test       # run game-bank, room-engine, privacy, and socket integration tests
+```
+
+See the [changelog](CHANGELOG.md) for release history.
 
 ## Project structure
 
-| File | Purpose |
+| Path | Purpose |
 | --- | --- |
-| `index.html` | Application screens, dialogs, and controls |
-| `style.css` | Visual design and responsive layout |
-| `app.js` | Game state, scoring, builder, import/export, and keyboard behavior |
-| `games.js` | Bundled sample game data |
-| `games.js.bak*` | Historical working copies of the sample game data |
+| `server.js` | HTTP server, Socket.IO events, room broadcasts, and local-network addresses |
+| `lib/room-manager.js` | Authoritative room, buzzer, scoring, Daily Double, and Final Jeopardy rules |
+| `lib/game-store.js` | Question-bank loading and validation |
+| `data/games/*.json` | The 20-game replacement question bank |
+| `index.html` | Host and player application shell |
+| `app.js` | Synchronized host/player rendering and controls |
+| `style.css` | Responsive lobby, board, buzzer, and Final Jeopardy design |
+| `test/` | Unit and multi-client integration tests |
 
-## Data and privacy
+## Local-network troubleshooting
 
-The app has no backend. Custom games and active game state are stored only in the browser's `localStorage`. Clearing site data removes that saved state, so export important custom games before clearing browser storage or moving to another device.
+- Make sure every device is connected to the same Wi-Fi network.
+- Share the address beginning with your computer's local IP, such as `192.168.1.42`, rather than `localhost`.
+- Allow incoming Node.js connections if macOS or Windows shows a firewall prompt.
+- Guest Wi-Fi and some corporate or school networks block devices from talking to each other. Use a normal home network or a phone hotspot if players cannot connect.
+- Keep the terminal running for the entire game.
+
+This server is intended for a trusted local network. The room code is convenient game-night access, not production-grade authentication; do not expose the server directly to the public internet.
 
 ## Disclaimer
 
