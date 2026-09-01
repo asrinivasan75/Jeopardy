@@ -121,6 +121,8 @@ npm run check  # syntax-check the server and browser JavaScript
 npm test       # run game-bank, room-engine, privacy, and socket integration tests
 ```
 
+See the [changelog](CHANGELOG.md) for release history.
+
 ## Project structure
 
 | Path | Purpose |
