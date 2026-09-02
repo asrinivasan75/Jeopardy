@@ -143,9 +143,12 @@ function createJeopardyServer({ games = loadGames(), logger = console } = {}) {
     });
 
     registerMutation(socket, 'host:start-game', ({ gameId }) => rooms.startGame(socket.id, gameId));
+    registerMutation(socket, 'host:join-as-player', ({ name }) => rooms.joinHostAsPlayer(socket.id, { name }));
+    registerMutation(socket, 'host:leave-as-player', () => rooms.leaveHostAsPlayer(socket.id));
     registerMutation(socket, 'host:open-clue', (payload) => rooms.openClue(socket.id, payload));
     registerMutation(socket, 'host:set-daily-double', (payload) => rooms.setDailyDouble(socket.id, payload));
     registerMutation(socket, 'host:reset-buzzers', () => rooms.resetBuzzers(socket.id));
+    registerMutation(socket, 'host:open-answer-key', () => rooms.openAnswerKey(socket.id));
     registerMutation(socket, 'host:reveal-answer', () => rooms.revealAnswer(socket.id));
     registerMutation(socket, 'host:score-clue', (payload) => rooms.scoreClue(socket.id, payload));
     registerMutation(socket, 'host:skip-clue', () => rooms.skipClue(socket.id));
