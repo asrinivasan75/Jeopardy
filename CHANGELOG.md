@@ -2,6 +2,27 @@
 
 All notable changes to this project are documented in this file.
 
+## [2.0.1.0] - 2026-09-02
+
+### Added
+
+- Optional host-as-contestant mode with the same authoritative buzzer order, Daily Double rules, and private Final Jeopardy submissions as remote players.
+- A dual-role host buzzer, contestant status, self-judging controls, roster identity, and responsive Final Jeopardy entry forms.
+- Explicit private answer-key disclosure with server-enforced commit-or-forfeit rules for a playing host.
+
+### Changed
+
+- Answer keys now stay closed by default for both playing and non-playing hosts.
+- Final Jeopardy wager limits are frozen when Final begins so later score corrections cannot change an entrant's cap.
+- Lobby and game copy now explains that the host may take one of the eight contestant spots.
+
+### Fixed
+
+- Preserved the host contestant's identity, score, buzz position, key-disclosure state, and Final entry across reconnects and active-tab takeover.
+- Prevented a playing host from seeing a private key while retaining an uncommitted attempt or bypassing the commitment before self-scoring.
+- Kept remote buzz queues moving after the host forfeits, and prevented committed host attempts from being erased by a buzzer reset.
+- Corrected the host buzzer sizing and mobile clue layout so judging controls remain reachable without overlap.
+
 ## [2.0.0.0] - 2026-09-01
 
 ### Added

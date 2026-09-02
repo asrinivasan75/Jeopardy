@@ -38,6 +38,7 @@ let landingGameFilter = '';
 let preferredGameId = '';
 let activeDialogKey = '';
 let hostGameListScroll = 0;
+let hostPlayerName = localStorage.getItem(NAME_KEY) || '';
 const drafts = {
   dailyPlayerId: '',
   dailyWager: '',
@@ -286,14 +287,43 @@ function renderRoster({ hostControls = false } = {}) {
   }
   return `<ul class="roster-list">
     ${roomState.players.map((player) => `
-      <li class="roster-item ${player.id === roomState.you?.id ? 'is-you' : ''}">
+      <li class="roster-item ${player.id === roomState.you?.id ? 'is-you' : ''} ${player.isHost ? 'is-host' : ''}">
         <span class="presence-dot ${player.connected ? '' : 'offline'}" aria-label="${player.connected ? 'Connected' : 'Disconnected'}"></span>
-        <span class="roster-name">${escapeHtml(player.name)}${player.id === roomState.you?.id ? ' <em>You</em>' : ''}</span>
+        <span class="roster-name"><span>${escapeHtml(player.name)}</span>${player.isHost ? '<em class="host-badge">Host</em>' : ''}${player.id === roomState.you?.id ? '<em>You</em>' : ''}</span>
         ${roomState.phase !== 'lobby' ? `<strong>${formatMoney(player.score)}</strong>` : ''}
-        ${hostControls ? `<button class="icon-button" type="button" data-action="remove-player" data-player-id="${escapeAttr(player.id)}" aria-label="Remove ${escapeAttr(player.name)}">×</button>` : ''}
+        ${hostControls && !player.isHost ? `<button class="icon-button" type="button" data-action="remove-player" data-player-id="${escapeAttr(player.id)}" aria-label="Remove ${escapeAttr(player.name)}">×</button>` : ''}
       </li>
     `).join('')}
   </ul>`;
+}
+
+function renderHostPlayerControl() {
+  const you = roomState.you;
+  if (you) {
+    return `
+      <div class="host-player-control is-playing">
+        <div class="host-player-copy">
+          <span class="host-player-kicker"><i></i> You are in the game</span>
+          <strong>${escapeHtml(you.name)}</strong>
+          <small>Your buzzer and Final Jeopardy entry will appear alongside the host controls.</small>
+        </div>
+        <button class="button button-secondary" type="button" data-action="host-leave-player">Stop playing</button>
+      </div>`;
+  }
+  const roomIsFull = roomState.players.length >= 8;
+  return `
+    <form class="host-player-control host-player-form" id="host-player-form">
+      <div class="host-player-copy">
+        <span class="host-player-kicker">Want a podium too?</span>
+        <strong>Play while you host</strong>
+        <small>${roomIsFull ? 'All eight contestant spots are filled.' : 'Join the roster and buzz from this screen.'}</small>
+      </div>
+      <label for="host-player-name">Your contestant name</label>
+      <div class="host-player-fields">
+        <input id="host-player-name" name="name" type="text" maxlength="24" value="${escapeAttr(hostPlayerName)}" placeholder="Host name" autocomplete="nickname" required ${roomIsFull ? 'disabled' : ''}>
+        <button class="button button-gold" type="submit" ${roomIsFull ? 'disabled' : ''}>Play too</button>
+      </div>
+    </form>`;
 }
 
 function renderHostLobby() {
@@ -317,6 +347,7 @@ function renderHostLobby() {
           <div class="panel-heading">
             <div><p class="panel-label">Contestants</p><h2>${roomState.players.length} / 8 joined</h2></div>
           </div>
+          ${renderHostPlayerControl()}
           ${renderRoster({ hostControls: true })}
         </section>
         <section class="lobby-guide-card">
@@ -420,7 +451,7 @@ function renderScoreboard() {
           <article class="score-card ${player.id === roomState.you?.id ? 'is-you' : ''}">
             <div class="place-number">${index + 1}</div>
             <div class="score-copy">
-              <span class="score-name"><i class="presence-dot ${player.connected ? '' : 'offline'}"></i>${escapeHtml(player.name)}</span>
+              <span class="score-name"><i class="presence-dot ${player.connected ? '' : 'offline'}"></i><b>${escapeHtml(player.name)}</b>${player.isHost ? '<em>Host</em>' : ''}</span>
               <strong class="${player.score < 0 ? 'negative' : ''}">${formatMoney(player.score)}</strong>
             </div>
             ${roomState.role === 'host' ? `
@@ -522,6 +553,120 @@ function renderDailyWager(clue) {
     </div>`;
 }
 
+function hostBuzzerPresentation(clue) {
+  const you = roomState.you;
+  if (!you) return null;
+  const yourBuzz = clue.buzzes.find((buzz) => buzz.playerId === you.id);
+  const ineligible = clue.ineligiblePlayerIds.includes(you.id);
+  const canBuzz = connected && !clue.dailyDouble && clue.buzzOpen && !clue.revealed && !yourBuzz && !ineligible;
+
+  if (ineligible) {
+    return {
+      canBuzz,
+      yourBuzz,
+      tone: 'is-locked',
+      label: 'LOCKED OUT',
+      detail: clue.hostKeyOutcome === 'forfeited' ? 'You opened the key and sat out this clue.' : 'You already answered this clue.',
+    };
+  }
+  if (yourBuzz) {
+    if (yourBuzz.position === 1) {
+      return {
+        canBuzz,
+        yourBuzz,
+        tone: 'is-first',
+        label: 'FIRST IN',
+        detail: clue.revealed
+          ? 'Response shown — judge yourself below.'
+          : clue.hostKeyOutcome === 'committed'
+            ? 'Your response is locked — judge yourself below.'
+            : 'Answer aloud, then reveal or open the key to judge.',
+      };
+    }
+    return { canBuzz, yourBuzz, tone: 'is-queued', label: `BUZZED #${yourBuzz.position}`, detail: `You are number ${yourBuzz.position} in the queue.` };
+  }
+  if (clue.revealed) {
+    return { canBuzz, yourBuzz, tone: 'is-locked', label: 'REVEALED', detail: 'The correct response is now visible.' };
+  }
+  if (!clue.buzzOpen) {
+    return { canBuzz, yourBuzz, tone: 'is-locked', label: 'WAIT', detail: 'Buzzing is currently locked.' };
+  }
+  return { canBuzz, yourBuzz, tone: 'is-open', label: 'BUZZ', detail: 'Buzzers are open — press when ready.' };
+}
+
+function renderHostPlayStation(clue) {
+  const you = roomState.you;
+  if (!you) return '';
+  const dailyPlayer = playerById(clue.dailyPlayerId);
+
+  if (clue.dailyDouble) {
+    const isYours = dailyPlayer?.id === you.id;
+    const responseCommitted = clue.revealed || clue.hostKeyOutcome === 'committed';
+    return `
+      <aside class="host-play-station daily-self-station ${isYours ? 'is-yours' : ''}" aria-label="Your contestant status">
+        <div class="host-play-heading"><span>Your podium</span><strong>${escapeHtml(you.name)}</strong></div>
+        <div class="host-daily-state">
+          <span>${isYours ? 'Daily Double' : 'Buzzer locked'}</span>
+          <strong>${isYours ? 'This clue is yours' : `${escapeHtml(dailyPlayer?.name || 'A player')} is answering`}</strong>
+          <p aria-live="polite">${isYours ? (responseCommitted ? 'Your response is locked — score yourself below.' : 'Answer aloud, then reveal or open the key to judge.') : 'Daily Doubles do not use the buzzer.'}</p>
+        </div>
+      </aside>`;
+  }
+
+  const buzzer = hostBuzzerPresentation(clue);
+  return `
+    <aside class="host-play-station ${buzzer.tone}" aria-label="Your contestant buzzer">
+      <div class="host-play-heading"><span>Your buzzer</span><strong>${escapeHtml(you.name)}</strong></div>
+      <button class="buzzer host-buzzer ${buzzer.yourBuzz ? 'buzzed' : ''}" type="button" data-action="buzz" ${buzzer.canBuzz ? '' : 'disabled'} aria-label="${buzzer.canBuzz ? `Buzz in as ${escapeAttr(you.name)}` : escapeAttr(buzzer.label)}">
+        <span class="buzzer-face">${escapeHtml(buzzer.label)}</span>
+        <small>${buzzer.canBuzz ? 'Press or tap' : 'Contestant status'}</small>
+      </button>
+      <p class="host-buzzer-status" aria-live="polite">${escapeHtml(buzzer.detail)}</p>
+    </aside>`;
+}
+
+function renderHostAnswerDisclosure(clue) {
+  if (clue.revealed || (!clue.hostKeyAvailable && !clue.hostKeyOpened)) return '';
+  const you = roomState.you;
+  const isFirst = Boolean(you && (clue.dailyDouble ? clue.dailyPlayerId === you.id : clue.buzzes[0]?.playerId === you.id));
+  const selfWasRuledOut = Boolean(you && clue.ineligiblePlayerIds.includes(you.id));
+
+  if (clue.hostKeyOpened) {
+    const status = clue.hostKeyOutcome === 'committed'
+      ? (selfWasRuledOut ? 'Your response was scored' : 'Your response is locked')
+      : clue.hostKeyOutcome === 'forfeited'
+        ? 'You are sitting out this clue'
+        : 'Quizmaster key opened';
+    return `
+      <div class="host-key-disclosure is-opened">
+        <div>
+          <span>${status}</span>
+          <small>${clue.hostKeyOutcome === 'committed' ? (selfWasRuledOut ? 'Other contestants can continue buzzing.' : 'Judge your committed response below.') : clue.hostKeyOutcome === 'forfeited' ? 'Other contestants can continue buzzing.' : 'Judge contestants with the controls below.'}</small>
+        </div>
+        <div class="host-answer-key" role="status"><span>Host answer key</span><strong>${escapeHtml(clue.expectedAnswer)}</strong></div>
+      </div>`;
+  }
+
+  const actionCopy = you
+    ? (isFirst ? 'Lock my response & view key' : clue.dailyDouble ? 'View host key' : 'Sit out this clue & view key')
+    : 'Open host key';
+  const consequenceCopy = you
+    ? (isFirst
+      ? 'Private host screen only — opening commits your spoken response before you judge it.'
+      : clue.dailyDouble
+        ? `Private host screen only — this clue belongs to ${escapeHtml(playerById(clue.dailyPlayerId)?.name || 'another contestant')}.`
+        : 'Private host screen only — opening removes you from this clue so the remote queue stays fair.')
+    : 'Private host screen only — keep the key away from contestants.';
+  return `
+      <div class="host-key-disclosure">
+        <div>
+          <span>${you ? 'Playing-host fairness lock' : 'Quizmaster-only aid'}</span>
+          <small id="host-key-consequence">${consequenceCopy}</small>
+        </div>
+        <button class="button ${you ? 'button-gold' : 'button-secondary'}" type="button" data-action="open-host-key" aria-describedby="host-key-consequence">${actionCopy}</button>
+      </div>`;
+}
+
 function renderHostClue(clue) {
   if (clue.phase === 'daily-wager') return renderDailyWager(clue);
   const scoringPlayers = clue.dailyDouble
@@ -531,6 +676,9 @@ function renderHostClue(clue) {
       const secondPosition = clue.buzzes.findIndex((buzz) => buzz.playerId === second.id);
       return (firstPosition === -1 ? 99 : firstPosition) - (secondPosition === -1 ? 99 : secondPosition);
     });
+  const playStation = renderHostPlayStation(clue);
+  const committedHostAttempt = clue.hostKeyOutcome === 'committed'
+    && clue.buzzes[0]?.playerId === roomState.you?.id;
   return `
     <div class="clue-overlay" role="dialog" aria-modal="true" aria-labelledby="clue-question">
       <div class="clue-stage host-clue-stage" tabindex="-1">
@@ -539,28 +687,36 @@ function renderHostClue(clue) {
           <strong>${formatMoney(clue.value)}</strong>
         </div>
         <h2 class="clue-question" id="clue-question">${escapeHtml(clue.question)}</h2>
-        ${clue.revealed ? `<div class="revealed-answer"><span>Correct response</span><strong>${escapeHtml(clue.answer)}</strong></div>` : `<div class="host-answer-key"><span>Host answer key</span><strong>${escapeHtml(clue.expectedAnswer)}</strong></div>`}
-        ${renderBuzzQueue(clue)}
-        <div class="judge-grid">
-          ${scoringPlayers.map((player) => {
-            const ineligible = clue.ineligiblePlayerIds.includes(player.id);
-            const isActiveResponder = clue.dailyDouble
-              ? player.id === clue.dailyPlayerId
-              : clue.buzzes[0]?.playerId === player.id;
-            const scoringDisabled = ineligible || !isActiveResponder || clue.revealed;
-            return `<article class="judge-card ${ineligible ? 'ruled-out' : ''}">
-              <span>${escapeHtml(player.name)}</span>
-              <strong>${formatMoney(player.score)}</strong>
-              <div>
-                <button class="judge-correct" type="button" data-action="score-clue" data-player-id="${escapeAttr(player.id)}" data-correct="true" ${scoringDisabled ? 'disabled' : ''}>Correct</button>
-                <button class="judge-wrong" type="button" data-action="score-clue" data-player-id="${escapeAttr(player.id)}" data-correct="false" ${scoringDisabled ? 'disabled' : ''}>Incorrect</button>
-              </div>
-            </article>`;
-          }).join('') || '<div class="no-players-clue">No players are in the room yet.</div>'}
+        ${renderHostAnswerDisclosure(clue)}
+        ${clue.revealed ? `<div class="revealed-answer"><span>Correct response</span><strong>${escapeHtml(clue.answer)}</strong></div>` : ''}
+        <div class="host-clue-workspace ${playStation ? 'has-self-play' : ''}">
+          ${playStation}
+          <div class="host-moderation-column">
+            ${renderBuzzQueue(clue)}
+            <div class="judge-grid">
+              ${scoringPlayers.map((player) => {
+                const ineligible = clue.ineligiblePlayerIds.includes(player.id);
+                const isActiveResponder = clue.dailyDouble
+                  ? player.id === clue.dailyPlayerId
+                  : clue.buzzes[0]?.playerId === player.id;
+                const isSelf = player.id === roomState.you?.id;
+                const selfResponseCommitted = clue.revealed || clue.hostKeyOutcome === 'committed';
+                const scoringDisabled = ineligible || !isActiveResponder || (isSelf && !selfResponseCommitted);
+                return `<article class="judge-card ${ineligible ? 'ruled-out' : ''} ${isSelf ? 'is-self' : ''}">
+                  <span>${escapeHtml(player.name)}${isSelf ? ' <em>You</em>' : ''}</span>
+                  <strong>${formatMoney(player.score)}</strong>
+                  <div>
+                    <button class="judge-correct" type="button" data-action="score-clue" data-player-id="${escapeAttr(player.id)}" data-correct="true" ${scoringDisabled ? 'disabled' : ''}>Correct</button>
+                    <button class="judge-wrong" type="button" data-action="score-clue" data-player-id="${escapeAttr(player.id)}" data-correct="false" ${scoringDisabled ? 'disabled' : ''}>Incorrect</button>
+                  </div>
+                </article>`;
+              }).join('') || '<div class="no-players-clue">No players are in the room yet.</div>'}
+            </div>
+          </div>
         </div>
         <div class="dialog-actions host-clue-actions">
           ${!clue.revealed ? `<button class="button button-gold" type="button" data-action="reveal-answer">Reveal response</button>` : ''}
-          ${!clue.dailyDouble && !clue.revealed ? `<button class="button button-secondary" type="button" data-action="reset-buzzers">Reset buzzers</button>` : ''}
+          ${!clue.dailyDouble && !clue.revealed ? `<button class="button button-secondary" type="button" data-action="reset-buzzers" ${committedHostAttempt ? 'disabled title="Score your committed response before resetting buzzers" aria-label="Reset buzzers unavailable: score your committed response first"' : ''}>Reset buzzers</button>` : ''}
           <button class="button button-secondary" type="button" data-action="skip-clue">${clue.revealed ? 'Close clue' : 'No answer / close'}</button>
         </div>
       </div>
@@ -629,7 +785,64 @@ function renderBoard() {
 
 function submissionStatus(submission, type) {
   const complete = type === 'wager' ? submission.wagerSubmitted : submission.responseSubmitted;
-  return `<li><span class="presence-dot ${complete ? '' : 'waiting'}"></span><strong>${escapeHtml(submission.name)}</strong><em>${complete ? 'Ready' : 'Waiting'}</em></li>`;
+  const isYou = submission.playerId === roomState.you?.id;
+  return `<li class="${isYou ? 'is-you' : ''}"><span class="presence-dot ${complete ? '' : 'waiting'}"></span><strong>${escapeHtml(submission.name)}${isYou ? ' <i>You</i>' : ''}</strong><em>${complete ? 'Ready' : 'Waiting'}</em></li>`;
+}
+
+function renderHostFinalEntry(final) {
+  const you = roomState.you;
+  if (!you || final.phase === 'complete') return '';
+
+  const heading = `
+    <div class="host-final-entry-heading">
+      <span>Your contestant entry</span>
+      <strong>${escapeHtml(you.name)}</strong>
+    </div>`;
+
+  if (!final.eligible) {
+    return `
+      <section class="host-final-entry is-ineligible" aria-label="Your Final Jeopardy status">
+        ${heading}
+        <div class="host-final-entry-state"><strong>Watching this Final</strong><p>A positive score is required to wager.</p></div>
+      </section>`;
+  }
+
+  if (final.phase === 'wager') {
+    const maxWager = final.yourMaxWager ?? you.score ?? 0;
+    return `
+      <section class="host-final-entry" aria-label="Your Final Jeopardy wager">
+        ${heading}
+        ${final.yourWagerSubmitted
+          ? `<div class="host-final-entry-state is-locked"><span>Wager locked</span><strong>${formatMoney(final.yourWager)}</strong></div>`
+          : `<form id="final-wager-form" class="final-entry-form host-final-form">
+              <label><span>Your wager · max ${formatMoney(maxWager)}</span><input id="final-wager" type="number" name="wager" min="0" max="${maxWager}" step="1" value="${escapeAttr(drafts.finalWager)}" required></label>
+              <button class="button button-gold" type="submit">Lock my wager</button>
+            </form>`}
+      </section>`;
+  }
+
+  if (final.phase === 'clue') {
+    return `
+      <section class="host-final-entry" aria-label="Your Final Jeopardy response">
+        ${heading}
+        ${final.yourResponseSubmitted
+          ? '<div class="host-final-entry-state is-locked"><strong>Response locked</strong><p>Your entry stays hidden until the answer reveal.</p></div>'
+          : `<form id="final-response-form" class="final-entry-form host-final-form">
+              <label><span>Your response</span><input id="final-response" type="text" name="response" maxlength="200" value="${escapeAttr(drafts.finalResponse)}" placeholder="What is…?" required autocomplete="off"></label>
+              <button class="button button-gold" type="submit">Lock my response</button>
+            </form>`}
+      </section>`;
+  }
+
+  const submission = final.submissions.find((item) => item.playerId === you.id);
+  return `
+    <section class="host-final-entry" aria-label="Your Final Jeopardy result">
+      ${heading}
+      <div class="host-final-entry-state ${submission?.scored ? 'is-locked' : ''}">
+        <strong>${submission?.scored ? (final.yourResult ? 'Marked correct' : 'Marked incorrect') : 'Judge your response below'}</strong>
+        <p>${submission?.scored ? 'Your score has been updated.' : 'Your response appears with the other contestants.'}</p>
+      </div>
+    </section>`;
 }
 
 function renderFinalHost(final) {
@@ -639,6 +852,7 @@ function renderFinalHost(final) {
         <p class="final-wordmark">FINAL JEOPARDY</p>
         <span class="final-category">${escapeHtml(final.category)}</span>
         <h2>Players are placing their wagers.</h2>
+        ${renderHostFinalEntry(final)}
         <ul class="submission-list">${final.submissions.map((submission) => submissionStatus(submission, 'wager')).join('')}</ul>
         <button class="button button-gold button-large" type="button" data-action="advance-final">Lock wagers & reveal clue</button>
       </div>`;
@@ -649,6 +863,7 @@ function renderFinalHost(final) {
         <p class="final-wordmark">FINAL JEOPARDY</p>
         <span class="final-category">${escapeHtml(final.category)}</span>
         <h2>${escapeHtml(final.clue)}</h2>
+        ${renderHostFinalEntry(final)}
         <ul class="submission-list">${final.submissions.map((submission) => submissionStatus(submission, 'response')).join('')}</ul>
         <button class="button button-gold button-large" type="button" data-action="advance-final">Close responses & reveal answer</button>
       </div>`;
@@ -660,6 +875,7 @@ function renderFinalHost(final) {
         <span class="final-category">${escapeHtml(final.category)}</span>
         <h2>${escapeHtml(final.clue)}</h2>
         <div class="final-answer"><span>Correct response</span><strong>${escapeHtml(final.answer)}</strong></div>
+        ${renderHostFinalEntry(final)}
         <div class="final-response-grid">
           ${final.submissions.map((submission) => `
             <article class="final-response-card ${submission.scored ? 'scored' : ''}">
@@ -698,7 +914,7 @@ function renderFinalStandings() {
 
 function renderFinalPlayer(final) {
   const you = roomState.you;
-  const maxWager = you?.score || 0;
+  const maxWager = final.yourMaxWager ?? you?.score ?? 0;
   if (!final.eligible && final.phase !== 'complete') {
     return `
       <div class="final-panel player-final-panel">
@@ -768,9 +984,14 @@ function renderFinal() {
 function renderRoom() {
   const previousDialogKey = activeDialogKey;
   const focusSelector = focusSelectorFor(document.activeElement);
+  const hostNameSelection = document.activeElement?.id === 'host-player-name'
+    ? { start: document.activeElement.selectionStart, end: document.activeElement.selectionEnd }
+    : null;
   elements.roomCodeButton.textContent = roomState.code;
-  elements.roleChip.textContent = roomState.role === 'host' ? 'HOST' : 'PLAYER';
+  elements.roleChip.textContent = roomState.role === 'host' ? (roomState.you ? 'HOST + PLAYER' : 'HOST') : 'PLAYER';
   elements.roleChip.classList.toggle('player-role', roomState.role === 'player');
+  elements.roleChip.classList.toggle('dual-role', roomState.role === 'host' && Boolean(roomState.you));
+  elements.roomHeader.classList.toggle('dual-role-header', roomState.role === 'host' && Boolean(roomState.you));
   elements.leaveRoomButton.textContent = roomState.role === 'host' ? 'End room' : 'Leave';
 
   const hostOfflineNotice = roomState.role === 'player' && !roomState.hostConnected
@@ -787,6 +1008,14 @@ function renderRoom() {
   const hostGameList = elements.roomContent.querySelector('.host-game-list');
   if (hostGameList) hostGameList.scrollTop = hostGameListScroll;
   manageDialogFocus(previousDialogKey, focusSelector);
+  if (hostNameSelection) {
+    const hostNameInput = elements.roomContent.querySelector('#host-player-name');
+    const valueLength = hostNameInput?.value.length || 0;
+    hostNameInput?.setSelectionRange(
+      Math.min(hostNameSelection.start ?? valueLength, valueLength),
+      Math.min(hostNameSelection.end ?? valueLength, valueLength),
+    );
+  }
 }
 
 function render() {
@@ -905,6 +1134,8 @@ elements.roomContent.addEventListener('input', (event) => {
     input?.setSelectionRange(gameFilter.length, gameFilter.length);
   } else if (event.target.id === 'daily-wager') {
     drafts.dailyWager = event.target.value;
+  } else if (event.target.id === 'host-player-name') {
+    hostPlayerName = event.target.value;
   } else if (event.target.id === 'final-wager') {
     drafts.finalWager = event.target.value;
   } else if (event.target.id === 'final-response') {
@@ -934,6 +1165,13 @@ elements.roomContent.addEventListener('submit', (event) => {
       playerId: event.target.elements.playerId.value,
       wager: Number(event.target.elements.wager.value),
     }));
+  } else if (event.target.id === 'host-player-form') {
+    const name = event.target.elements.name.value.trim();
+    void runAction(async () => {
+      await request('host:join-as-player', { name });
+      hostPlayerName = name;
+      localStorage.setItem(NAME_KEY, name);
+    });
   } else if (event.target.id === 'final-wager-form') {
     void runAction(async () => {
       await request('player:final-wager', { wager: Number(event.target.elements.wager.value) });
@@ -965,6 +1203,8 @@ elements.roomContent.addEventListener('click', (event) => {
   const actions = {
     'copy-invite': () => copyInvite(),
     'start-game': () => request('host:start-game', { gameId: target.dataset.gameId }),
+    'host-leave-player': () => request('host:leave-as-player'),
+    'open-host-key': () => request('host:open-answer-key'),
     'remove-player': async () => {
       const player = playerById(playerId);
       if (player && window.confirm(`Remove ${player.name} from the room?`)) {

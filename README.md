@@ -1,6 +1,6 @@
 # Jeopardy! Local Multiplayer
 
-A live, browser-based Jeopardy-style game built for game nights, classrooms, and friendly competitions. One person hosts the board on a computer, while up to eight players join from their phones or laptops over the same local network.
+A live, browser-based Jeopardy-style game built for game nights, classrooms, and friendly competitions. One person hosts the board on a computer and can also play, while up to eight total contestants join from the host screen, phones, or laptops over the same local network.
 
 The game includes 20 original, medium-difficulty boards with 600 regular clues, 20 Daily Doubles, and 20 Final Jeopardy clues.
 
@@ -9,8 +9,9 @@ The game includes 20 original, medium-difficulty boards with 600 regular clues, 
 - Creates a private five-character room code for each game
 - Keeps the board, clues, buzz order, and scores synchronized across every device
 - Lets players use their phone as a low-latency buzzer
+- Lets the host take a contestant spot, buzz, play Daily Doubles, and enter Final Jeopardy without giving up moderator controls
 - Uses a compact, Lichess-inspired lobby for browsing and selecting boards
-- Gives the host private answer keys and full scoring controls
+- Keeps every answer hidden until the host deliberately opens the private key or reveals it to the room
 - Reopens buzzing after an incorrect response while locking out that player for the clue
 - Supports host-assigned Daily Double contestants and wagers
 - Runs private Final Jeopardy wagers and written responses before the host judges them
@@ -51,13 +52,19 @@ PORT=8080 npm start
 ## Host a game
 
 1. Open the server address and select **Create lobby game**, or choose a board directly from the lobby list.
-2. Share the player link or the five-character room code.
-3. Wait for players to appear in the contestant list.
-4. Choose one of the 20 games.
+2. To compete too, enter your name under **Play while you host** and select **Play too**. The host counts as one of the eight contestant spots.
+3. Share the player link or the five-character room code.
+4. Wait for players to appear in the contestant list, then choose one of the 20 games.
 5. Select clues, watch the buzz order, and mark responses correct or incorrect.
 6. Use **Final Jeopardy** when the board is complete—or whenever you are ready to finish.
 
 The host can adjust scores manually, reset buzzers, close unanswered clues, remove players, reset the board, or return to the game library.
+
+### Answer privacy when the host plays
+
+Answers never appear automatically. If the host buzzes first, **Lock my response & view key** commits the host's spoken response before showing the private key. If another contestant buzzes first, **Sit out this clue & view key** removes the host from that clue before opening the key, so the remaining buzz queue stays fair. The key is intended for a private host screen; use **Reveal response** when everyone should see it.
+
+A host who does not join the contestant roster gets an **Open host key** control for judging. It is still closed by default, which keeps the main screen clean and prevents accidental answer reveals.
 
 ## Join as a player
 
