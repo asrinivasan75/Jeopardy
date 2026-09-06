@@ -233,6 +233,27 @@ test('keeps answers private, orders buzzes, and reopens after an incorrect respo
   assert.equal(completeState.game.categories[location.categoryIndex].clues[location.clueIndex].answered, true);
 });
 
+test('opens regular-clue buzzing immediately and never expires the buzzer', () => {
+  const games = loadGames();
+  let timestamp = 1_000;
+  const manager = new RoomManager({ games, now: () => timestamp });
+  const host = manager.createRoom('host-instant-buzz');
+  const player = manager.joinRoom('player-instant-buzz', { code: host.code, name: 'Maya' });
+  const location = locateClue(games[0], (clue) => !clue.dailyDouble);
+
+  manager.startGame('host-instant-buzz', games[0].id);
+  manager.openClue('host-instant-buzz', location);
+
+  const openedState = manager.stateFor('player-instant-buzz', catalogGames(games));
+  assert.equal(openedState.currentClue.buzzOpen, true);
+
+  timestamp += 60 * 60 * 1000;
+  manager.buzz('player-instant-buzz');
+
+  const buzzedState = manager.stateFor('host-instant-buzz', catalogGames(games));
+  assert.deepEqual(buzzedState.currentClue.buzzes.map((buzz) => buzz.playerId), [player.playerId]);
+});
+
 test('first-buzz dual-role host commits before opening the private answer key', () => {
   const { catalog, games, host, manager } = setupRoom();
   manager.joinHostAsPlayer('host-1', { name: 'Alex' });
@@ -628,6 +649,39 @@ test('Final Jeopardy excludes nonpositive scores, locks submissions, and rejects
     () => manager.submitFinalResponse('player-1', 'What is changed?'),
     (error) => error.code === 'ALREADY_SUBMITTED',
   );
+});
+
+test('keeps archive imports private to one room and caps that room without affecting others', () => {
+  const games = loadGames();
+  const manager = new RoomManager({ games });
+  manager.createRoom('host-archive');
+  manager.createRoom('host-other');
+
+  for (let index = 0; index < 100; index += 1) {
+    manager.addGameForHost('host-archive', structuredClone({
+      ...games[0],
+      id: `archive-${index}`,
+      title: `Archive ${index}`,
+    }));
+  }
+
+  assert.equal(manager.importedGamesForSocket('host-archive').length, 100);
+  assert.equal(manager.importedGamesForSocket('host-other').length, 0);
+  assert.throws(
+    () => manager.startGame('host-other', 'archive-0'),
+    (error) => error.code === 'GAME_NOT_FOUND',
+  );
+  assert.throws(
+    () => manager.addGameForHost('host-archive', structuredClone({
+      ...games[0],
+      id: 'archive-over-limit',
+      title: 'Archive over limit',
+    })),
+    (error) => error.code === 'ARCHIVE_IMPORT_LIMIT',
+  );
+
+  manager.startGame('host-archive', 'archive-0');
+  assert.equal(manager.stateFor('host-archive', catalogGames(games)).game.id, 'archive-0');
 });
 
 test('cleanup retains connected rooms and expires only fully disconnected idle rooms', () => {
