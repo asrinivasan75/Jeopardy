@@ -1,6 +1,6 @@
 {
   "name": "jeopardy-local-multiplayer",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "private": true,
   "description": "A local-network multiplayer Jeopardy-style game for hosts and players.",
   "main": "server.js",
@@ -8,7 +8,7 @@
     "start": "node server.js",
     "dev": "node --watch server.js",
     "test": "node --test",
-    "check": "node --check server.js && node --check lib/game-store.js && node --check lib/room-manager.js && node --check app.js"
+    "check": "node --check server.js && node --check lib/archive-game-source.js && node --check lib/game-store.js && node --check lib/room-manager.js && node --check app.js"
   },
   "engines": {
     "node": ">=20"
