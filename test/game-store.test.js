@@ -47,6 +47,29 @@ test('game catalog exposes topics but not clues or answers', () => {
   assert.equal(serialized.includes('clue'), false);
 });
 
+test('validator accepts unavailable archive cells but never allows one to be a Daily Double', () => {
+  const game = structuredClone(loadGames()[0]);
+  const unavailable = game.categories
+    .flatMap((category) => category.clues)
+    .find((clue) => clue.dailyDouble !== true);
+  delete unavailable.clue;
+  delete unavailable.answer;
+  unavailable.unavailable = true;
+  assert.deepEqual(validateGame(game, 'archive-fixture'), []);
+
+  unavailable.dailyDouble = true;
+  assert.equal(
+    validateGame(game, 'archive-fixture').some((error) => error.includes('cannot be both unavailable and a Daily Double')),
+    true,
+  );
+  unavailable.dailyDouble = false;
+  unavailable.unavailable = 'yes';
+  assert.equal(
+    validateGame(game, 'archive-fixture').some((error) => error.includes('unavailable must be a boolean')),
+    true,
+  );
+});
+
 test('the old bundled game titles are absent', () => {
   const titles = new Set(loadGames().map((game) => game.title));
   for (const retiredTitle of ['Hail Mary', 'Extra Time', 'Throwback', 'Wanderlust', 'Postscript']) {

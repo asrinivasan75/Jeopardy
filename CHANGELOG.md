@@ -2,6 +2,25 @@
 
 All notable changes to this project are documented in this file.
 
+## [2.1.0.0] - 2026-09-06
+
+### Added
+
+- Optional browsing and host-only import of playable television episodes from a server-configured, Jeopardy.app-compatible local archive.
+- Episode search by number, air date, special event, or category, plus `?episode=` host links that prepare a selected episode without starting it.
+- Graceful unavailable cells for incomplete archived rounds and metadata-only archive status and search endpoints.
+
+### Changed
+
+- Regular-clue buzzers now open immediately with each clue and remain available without a response timer until the host judges or closes it; Daily Doubles remain directly assigned and do not use buzzing.
+- The host library now separates the 20 original boards from optional archive episodes and reports imported-board counts dynamically.
+- Imported clues and responses remain server-side, with responses hidden until the host follows the same private-key or reveal flow used by original games.
+
+### For contributors
+
+- Added archive conversion, authorization, answer-privacy, incomplete-round, and long-lived-buzzer regression coverage.
+- Kept archive content permission-gated and local: this project neither bundles nor automatically downloads a dataset.
+
 ## [2.0.1.0] - 2026-09-02
 
 ### Added

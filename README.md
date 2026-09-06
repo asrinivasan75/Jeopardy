@@ -2,13 +2,13 @@
 
 A live, browser-based Jeopardy-style game built for game nights, classrooms, and friendly competitions. One person hosts the board on a computer and can also play, while up to eight total contestants join from the host screen, phones, or laptops over the same local network.
 
-The game includes 20 original, medium-difficulty boards with 600 regular clues, 20 Daily Doubles, and 20 Final Jeopardy clues.
+The bundled library includes 20 original, medium-difficulty boards with 600 board clues—including 20 Daily Doubles—plus 20 Final Jeopardy clues. Hosts can optionally add compatible television episodes from an authorized local archive.
 
 ## What it does
 
 - Creates a private five-character room code for each game
 - Keeps the board, clues, buzz order, and scores synchronized across every device
-- Lets players use their phone as a low-latency buzzer
+- Opens regular-clue buzzers immediately, with no response countdown or automatic timeout
 - Lets the host take a contestant spot, buzz, play Daily Doubles, and enter Final Jeopardy without giving up moderator controls
 - Uses a compact, Lichess-inspired lobby for browsing and selecting boards
 - Keeps every answer hidden until the host deliberately opens the private key or reveals it to the room
@@ -16,7 +16,8 @@ The game includes 20 original, medium-difficulty boards with 600 regular clues, 
 - Supports host-assigned Daily Double contestants and wagers
 - Runs private Final Jeopardy wagers and written responses before the host judges them
 - Restores host and player sessions after an ordinary Wi-Fi interruption
-- Includes 20 varied games spanning history, science, geography, sports, film, music, literature, food, nature, technology, mythology, architecture, and more
+- Includes 20 original games spanning history, science, geography, sports, film, music, literature, food, nature, technology, mythology, architecture, and more
+- Optionally searches and imports playable episodes from a server-configured, Jeopardy.app-compatible local archive
 
 ## Requirements
 
@@ -49,16 +50,36 @@ To use a different port:
 PORT=8080 npm start
 ```
 
+### Optional television archive
+
+The 20 original boards work without any extra data. To browse television episodes too, point the server at a compatible gzipped JSON archive that you are authorized to use:
+
+```bash
+JEOPARDY_ARCHIVE_PATH=/absolute/path/to/jeopardy.json.gz npm start
+```
+
+The file stays on the host computer. The server loads it on first use and keeps its searchable index in memory; players do not need their own copy. Open the **TV archive** tab in a host lobby to search by episode number, air date, special event, or category, then select **Import & select**.
+
+This application does not include, scrape, mirror, fetch, or automatically download archive data. See [Archive compatibility and data rights](#archive-compatibility-and-data-rights) before configuring a file.
+
 ## Host a game
 
 1. Open the server address and select **Create lobby game**, or choose a board directly from the lobby list.
 2. To compete too, enter your name under **Play while you host** and select **Play too**. The host counts as one of the eight contestant spots.
 3. Share the player link or the five-character room code.
-4. Wait for players to appear in the contestant list, then choose one of the 20 games.
+4. Wait for players to appear, then choose an original board or import an enabled archive episode.
 5. Select clues, watch the buzz order, and mark responses correct or incorrect.
 6. Use **Final Jeopardy** when the board is complete—or whenever you are ready to finish.
 
 The host can adjust scores manually, reset buzzers, close unanswered clues, remove players, reset the board, or return to the game library.
+
+For a configured archive, a host can open a specific playable episode directly:
+
+```text
+http://localhost:3000/?episode=7866
+```
+
+The link creates a room and imports and selects that episode; it does not start the game. A `?room=` invitation or a saved session takes priority. Jeopardy.app `?game=...` links identify temporary rooms, not episodes, and are not import links.
 
 ### Answer privacy when the host plays
 
@@ -74,12 +95,15 @@ A host who does not join the contestant roster gets an **Open host key** control
 4. When a clue appears, press the large red buzzer. The host sees everyone in server-received order.
 5. Players with a positive score can submit a private Final Jeopardy wager and response from their device.
 
+Regular-clue buzzers are available as soon as the clue appears and stay available without a countdown until the host judges or closes the clue. Daily Doubles are assigned directly and do not use the buzzer.
+
 ## How multiplayer works
 
 ```text
 Host browser ─┐
-Player phones ├── Socket.IO ── Node.js room server ── 20-game question bank
+Player phones ├── Socket.IO ── Node.js room server ── 20 original boards
 Player laptop ┘                     │
+                                    ├── optional local episode archive
                                     └── authoritative scores and game state
 ```
 
@@ -87,9 +111,9 @@ The server is authoritative: browsers send actions, and the server validates the
 
 Rooms live in memory. A fully disconnected room expires after 12 hours of inactivity, while a room with at least one connected device remains active. Stopping the Node.js process ends all rooms; scores and progress are intentionally not written to disk.
 
-## Question bank
+## Bundled question bank
 
-The replacement bank lives in [`data/games`](data/games). Each JSON file contains an array of games. A game requires exactly six categories, five clues per category, one Daily Double, and one Final Jeopardy clue. This abbreviated example shows the object shape:
+The original bank lives in [`data/games`](data/games). Each JSON file contains an array of games. A game requires exactly six categories, five clues per category, one Daily Double, and one Final Jeopardy clue. This abbreviated example shows the object shape:
 
 ```json
 {
@@ -118,7 +142,18 @@ The replacement bank lives in [`data/games`](data/games). Each JSON file contain
 }
 ```
 
-The server validates the complete bank at startup and refuses to launch if a file is malformed, an ID or title is duplicated, a category is incomplete, clue values are out of order, or a game does not contain exactly one Daily Double.
+The server validates the bundled bank at startup and refuses to launch if a file is malformed, an ID or title is duplicated, a category is incomplete, clue values are out of order, or a game does not contain exactly one Daily Double.
+
+## Archive format and API
+
+The optional adapter reads the gzipped episode-object format used by [Howard Chung's Jeopardy.app project](https://github.com/howardchung/jeopardy). It expects episode metadata plus clue records containing coordinates, category, clue, response, and Daily Double fields. A playable conversion needs six distinct categories, a Daily Double, Final Jeopardy, and at least 24 usable board clues. It prefers the Jeopardy round and falls back to Double Jeopardy when needed; unrevealed or missing clues become visibly unavailable board cells.
+
+Two read-only HTTP endpoints support the lobby:
+
+- `GET /api/archive/status` reports whether the local source is configured and ready.
+- `GET /api/archive/search?q=7866&limit=12` returns matching episode metadata. `limit` is capped at 50.
+
+Search results contain titles, dates, category names, and availability counts—not clues or responses. Importing is a host-only Socket.IO action allowed only in the lobby, and imported responses follow the same server-side privacy rules as original games. Imports belong only to the room that selected them, with a limit of 100 imported archive games per room; ending the room clears them.
 
 ## Development
 
@@ -134,14 +169,15 @@ See the [changelog](CHANGELOG.md) for release history.
 
 | Path | Purpose |
 | --- | --- |
-| `server.js` | HTTP server, Socket.IO events, room broadcasts, and local-network addresses |
+| `server.js` | HTTP server, archive metadata endpoints, Socket.IO events, room broadcasts, and local-network addresses |
+| `lib/archive-game-source.js` | Authorized local-archive loading, search, validation, and episode conversion |
 | `lib/room-manager.js` | Authoritative room, buzzer, scoring, Daily Double, and Final Jeopardy rules |
 | `lib/game-store.js` | Question-bank loading and validation |
-| `data/games/*.json` | The 20-game replacement question bank |
+| `data/games/*.json` | The 20 bundled original boards |
 | `index.html` | Host and player application shell |
 | `app.js` | Synchronized host/player rendering and controls |
 | `style.css` | Responsive lobby, board, buzzer, and Final Jeopardy design |
-| `test/` | Unit and multi-client integration tests |
+| `test/` | Game-bank, archive, room-engine, privacy, and multi-client integration tests |
 
 ## Local-network troubleshooting
 
@@ -150,8 +186,16 @@ See the [changelog](CHANGELOG.md) for release history.
 - Allow incoming Node.js connections if macOS or Windows shows a firewall prompt.
 - Guest Wi-Fi and some corporate or school networks block devices from talking to each other. Use a normal home network or a phone hotspot if players cannot connect.
 - Keep the terminal running for the entire game.
+- If the TV archive is unavailable, verify `JEOPARDY_ARCHIVE_PATH` points to a readable `.json.gz` file and check the server terminal. Original boards remain playable without it.
+- Archive files are limited to 64 MiB compressed and 192 MiB after decompression. A large archive can take a moment to index on first use; later searches reuse the in-memory index.
 
 This server is intended for a trusted local network. The room code is convenient game-night access, not production-grade authentication; do not expose the server directly to the public internet.
+
+## Archive compatibility and data rights
+
+Archive-format compatibility is based on [Howard Chung's MIT-licensed Jeopardy.app software](https://github.com/howardchung/jeopardy). That software license does not grant rights to television clue data. Many compatible archives contain material derived from J! Archive, whose [Terms of Use](https://j-archive.com/help.php#terms) prohibit automated collection and republication.
+
+No archive dataset is committed to or downloaded by this project. Supply one only when you have the necessary authorization and comply with the source's terms and any applicable rights.
 
 ## Disclaimer
 

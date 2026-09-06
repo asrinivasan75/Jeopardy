@@ -22,6 +22,7 @@ const elements = {
   roomScreen: document.querySelector('#room-screen'),
   publicGameCount: document.querySelector('#public-game-count'),
   publicGameList: document.querySelector('#public-game-list'),
+  publicLibraryCount: document.querySelector('#public-library-count'),
   toastRegion: document.querySelector('#toast-region'),
 };
 
@@ -39,6 +40,31 @@ let preferredGameId = '';
 let activeDialogKey = '';
 let hostGameListScroll = 0;
 let hostPlayerName = localStorage.getItem(NAME_KEY) || '';
+let activeLibraryTab = 'original';
+let importedArchiveGames = [];
+let archiveStatus = {
+  state: 'idle',
+  configured: false,
+  loaded: false,
+  episodes: 0,
+  playableEpisodes: 0,
+  sourceLabel: 'Jeopardy! TV archive',
+  message: '',
+  error: '',
+};
+let archiveSearch = {
+  state: 'idle',
+  query: '',
+  input: '',
+  results: [],
+  total: 0,
+  error: '',
+};
+let archiveImportingEpisode = '';
+let archiveSearchSequence = 0;
+let archiveDeepLinkEpisode = '';
+let archiveDeepLinkPending = false;
+let archiveDeepLinkHandled = false;
 const drafts = {
   dailyPlayerId: '',
   dailyWager: '',
@@ -276,6 +302,12 @@ function renderPublicLobby() {
     elements.publicGameCount.textContent = `${filteredGames.length} board${filteredGames.length === 1 ? '' : 's'} match`;
   }
 
+  if (elements.publicLibraryCount) {
+    elements.publicLibraryCount.textContent = publicGameCatalog.length
+      ? `${publicGameCatalog.length} board${publicGameCatalog.length === 1 ? '' : 's'} available`
+      : 'Boards loading…';
+  }
+
   if (elements.landingNetworkAddress) {
     elements.landingNetworkAddress.textContent = preferredNetworkUrl().replace(/^https?:\/\//, '');
   }
@@ -326,18 +358,218 @@ function renderHostPlayerControl() {
     </form>`;
 }
 
-function renderHostLobby() {
-  const catalog = roomState.gameCatalog || [];
-  const preferredGame = catalog.find((game) => game.id === preferredGameId) || null;
+function isArchiveGame(game) {
+  return Boolean(game && (
+    String(game.id || '').startsWith('archive-')
+    || String(game.difficulty || '').toLowerCase() === 'archive'
+    || game.source?.provider
+  ));
+}
+
+function gameCategories(game) {
+  return Array.isArray(game?.categories) ? game.categories.filter((category) => typeof category === 'string') : [];
+}
+
+function mergedHostCatalog() {
+  const byId = new Map();
+  [...(roomState?.gameCatalog || []), ...importedArchiveGames].forEach((game) => {
+    if (game?.id) byId.set(game.id, game);
+  });
+  return [...byId.values()];
+}
+
+function archiveResultFrom(rawResult, index) {
+  const result = rawResult && typeof rawResult === 'object' ? rawResult : {};
+  const source = result.source && typeof result.source === 'object' ? result.source : {};
+  const id = String(result.id || source.id || '');
+  const episodeNumber = String(
+    result.episodeNumber
+    || source.episodeNumber
+    || source.episodeKey
+    || id.replace(/^archive-/, '')
+    || index + 1,
+  );
+  const categories = Array.isArray(result.categories)
+    ? result.categories.filter((category) => typeof category === 'string' && category.trim()).slice(0, 6)
+    : [];
+  const clueCountValue = Number(result.clueCount ?? source.clueCount);
+  const rawMissingClues = result.missingClues ?? source.missingClues;
+  const missingCluesValue = Array.isArray(rawMissingClues) ? rawMissingClues.length : Number(rawMissingClues);
+  const missingClues = Number.isFinite(missingCluesValue)
+    ? Math.max(0, Math.trunc(missingCluesValue))
+    : Number.isFinite(clueCountValue) ? Math.max(0, 30 - Math.trunc(clueCountValue)) : 0;
+  const clueCount = Number.isFinite(clueCountValue)
+    ? Math.max(0, Math.trunc(clueCountValue))
+    : Math.max(0, 30 - missingClues);
+
+  return {
+    id,
+    episodeNumber,
+    airDate: String(result.airDate || source.airDate || ''),
+    special: typeof result.special === 'string'
+      ? result.special
+      : String(result.info || source.info || (result.special === true ? 'Special episode' : '')),
+    clueCount,
+    missingClues,
+    title: String(result.title || `Jeopardy! episode ${episodeNumber}`),
+    description: String(result.description || 'An archived television round ready for your local board.'),
+    difficulty: String(result.difficulty || 'Archive'),
+    categories,
+  };
+}
+
+function renderOriginalLibrary(games) {
   const normalizedFilter = gameFilter.trim().toLowerCase();
-  const filteredGames = catalog.filter((game) => {
-    const haystack = `${game.title} ${game.description} ${game.categories.join(' ')}`.toLowerCase();
+  const filteredGames = games.filter((game) => {
+    const haystack = `${game.title} ${game.description} ${gameCategories(game).join(' ')}`.toLowerCase();
     return haystack.includes(normalizedFilter);
   }).sort((firstGame, secondGame) => {
     if (firstGame.id === preferredGameId) return -1;
     if (secondGame.id === preferredGameId) return 1;
-    return catalog.indexOf(firstGame) - catalog.indexOf(secondGame);
+    return games.indexOf(firstGame) - games.indexOf(secondGame);
   });
+
+  return `
+    <div class="library-heading">
+      <div>
+        <p class="panel-label">Original collection</p>
+        <h2>Choose a board</h2>
+        <p>Twenty handcrafted boards, each with six categories, a Daily Double, and Final Jeopardy.</p>
+      </div>
+      <label class="search-field">
+        <span class="sr-only">Filter original games</span>
+        <input id="game-filter" type="search" value="${escapeAttr(gameFilter)}" placeholder="Search titles or topics">
+      </label>
+    </div>
+    <div class="host-game-table" role="tabpanel" id="original-library-panel" aria-labelledby="original-library-tab">
+      <div class="host-game-head" aria-hidden="true"><span>Board</span><span>Featured topics</span><span>Level</span><span></span></div>
+      <div class="host-game-list">
+        ${filteredGames.map((game) => `
+          <button class="host-game-row ${game.id === preferredGameId ? 'is-preferred' : ''}" type="button" data-action="select-game" data-game-id="${escapeAttr(game.id)}" aria-pressed="${game.id === preferredGameId}" aria-label="Select ${escapeAttr(game.title)}, ${escapeAttr(game.difficulty)} difficulty. Topics: ${escapeAttr(gameCategories(game).join(', '))}. ${escapeAttr(game.description)}">
+            <span class="host-game-index">${String(games.indexOf(game) + 1).padStart(2, '0')}</span>
+            <span class="host-game-copy">
+              <strong>${escapeHtml(game.title)}</strong>
+              <small>${escapeHtml(game.description)}</small>
+            </span>
+            <span class="host-game-topics">${gameCategories(game).slice(0, 2).map((category) => `<span>${escapeHtml(category)}</span>`).join('')}</span>
+            <span class="difficulty-tag">${escapeHtml(game.difficulty)}</span>
+            <span class="row-select-mark" aria-hidden="true">${game.id === preferredGameId ? '✓' : '›'}</span>
+          </button>
+        `).join('') || '<div class="no-results">No original boards match that search.</div>'}
+      </div>
+    </div>`;
+}
+
+function renderArchiveStatusPanel() {
+  if (archiveStatus.state === 'idle' || archiveStatus.state === 'loading') {
+    return '<div class="archive-state" role="status"><span class="archive-loader" aria-hidden="true"></span><div><strong>Checking the TV archive…</strong><small>Confirming this server has archive access.</small></div></div>';
+  }
+
+  if (archiveStatus.state === 'error') {
+    return `<div class="archive-state archive-state-error" role="alert"><span aria-hidden="true">!</span><div><strong>Archive status could not be loaded</strong><small>${escapeHtml(archiveStatus.error)}</small></div><button class="button button-secondary" type="button" data-action="retry-archive">Try again</button></div>`;
+  }
+
+  if (!archiveStatus.configured) {
+    return `<div class="archive-state archive-state-disabled" role="status"><span aria-hidden="true">×</span><div><strong>TV archive is not enabled on this server</strong><small>${escapeHtml(archiveStatus.message || 'The server owner must configure the archive source before episodes can be imported.')}</small></div></div>`;
+  }
+
+  if (!archiveStatus.loaded) {
+    return `<div class="archive-state archive-state-disabled" role="status"><span aria-hidden="true">…</span><div><strong>TV archive is not ready yet</strong><small>${escapeHtml(archiveStatus.message || 'The source is configured, but its episode index has not loaded.')}</small></div><button class="button button-secondary" type="button" data-action="retry-archive">Check again</button></div>`;
+  }
+
+  const totalEpisodes = Number(archiveStatus.episodes) || 0;
+  const playableEpisodes = Number(archiveStatus.playableEpisodes) || 0;
+  return `
+    <div class="archive-source-status" role="status">
+      <span class="presence-dot"></span>
+      <div><strong>${escapeHtml(archiveStatus.sourceLabel || 'Jeopardy! TV archive')}</strong><small>${totalEpisodes.toLocaleString()} episodes indexed · ${playableEpisodes.toLocaleString()} playable boards</small></div>
+      <span>Connected</span>
+    </div>`;
+}
+
+function renderArchiveResults(catalog) {
+  if (!archiveStatus.configured || !archiveStatus.loaded) return '';
+  if (archiveSearch.state === 'loading') {
+    return '<div class="archive-results-state" role="status"><span class="archive-loader" aria-hidden="true"></span>Finding playable episodes…</div>';
+  }
+  if (archiveSearch.state === 'error') {
+    return `<div class="archive-results-state archive-results-error" role="alert"><strong>Search failed.</strong><span>${escapeHtml(archiveSearch.error)}</span><button class="button button-secondary" type="button" data-action="search-archive-again">Try again</button></div>`;
+  }
+  if (archiveSearch.state === 'idle') {
+    return '<div class="archive-results-state">Latest playable episodes will appear here.</div>';
+  }
+  if (archiveSearch.results.length === 0) {
+    return `<div class="archive-results-state"><strong>No episodes found.</strong><span>${archiveSearch.query ? 'Try an episode number, air date, special, or category.' : 'The connected archive has no playable episodes.'}</span></div>`;
+  }
+
+  return `
+    <div class="archive-results-summary" role="status">
+      <span>${archiveSearch.query ? `Results for “${escapeHtml(archiveSearch.query)}”` : 'Latest playable episodes'}</span>
+      <strong>${Number(archiveSearch.total || archiveSearch.results.length).toLocaleString()} found</strong>
+    </div>
+    <div class="archive-result-list">
+      ${archiveSearch.results.map((result) => {
+        const importedGame = catalog.find((game) => game.id === result.id);
+        const isSelected = Boolean(importedGame && preferredGameId === importedGame.id);
+        const isImporting = archiveImportingEpisode === result.episodeNumber;
+        const incomplete = result.missingClues > 0;
+        const action = importedGame ? 'select-game' : 'import-archive';
+        const actionDisabled = isSelected || !connected || resuming || Boolean(archiveImportingEpisode);
+        const actionLabel = isImporting
+          ? 'Importing…'
+          : isSelected
+              ? 'Selected'
+              : importedGame
+                ? 'Select'
+                : 'Import & select';
+        const clueLabel = incomplete
+          ? `${result.clueCount} clues · ${result.missingClues} unavailable`
+          : `${result.clueCount} clues · complete`;
+        return `
+          <article class="archive-result ${isSelected ? 'is-selected' : ''} ${incomplete ? 'is-incomplete' : ''}">
+            <div class="archive-episode-number"><span>Episode</span><strong>#${escapeHtml(result.episodeNumber)}</strong><small>${escapeHtml(result.airDate || 'Air date unavailable')}</small></div>
+            <div class="archive-result-copy">
+              <strong>${escapeHtml(result.title)}</strong>
+              <small>${escapeHtml(result.special || result.description)}</small>
+              <div class="archive-category-list">${result.categories.slice(0, 3).map((category) => `<span>${escapeHtml(category)}</span>`).join('') || '<span>Categories indexed</span>'}</div>
+            </div>
+            <div class="archive-completeness ${incomplete ? 'has-gaps' : ''}"><span>${escapeHtml(clueLabel)}</span>${incomplete ? '<small>Blank cells stay unavailable</small>' : '<small>Ready to import</small>'}</div>
+            <button class="button ${importedGame ? 'button-secondary' : 'button-primary'}" type="button" data-action="${action}" data-game-id="${escapeAttr(result.id)}" data-episode-number="${escapeAttr(result.episodeNumber)}" ${actionDisabled ? 'disabled' : ''} aria-label="${escapeAttr(actionLabel)} episode ${escapeAttr(result.episodeNumber)}${incomplete ? `; ${result.missingClues} clue${result.missingClues === 1 ? '' : 's'} unavailable` : ''}">${actionLabel}</button>
+          </article>`;
+      }).join('')}
+    </div>`;
+}
+
+function renderArchiveLibrary(catalog) {
+  const searchReady = archiveStatus.state === 'ready' && archiveStatus.configured && archiveStatus.loaded;
+  return `
+    <div class="archive-library" role="tabpanel" id="archive-library-panel" aria-labelledby="archive-library-tab">
+      <div class="archive-intro">
+        <div>
+          <p class="panel-label">Television archive</p>
+          <h2>Find an episode</h2>
+          <p>Import a playable round from the server's Jeopardy.app-compatible archive. Answers stay private until the host reveals them.</p>
+        </div>
+        <span class="archive-source-mark" aria-hidden="true">TV</span>
+      </div>
+      ${renderArchiveStatusPanel()}
+      <form class="archive-search-form" id="archive-search-form" role="search">
+        <label for="archive-search-input">Episode, air date, special, or category</label>
+        <div>
+          <input id="archive-search-input" name="query" type="search" value="${escapeAttr(archiveSearch.input)}" placeholder="Try 8921, 2024-04, or World History" ${searchReady ? '' : 'disabled'}>
+          <button class="button button-gold" type="submit" ${searchReady && archiveSearch.state !== 'loading' ? '' : 'disabled'}>${archiveSearch.state === 'loading' ? 'Searching…' : 'Search archive'}</button>
+        </div>
+        <small>Leave search empty to browse the latest playable episodes.</small>
+      </form>
+      <div class="archive-results">${renderArchiveResults(catalog)}</div>
+    </div>`;
+}
+
+function renderHostLobby() {
+  const catalog = mergedHostCatalog();
+  const originalGames = catalog.filter((game) => !isArchiveGame(game));
+  const archiveGames = catalog.filter(isArchiveGame);
+  const preferredGame = catalog.find((game) => game.id === preferredGameId) || null;
   const urls = networkUrls.filter((url, index, all) => all.indexOf(url) === index);
 
   return `
@@ -363,36 +595,13 @@ function renderHostLobby() {
       <section class="game-library">
         <div class="lobby-section-bar">
           <strong>Game library</strong>
-          <span>${catalog.length} boards · select one to start</span>
+          <span>${originalGames.length} originals${archiveGames.length ? ` · ${archiveGames.length} archive imported` : ''}</span>
         </div>
-        <div class="library-heading">
-          <div>
-            <p class="panel-label">Tonight's game</p>
-            <h2>Choose a board</h2>
-            <p>Every board has six categories, one Daily Double, and Final Jeopardy.</p>
-          </div>
-          <label class="search-field">
-            <span class="sr-only">Filter games</span>
-            <input id="game-filter" type="search" value="${escapeAttr(gameFilter)}" placeholder="Search titles or topics">
-          </label>
+        <div class="library-tabs" role="tablist" aria-label="Game sources">
+          <button id="original-library-tab" role="tab" type="button" tabindex="${activeLibraryTab === 'original' ? '0' : '-1'}" data-action="library-tab" data-library-tab="original" aria-selected="${activeLibraryTab === 'original'}" aria-controls="original-library-panel" class="${activeLibraryTab === 'original' ? 'is-active' : ''}"><span>Original 20</span><small>Handcrafted boards</small></button>
+          <button id="archive-library-tab" role="tab" type="button" tabindex="${activeLibraryTab === 'archive' ? '0' : '-1'}" data-action="library-tab" data-library-tab="archive" aria-selected="${activeLibraryTab === 'archive'}" aria-controls="archive-library-panel" class="${activeLibraryTab === 'archive' ? 'is-active' : ''}"><span>TV archive</span><small>Server-configured episodes</small></button>
         </div>
-        <div class="host-game-table">
-          <div class="host-game-head" aria-hidden="true"><span>Board</span><span>Featured topics</span><span>Level</span><span></span></div>
-          <div class="host-game-list">
-            ${filteredGames.map((game) => `
-              <button class="host-game-row ${game.id === preferredGameId ? 'is-preferred' : ''}" type="button" data-action="select-game" data-game-id="${escapeAttr(game.id)}" aria-pressed="${game.id === preferredGameId}" aria-label="Select ${escapeAttr(game.title)}, ${escapeAttr(game.difficulty)} difficulty. Topics: ${escapeAttr(game.categories.join(', '))}. ${escapeAttr(game.description)}">
-                <span class="host-game-index">${String(catalog.indexOf(game) + 1).padStart(2, '0')}</span>
-                <span class="host-game-copy">
-                  <strong>${escapeHtml(game.title)}</strong>
-                  <small>${escapeHtml(game.description)}</small>
-                </span>
-                <span class="host-game-topics">${game.categories.slice(0, 2).map((category) => `<span>${escapeHtml(category)}</span>`).join('')}</span>
-                <span class="difficulty-tag">${escapeHtml(game.difficulty)}</span>
-                <span class="row-select-mark" aria-hidden="true">${game.id === preferredGameId ? '✓' : '›'}</span>
-              </button>
-            `).join('') || '<div class="no-results">No games match that search.</div>'}
-          </div>
-        </div>
+        ${activeLibraryTab === 'archive' ? renderArchiveLibrary(catalog) : renderOriginalLibrary(originalGames)}
       </section>
 
       <aside class="lobby-action-rail">
@@ -409,7 +618,8 @@ function renderHostLobby() {
         <section class="selected-board-card ${preferredGame ? 'has-selection' : ''}">
           <p class="panel-label">Selected board</p>
           <strong>${escapeHtml(preferredGame?.title || 'Choose from the library')}</strong>
-          <small>${preferredGame ? escapeHtml(preferredGame.categories.join(' · ')) : 'Pick a row in the center panel when you are ready.'}</small>
+          <small>${preferredGame ? escapeHtml(gameCategories(preferredGame).join(' · ')) : 'Pick a board in the center panel when you are ready.'}</small>
+          <div class="instant-buzz-rule"><span aria-hidden="true"></span><div><strong>Instant buzz · no response timer</strong><small>Buzzers open with the clue and stay open until the host judges it.</small></div></div>
           <button class="button button-primary" type="button" data-action="start-game" data-game-id="${escapeAttr(preferredGame?.id || '')}" ${preferredGame ? '' : 'disabled'}>Start selected board</button>
         </section>
         <section class="lobby-status-card">
@@ -418,6 +628,163 @@ function renderHostLobby() {
         </section>
       </aside>
     </div>`;
+}
+
+function renderArchiveUpdate() {
+  if (roomState?.role === 'host' && roomState.phase === 'lobby' && activeLibraryTab === 'archive') {
+    renderRoom();
+  }
+}
+
+async function loadArchiveStatus({ loadLatest = false } = {}) {
+  if (archiveStatus.state === 'loading') return;
+  archiveStatus = { ...archiveStatus, state: 'loading', error: '' };
+  renderArchiveUpdate();
+
+  try {
+    const response = await fetch('/api/archive/status', { cache: 'no-store' });
+    if (!response.ok) throw new Error(`The server returned ${response.status}.`);
+    const data = await response.json();
+    const payload = data?.archive && typeof data.archive === 'object' ? data.archive : data;
+    archiveStatus = {
+      state: 'ready',
+      configured: payload?.configured === true,
+      loaded: payload?.loaded === true,
+      episodes: Number(payload?.episodes) || 0,
+      playableEpisodes: Number(payload?.playableEpisodes) || 0,
+      sourceLabel: String(payload?.sourceLabel || 'Jeopardy! TV archive'),
+      message: String(payload?.message || ''),
+      error: '',
+    };
+    renderArchiveUpdate();
+    if (loadLatest && archiveStatus.configured && archiveStatus.loaded && archiveSearch.state === 'idle') {
+      await searchArchive('');
+    }
+  } catch (error) {
+    archiveStatus = {
+      ...archiveStatus,
+      state: 'error',
+      loaded: false,
+      error: error instanceof Error ? error.message : 'The archive status request failed.',
+    };
+    renderArchiveUpdate();
+  }
+}
+
+async function searchArchive(query = archiveSearch.input) {
+  if (!archiveStatus.configured || !archiveStatus.loaded) return;
+  const normalizedQuery = String(query || '').trim();
+  const searchSequence = ++archiveSearchSequence;
+  archiveSearch = {
+    ...archiveSearch,
+    state: 'loading',
+    query: normalizedQuery,
+    input: String(query || ''),
+    error: '',
+  };
+  renderArchiveUpdate();
+
+  try {
+    const response = await fetch(`/api/archive/search?q=${encodeURIComponent(normalizedQuery)}&limit=12`, { cache: 'no-store' });
+    if (!response.ok) throw new Error(`The server returned ${response.status}.`);
+    const data = await response.json();
+    if (searchSequence !== archiveSearchSequence) return;
+    const rawResults = Array.isArray(data?.results) ? data.results : Array.isArray(data?.games) ? data.games : [];
+    archiveSearch = {
+      state: 'ready',
+      query: normalizedQuery,
+      input: String(query || ''),
+      results: rawResults.map(archiveResultFrom),
+      total: Number(data?.total) || rawResults.length,
+      error: '',
+    };
+    renderArchiveUpdate();
+  } catch (error) {
+    if (searchSequence !== archiveSearchSequence) return;
+    archiveSearch = {
+      ...archiveSearch,
+      state: 'error',
+      error: error instanceof Error ? error.message : 'The archive search request failed.',
+    };
+    renderArchiveUpdate();
+  }
+}
+
+async function importArchiveEpisode(episodeNumber, gameId = '') {
+  const safeEpisodeNumber = String(episodeNumber || '').trim();
+  const safeGameId = String(gameId || '').trim();
+  if (!safeEpisodeNumber || archiveImportingEpisode) return;
+
+  const existing = mergedHostCatalog().find((game) => {
+    const sourceEpisode = game?.source?.episodeNumber || game?.source?.episodeKey;
+    return safeGameId ? game.id === safeGameId : String(sourceEpisode || '') === safeEpisodeNumber;
+  });
+  if (existing) {
+    preferredGameId = existing.id;
+    renderRoom();
+    return;
+  }
+
+  archiveImportingEpisode = safeEpisodeNumber;
+  renderArchiveUpdate();
+  try {
+    const response = await runAction(() => request('host:import-archive', {
+      episodeNumber: safeEpisodeNumber,
+      gameId: safeGameId,
+    }));
+    const game = response?.game;
+    if (!game?.id) return;
+    importedArchiveGames = [...importedArchiveGames.filter((item) => item.id !== game.id), game];
+    if (!roomState.gameCatalog?.some((item) => item.id === game.id)) {
+      roomState = { ...roomState, gameCatalog: [...(roomState.gameCatalog || []), game] };
+    }
+    preferredGameId = game.id;
+    hostGameListScroll = 0;
+    showToast(`${game.title || `Episode ${safeEpisodeNumber}`} imported and selected.`, 'success');
+  } finally {
+    archiveImportingEpisode = '';
+    renderArchiveUpdate();
+  }
+}
+
+async function openArchiveEpisodeDeepLink() {
+  if (!archiveDeepLinkEpisode || archiveDeepLinkPending || archiveDeepLinkHandled || roomState || !connected) return;
+  archiveDeepLinkPending = true;
+  archiveDeepLinkHandled = true;
+  const episodeNumber = archiveDeepLinkEpisode;
+
+  try {
+    await loadArchiveStatus();
+    if (!archiveStatus.configured || !archiveStatus.loaded) {
+      showToast(archiveStatus.message || 'This server does not have the TV archive enabled.', 'error');
+      return;
+    }
+
+    await searchArchive(episodeNumber);
+    const exactResult = archiveSearch.results.find((result) => result.episodeNumber === episodeNumber);
+    if (!exactResult) {
+      showToast(`Episode ${episodeNumber} is not available in this archive.`, 'error');
+      return;
+    }
+
+    const response = await runAction(() => request('room:create'));
+    if (!response) {
+      archiveDeepLinkHandled = false;
+      return;
+    }
+    roomState = response.state;
+    saveSession(response.session);
+    shouldResumeOnConnect = true;
+    resetDrafts();
+    preferredGameId = '';
+    activeLibraryTab = 'archive';
+    importedArchiveGames = [];
+    archiveImportingEpisode = '';
+    render();
+    await importArchiveEpisode(exactResult.episodeNumber, exactResult.id);
+  } finally {
+    archiveDeepLinkPending = false;
+  }
 }
 
 function renderPlayerLobby() {
@@ -473,16 +840,16 @@ function renderBoardGrid() {
         ${game.categories.map((category) => `<div class="category-tile">${escapeHtml(category.name)}</div>`).join('')}
         ${[0, 1, 2, 3, 4].flatMap((clueIndex) => game.categories.map((category, categoryIndex) => {
           const clue = category.clues[clueIndex];
-          const unavailable = clue.answered || Boolean(roomState.currentClue) || roomState.role !== 'host';
+          const disabled = clue.answered || clue.unavailable || Boolean(roomState.currentClue) || roomState.role !== 'host';
           return `<button
-            class="clue-tile ${clue.answered ? 'answered' : ''}"
+            class="clue-tile ${clue.answered ? 'answered' : ''} ${clue.unavailable ? 'unavailable' : ''}"
             type="button"
             data-action="open-clue"
             data-category-index="${categoryIndex}"
             data-clue-index="${clueIndex}"
-            ${unavailable ? 'disabled' : ''}
-            aria-label="${escapeAttr(category.name)}, ${formatMoney(clue.value)}${clue.answered ? ', answered' : ''}"
-          ><span>${clue.answered ? '' : formatMoney(clue.value)}</span></button>`;
+            ${disabled ? 'disabled' : ''}
+            aria-label="${escapeAttr(category.name)}, ${formatMoney(clue.value)}${clue.unavailable ? ', unavailable in archive' : clue.answered ? ', answered' : ''}"
+          ><span>${clue.answered || clue.unavailable ? '' : formatMoney(clue.value)}</span></button>`;
         })).join('')}
       </div>
     </div>`;
@@ -1039,6 +1406,9 @@ async function createRoom(gameId = null) {
   shouldResumeOnConnect = true;
   resetDrafts();
   preferredGameId = gameId || '';
+  activeLibraryTab = 'original';
+  importedArchiveGames = [];
+  archiveImportingEpisode = '';
   if (gameId) {
     gameFilter = '';
     hostGameListScroll = 0;
@@ -1075,6 +1445,9 @@ async function leaveRoom() {
   clearSession();
   shouldResumeOnConnect = false;
   roomState = null;
+  activeLibraryTab = 'original';
+  importedArchiveGames = [];
+  archiveImportingEpisode = '';
   resetDrafts();
   render();
 }
@@ -1102,6 +1475,17 @@ elements.roomCodeButton.addEventListener('click', () => void copyInvite());
 elements.leaveRoomButton.addEventListener('click', () => void leaveRoom());
 
 document.addEventListener('keydown', (event) => {
+  const libraryTab = event.target.closest?.('[role="tab"][data-library-tab]');
+  if (libraryTab && ['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) {
+    event.preventDefault();
+    const nextTab = event.key === 'ArrowLeft' || event.key === 'Home' ? 'original' : 'archive';
+    const nextTabId = nextTab === 'original' ? '#original-library-tab' : '#archive-library-tab';
+    if (libraryTab.dataset.libraryTab !== nextTab) {
+      elements.roomContent.querySelector(nextTabId)?.click();
+    }
+    window.requestAnimationFrame(() => elements.roomContent.querySelector(nextTabId)?.focus());
+    return;
+  }
   if (event.key !== 'Tab') return;
   const overlay = elements.roomContent.querySelector('.clue-overlay');
   if (!overlay) return;
@@ -1132,6 +1516,8 @@ elements.roomContent.addEventListener('input', (event) => {
     const input = document.querySelector('#game-filter');
     input?.focus();
     input?.setSelectionRange(gameFilter.length, gameFilter.length);
+  } else if (event.target.id === 'archive-search-input') {
+    archiveSearch = { ...archiveSearch, input: event.target.value };
   } else if (event.target.id === 'daily-wager') {
     drafts.dailyWager = event.target.value;
   } else if (event.target.id === 'host-player-name') {
@@ -1160,7 +1546,9 @@ elements.roomContent.addEventListener('change', (event) => {
 
 elements.roomContent.addEventListener('submit', (event) => {
   event.preventDefault();
-  if (event.target.id === 'daily-wager-form') {
+  if (event.target.id === 'archive-search-form') {
+    void searchArchive(event.target.elements.query.value);
+  } else if (event.target.id === 'daily-wager-form') {
     void runAction(() => request('host:set-daily-double', {
       playerId: event.target.elements.playerId.value,
       wager: Number(event.target.elements.wager.value),
@@ -1192,6 +1580,35 @@ elements.roomContent.addEventListener('click', (event) => {
   if (!target || target.disabled) return;
   const action = target.dataset.action;
   const playerId = target.dataset.playerId;
+
+  if (action === 'library-tab') {
+    activeLibraryTab = target.dataset.libraryTab === 'archive' ? 'archive' : 'original';
+    hostGameListScroll = 0;
+    renderRoom();
+    if (activeLibraryTab === 'archive') {
+      if (archiveStatus.state === 'idle' || archiveStatus.state === 'error') {
+        void loadArchiveStatus({ loadLatest: true });
+      } else if (archiveStatus.configured && archiveStatus.loaded && archiveSearch.state === 'idle') {
+        void searchArchive('');
+      }
+    }
+    return;
+  }
+
+  if (action === 'retry-archive') {
+    void loadArchiveStatus({ loadLatest: true });
+    return;
+  }
+
+  if (action === 'search-archive-again') {
+    void searchArchive(archiveSearch.query);
+    return;
+  }
+
+  if (action === 'import-archive') {
+    void importArchiveEpisode(target.dataset.episodeNumber, target.dataset.gameId);
+    return;
+  }
 
   if (action === 'select-game') {
     preferredGameId = target.dataset.gameId;
@@ -1252,7 +1669,10 @@ elements.roomContent.addEventListener('click', (event) => {
 socket.on('connect', () => {
   setConnectionState(true);
   if (shouldResumeOnConnect && savedSession()) void resumeSavedSession();
-  else render();
+  else {
+    render();
+    void openArchiveEpisodeDeepLink();
+  }
 });
 
 socket.on('disconnect', () => {
@@ -1288,6 +1708,9 @@ socket.on('room:closed', ({ message }) => {
   clearSession();
   shouldResumeOnConnect = false;
   roomState = null;
+  activeLibraryTab = 'original';
+  importedArchiveGames = [];
+  archiveImportingEpisode = '';
   resetDrafts();
   render();
   showToast(message, 'info');
@@ -1296,6 +1719,9 @@ socket.on('room:removed', ({ message }) => {
   clearSession();
   shouldResumeOnConnect = false;
   roomState = null;
+  activeLibraryTab = 'original';
+  importedArchiveGames = [];
+  archiveImportingEpisode = '';
   resetDrafts();
   render();
   showToast(message, 'error');
@@ -1303,17 +1729,26 @@ socket.on('room:removed', ({ message }) => {
 
 socket.on('room:replaced', ({ message }) => {
   roomState = null;
+  activeLibraryTab = 'original';
+  importedArchiveGames = [];
+  archiveImportingEpisode = '';
   resetDrafts();
   render();
   showToast(`${message} Reload this page if you want to take control here again.`, 'info');
 });
 
 async function boot() {
-  const roomCode = new URLSearchParams(window.location.search).get('room');
+  const query = new URLSearchParams(window.location.search);
+  const roomCode = query.get('room');
   const inviteCode = roomCode?.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 5) || '';
   if (inviteCode) elements.joinCode.value = inviteCode;
   elements.joinName.value = localStorage.getItem(NAME_KEY) || '';
   const session = savedSession();
+  const requestedEpisode = String(query.get('episode') || '').trim();
+  if (!inviteCode && !session && /^[A-Za-z0-9_-]{1,30}$/.test(requestedEpisode)) {
+    archiveDeepLinkEpisode = requestedEpisode;
+    archiveSearch = { ...archiveSearch, query: requestedEpisode, input: requestedEpisode };
+  }
   if (inviteCode && session?.code && inviteCode !== session.code) {
     shouldResumeOnConnect = false;
     showToast(`Invite ${inviteCode} opened. Your saved ${session.code} session was left untouched.`, 'info');
